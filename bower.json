@@ -1,0 +1,20 @@
+{
+  "name": "MyApp",
+  "version": "0.0.1",
+  "authors": [
+    "koba04"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "zepto": "~1.0.0",
+    "backbone": "~1.0.0",
+    "lodash": "~2.2.0",
+    "handlebars": "~1.0.0"
+  }
+}
