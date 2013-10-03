@@ -1,7 +1,7 @@
 do ->
   'use strict'
 
-  # 名前空間定義するだけ
+  # define namespace
   MyApp = window.MyApp
   MyApp.Model = {}
   MyApp.Collection = {}
