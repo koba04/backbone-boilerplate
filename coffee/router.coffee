@@ -12,7 +12,7 @@ do ->
 
     my: ->
       new MyApp.View.Main.Default().render()
-      new MyApp.View.Sub.My().render()
+      new MyApp.View.Sub.My().show()
 
   MyApp.Router = new Router()
   Backbone.history.start()

@@ -73,6 +73,25 @@
 (function() {
   (function() {
     'use strict';
+    return MyApp.Model.User = Backbone.Model.extend;
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    return MyApp.Collection.Users = Backbone.Collection.extend({
+      urlRoot: '/api/users/',
+      model: MyApp.Model.User
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
     return MyApp.View.MainView = Backbone.View.extend({
       el: $('#mainview')
     });
@@ -121,8 +140,15 @@
     'use strict';
     return MyApp.View.Sub.My = MyApp.View.SubView.extend({
       tmpl: MyApp.JST['sub/my'],
-      render: function() {
-        return this.$el.html(this.tmpl());
+      show: function() {
+        var _this = this;
+        return MyApp.Util.Http.get('/api/my/').next(function(data) {
+          return _this.render(data);
+        });
+      },
+      render: function(user) {
+        console.dir(user);
+        return this.$el.html(this.tmpl(user));
       }
     });
   })();
@@ -157,7 +183,7 @@
       },
       my: function() {
         new MyApp.View.Main.Default().render();
-        return new MyApp.View.Sub.My().render();
+        return new MyApp.View.Sub.My().show();
       }
     });
     MyApp.Router = new Router();
