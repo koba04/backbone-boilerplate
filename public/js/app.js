@@ -28,39 +28,38 @@
         };
       }
 
-      Http.prototype.get = function(url, params, success, fail) {
-        return this._ajax('get', url, params, success, fail);
+      Http.prototype.get = function(url, params) {
+        return this._ajax('get', url, params);
       };
 
-      Http.prototype.post = function(url, params, success, fail) {
-        return this._ajax('post', url, params, success, fail);
+      Http.prototype.post = function(url, params) {
+        return this._ajax('post', url, params);
       };
 
-      Http.prototype.put = function(url, params, success, fail) {
-        return this._ajax('put', url, params, success, fail);
+      Http.prototype.put = function(url, params) {
+        return this._ajax('put', url, params);
       };
 
-      Http.prototype["delete"] = function(url, params, suceess, fail) {
-        return this._ajax('delete', url, params, success, fail);
+      Http.prototype["delete"] = function(url, params) {
+        return this._ajax('delete', url, params);
       };
 
-      Http.prototype._ajax = function(method, url, params, success, fail) {
-        return $.ajax({
+      Http.prototype._ajax = function(method, url, params) {
+        var deferred;
+        deferred = new Deferred();
+        $.ajax({
           url: url,
           type: method,
           data: params,
           dataType: 'json',
           success: function(data) {
-            return success(data);
+            return deferred.call(data);
           },
           error: function(xhr, type) {
-            if (fail != null) {
-              return fail(xhr, type);
-            } else {
-
-            }
+            return deferred.fail(xhr);
           }
         });
+        return deferred;
       };
 
       return Http;
@@ -123,11 +122,6 @@
     return MyApp.View.Sub.My = MyApp.View.SubView.extend({
       tmpl: MyApp.JST['sub/my'],
       render: function() {
-        MyApp.Util.Http.get("/public", {
-          page: 2
-        }, function(data) {
-          return console.dir(data);
-        });
         return this.$el.html(this.tmpl());
       }
     });

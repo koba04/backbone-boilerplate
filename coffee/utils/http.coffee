@@ -1,6 +1,7 @@
 do ->
   'use strict'
 
+  # http.get('/path/to/api', { key: 'val'}).next(data) -> console.log data
   class Http
     constructor: ->
       $.ajaxSettings.timeout = 5000
@@ -9,19 +10,20 @@ do ->
         # set http header to xhr
         xhr
 
-    get: (url, params, success, fail) ->
-      @_ajax 'get', url, params, success, fail
+    get: (url, params) ->
+      @_ajax 'get', url, params
 
-    post: (url, params, success, fail) ->
-      @_ajax 'post', url, params, success, fail
+    post: (url, params) ->
+      @_ajax 'post', url, params
 
-    put: (url, params, success, fail) ->
-      @_ajax 'put', url, params, success, fail
+    put: (url, params) ->
+      @_ajax 'put', url, params
 
-    delete: (url, params, suceess, fail) ->
-      @_ajax 'delete', url, params, success, fail
+    delete: (url, params) ->
+      @_ajax 'delete', url, params
 
-    _ajax: (method, url, params, success, fail) ->
+    _ajax: (method, url, params) ->
+      deferred = new Deferred()
       $.ajax
         url: url
         type: method
@@ -29,14 +31,11 @@ do ->
         dataType: 'json'
 
         success: (data) ->
-          success(data)
+          deferred.call(data)
 
         error: (xhr, type) ->
-          if fail?
-            fail(xhr, type)
-          else
-            # redirect error
-
+          deferred.fail xhr
+      deferred
 
   MyApp.Util.Http = new Http()
 
