@@ -30,6 +30,7 @@ module.exports = (grunt) ->
           "bower_components/lodash/dist/lodash.min.js"
           "bower_components/backbone/backbone-min.js"
           "bower_components/handlebars/handlebars.js"
+          "bower_components/jsdeferred/jsdeferred.js"
         ]
         dest: "public/js/vendor.js"
 

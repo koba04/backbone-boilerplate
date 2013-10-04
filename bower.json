@@ -15,6 +15,7 @@
     "zepto": "~1.0.0",
     "backbone": "~1.0.0",
     "lodash": "~2.2.0",
-    "handlebars": "~1.0.0"
+    "handlebars": "~1.0.0",
+    "jsdeferred": "git@github.com:cho45/jsdeferred.git"
   }
 }
