@@ -17,10 +17,19 @@ this is sample application of Backbone and Handlebars
   * https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
 
 ## test
+
 ```
 # running on PhantomJS and Chrome
 % grunt testem:run:app
 or
 # running on PhantomJS
 % grunt testem:ci:app
+```
+
+## easymock
+
+```
+npm install -g easymock
+cd easymock
+easymock
 ```
