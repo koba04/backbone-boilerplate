@@ -48,6 +48,22 @@ module.exports = (grunt) ->
         files: "template/**/*.hbs"
         tasks: ["handlebars"]
 
+    testem:
+      app:
+        src: [
+          "bower_components/expect/expect.js"
+          "bower_components/sinon/lib/sinon.js"
+          "public/js/vendor.js"
+          "public/js/template.js"
+          "public/js/app.js"
+          "spec/**/*_spec.coffee"
+        ]
+        options:
+          test_page: "spec/runner.mustache"
+          #parallel: 4
+          launch_in_dev: ["PhantomJS", "Chrome"]
+          launch_in_ci:  ["PhantomJS"]
+
     connect:
       server:
         options:
@@ -56,11 +72,11 @@ module.exports = (grunt) ->
           middleware: (connect, options) ->
             [
               connect.static(options.base)
-              require('grunt-connect-proxy/lib/utils').proxyRequest
+              require("grunt-connect-proxy/lib/utils").proxyRequest
             ]
       proxies: [
-        context: '/api'
-        host: 'localhost'
+        context: "/api"
+        host: "localhost"
         port: 3000
         changeOrigin: true
       ]
