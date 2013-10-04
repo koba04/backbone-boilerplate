@@ -8,6 +8,7 @@ module.exports = (grunt) ->
         files:
           "public/js/app.js": [
             "coffee/app.coffee"
+            "coffee/utils/**/*.coffee"
             "coffee/models/*.coffee"
             "coffee/collections/*.coffee"
             "coffee/views/*.coffee"

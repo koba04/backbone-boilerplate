@@ -8,3 +8,4 @@ do ->
   MyApp.View =
     Main: {}
     Sub: {}
+  MyApp.Util = {}
