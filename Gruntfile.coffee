@@ -53,6 +53,17 @@ module.exports = (grunt) ->
         options:
           port: 9000
           base: "public"
+          middleware: (connect, options) ->
+            [
+              connect.static(options.base)
+              require('grunt-connect-proxy/lib/utils').proxyRequest
+            ]
+      proxies: [
+        context: '/api'
+        host: 'localhost'
+        port: 3000
+        changeOrigin: true
+      ]
 
   require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks)
-  grunt.registerTask "default", ["connect","watch"]
+  grunt.registerTask "default", ["configureProxies", "connect:server", "watch"]
