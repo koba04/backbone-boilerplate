@@ -49,6 +49,32 @@
 (function() {
   (function() {
     'use strict';
+    return MyApp.View.Main.Top = MyApp.View.MainView.extend({
+      tmpl: MyApp.JST['main/top'],
+      render: function() {
+        return this.$el.html(this.tmpl());
+      }
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    return MyApp.View.Sub.My = MyApp.View.SubView.extend({
+      tmpl: MyApp.JST['sub/my'],
+      render: function() {
+        return this.$el.html(this.tmpl());
+      }
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
     return MyApp.View.Sub.Top = MyApp.View.SubView.extend({
       tmpl: MyApp.JST['sub/top'],
       render: function() {
@@ -62,17 +88,22 @@
 (function() {
   (function() {
     'use strict';
-    var router;
-    MyApp.Router = Backbone.Router.extend({
+    var Router;
+    Router = Backbone.Router.extend({
       routes: {
-        "": "top"
+        "": "top",
+        "my/": "my"
       },
       top: function() {
+        new MyApp.View.Sub.Top().render();
+        return new MyApp.View.Main.Top().render();
+      },
+      my: function() {
         new MyApp.View.Main.Default().render();
-        return new MyApp.View.Sub.Top().render();
+        return new MyApp.View.Sub.My().render();
       }
     });
-    router = new MyApp.Router();
+    MyApp.Router = new Router();
     return Backbone.history.start();
   })();
 
