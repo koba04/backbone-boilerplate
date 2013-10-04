@@ -93,7 +93,10 @@
   (function() {
     'use strict';
     return MyApp.View.MainView = Backbone.View.extend({
-      el: $('#mainview')
+      el: $('#mainview'),
+      render: function(data) {
+        return this.$el.html(this.tmpl(data));
+      }
     });
   })();
 
@@ -103,7 +106,10 @@
   (function() {
     'use strict';
     return MyApp.View.SubView = Backbone.View.extend({
-      el: $('#subview')
+      el: $('#subview'),
+      render: function(data) {
+        return this.$el.html(this.tmpl(data));
+      }
     });
   })();
 
@@ -114,8 +120,8 @@
     'use strict';
     return MyApp.View.Main.Default = MyApp.View.MainView.extend({
       tmpl: MyApp.JST['main/default'],
-      render: function() {
-        return this.$el.html(this.tmpl());
+      show: function(user) {
+        return this.render(user);
       }
     });
   })();
@@ -126,9 +132,22 @@
   (function() {
     'use strict';
     return MyApp.View.Main.Top = MyApp.View.MainView.extend({
-      tmpl: MyApp.JST['main/top'],
-      render: function() {
-        return this.$el.html(this.tmpl());
+      tmpl: MyApp.JST['main/top']
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    return MyApp.View.Sub.Friends = MyApp.View.SubView.extend({
+      tmpl: MyApp.JST['sub/friends'],
+      show: function(users) {
+        console.log(users);
+        return this.render({
+          friends: users
+        });
       }
     });
   })();
@@ -140,15 +159,8 @@
     'use strict';
     return MyApp.View.Sub.My = MyApp.View.SubView.extend({
       tmpl: MyApp.JST['sub/my'],
-      show: function() {
-        var _this = this;
-        return MyApp.Util.Http.get('/api/my/').next(function(data) {
-          return _this.render(data);
-        });
-      },
-      render: function(user) {
-        console.dir(user);
-        return this.$el.html(this.tmpl(user));
+      show: function(user) {
+        return this.render(user);
       }
     });
   })();
@@ -159,10 +171,7 @@
   (function() {
     'use strict';
     return MyApp.View.Sub.Top = MyApp.View.SubView.extend({
-      tmpl: MyApp.JST['sub/top'],
-      render: function() {
-        return this.$el.html(this.tmpl());
-      }
+      tmpl: MyApp.JST['sub/top']
     });
   })();
 
@@ -175,15 +184,26 @@
     Router = Backbone.Router.extend({
       routes: {
         "": "top",
-        "my/": "my"
+        "my/": "my",
+        "friends/": "friends"
       },
       top: function() {
         new MyApp.View.Sub.Top().render();
         return new MyApp.View.Main.Top().render();
       },
       my: function() {
-        new MyApp.View.Main.Default().render();
-        return new MyApp.View.Sub.My().show();
+        return MyApp.Util.Http.get('/api/my/').next(function(data) {
+          new MyApp.View.Main.Default().show(data);
+          return new MyApp.View.Sub.My().show(data);
+        });
+      },
+      friends: function() {
+        return MyApp.Util.Http.get('/api/users/').next(function(data) {
+          new MyApp.View.Sub.Friends().show(data);
+          return MyApp.Util.Http.get('/api/my/').next(function(data) {
+            return new MyApp.View.Main.Default().show(data);
+          });
+        });
       }
     });
     MyApp.Router = new Router();

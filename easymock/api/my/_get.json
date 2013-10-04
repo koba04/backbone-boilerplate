@@ -1,4 +1,5 @@
 {
   "name": "Sasuke",
-  "age": 15
+  "age": 15,
+  "message": "I'm Ninja"
 }

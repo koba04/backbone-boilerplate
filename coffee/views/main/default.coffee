@@ -3,5 +3,6 @@ do ->
 
   MyApp.View.Main.Default = MyApp.View.MainView.extend
     tmpl: MyApp.JST['main/default']
-    render: ->
-      @$el.html @tmpl()
+
+    show: (user) ->
+      @render(user)
