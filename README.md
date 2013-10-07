@@ -2,6 +2,14 @@
 
 this is sample application of Backbone and Handlebars
 
+## setup
+
+```
+% bunle install
+% npm install
+% bower install
+```
+
 ## start develop
 
 ```
