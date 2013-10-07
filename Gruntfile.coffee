@@ -1,5 +1,11 @@
 module.exports = (grunt) ->
 
+  proxyHost = if grunt.option('proxy_host')? then grunt.option('proxy_host') else null
+  grunt.log.write "Proxy => #{proxyHost}"
+
+  # product static server. cf, CDN...
+  staticHost = "http://example.com"
+
   grunt.initConfig
     pkg: grunt.file.readJSON("package.json")
 
@@ -17,12 +23,15 @@ module.exports = (grunt) ->
           ]
 
     handlebars:
-      compile:
-        options:
-          namespace: "<%= pkg.name %>.JST"
-          processName: (filePath) ->
-            filePath.replace /template\/(.*)?\.hbs$/, (path, name) -> return name
+      options:
+        namespace: "<%= pkg.name %>.JST"
+        processName: (filePath) -> filePath.replace /template\/(.*)?\.hbs$/, (path, name) -> return name
+      develop:
         files: "public/js/template.js": ["template/**/*.hbs"]
+      product:
+        files: "public/js/template.product.js": ["template/**/*.hbs"]
+        options:
+          processContent: (content) -> content.replace /src="(.*)?"/gm, "src=\"#{staticHost}$1\""
 
     concat:
       vendorJS:
@@ -76,8 +85,8 @@ module.exports = (grunt) ->
             ]
       proxies: [
         context: "/api"
-        host: "localhost"
-        port: 3000
+        host: if proxyHost? then proxyHost  else "localhost"
+        port: if proxyHost? then 80         else 3000
         changeOrigin: true
       ]
 
