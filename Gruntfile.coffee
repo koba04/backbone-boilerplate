@@ -47,9 +47,6 @@ module.exports = (grunt) ->
     watch:
       options:
         livereload: true
-      html:
-        files: "public/index.html"
-        tasks: []
       coffee:
         files: "coffee/**/*.coffee"
         tasks: ["coffee"]
