@@ -75,7 +75,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<h1>term1</h1>\n<p>this is term2 content</p>\n";
+  return "<div>\n<h1>term1</h1>\n<p>this is term2 content</p>\n\n</div>\n";
   });
 
 this["MyApp"]["JST"]["sub/term/term2"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -84,7 +84,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<h1>term2</h1>\n<p>this isterm2 content</p>\n";
+  return "<div>\n<h1>term2</h1>\n<p>this isterm2 content</p>\n\n</div>\n";
   });
 
 this["MyApp"]["JST"]["sub/top"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {

@@ -87,15 +87,17 @@ module.exports = (grunt) ->
         tasks: ["compass"]
 
     assemble:
-      app:
+      options:
+        ext: ".hbs"
+      term:
         options:
-          ext: ".hbs"
-          data: "assemble/data/*.yaml"
+          data: "assemble/data/term.yaml"
+          layout: "assemble/layout/term.hbs"
         files: [
           expand: true
-          cwd: "assemble/template/"
+          cwd: "assemble/template/term"
           src: "**/*.hbs"
-          dest: "template/sub/"
+          dest: "template/sub/term"
         ]
 
     testem:
