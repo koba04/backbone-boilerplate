@@ -4,10 +4,12 @@
 <head>
   <title>backbone and handlebars sample</title>
   <meta charset="utf8" />
-  
-  
+  {{#if product}}
+    <link rel="stylesheet" href="{{staticHost}}/css/product/app.css">
+  {{/if}}
+  {{#unless product}}
     <link rel="stylesheet" href="/css/app.css">
-  
+  {{/unless}}
 </head>
 <body>
   <article>
@@ -16,11 +18,15 @@
     <section id="subview">
     </section>
   </article>
-  
-  
+  {{#if product}}
+    <script src="{{staticHost}}/js/vendor.js"></script>
+    <script src="{{staticHost}}/js/template.product.js"></script>
+    <script src="{{staticHost}}/js/app.product.js"></script>
+  {{/if}}
+  {{#unless product}}
     <script src="/js/vendor.js"></script>
     <script src="/js/template.js"></script>
     <script src="/js/appjs"></script>
-  
+  {{/unless}}
 </body>
 </html>

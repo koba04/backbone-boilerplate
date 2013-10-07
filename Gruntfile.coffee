@@ -87,10 +87,9 @@ module.exports = (grunt) ->
         tasks: ["compass"]
 
     assemble:
-      options:
-        ext: ".hbs"
       term:
         options:
+          ext: ".hbs"
           data: "assemble/data/term.yaml"
           layout: "assemble/layout/term.hbs"
         files: [
@@ -98,6 +97,21 @@ module.exports = (grunt) ->
           cwd: "assemble/template/term"
           src: "**/*.hbs"
           dest: "template/sub/term"
+        ]
+      publicHTMLDevelop:
+        options:
+          product: false
+        files: [
+          src: "assemble/template/public_html/index.hbs"
+          dest: "public/index.html"
+        ]
+      publicHTMLProduct:
+        options:
+          product: true
+          staticHost: staticHost
+        files: [
+          src: "assemble/template/public_html/index.hbs"
+          dest: "public/index.product.html"
         ]
 
     testem:
