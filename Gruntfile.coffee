@@ -64,12 +64,21 @@ module.exports = (grunt) ->
         ]
         dest: "public/js/vendor.js"
 
+    removelogging:
+      product:
+        src: "public/js/app.js"
+        dest: "public/js/app.product.js"
+
+    uglify:
+      product:
+        files: "public/js/app.product.js": ["public/js/app.product.js"]
+
     watch:
       options:
         livereload: true
       coffee:
         files: "coffee/**/*.coffee"
-        tasks: ["coffee"]
+        tasks: ["coffee2js"]
       handlebars:
         files: "template/**/*.hbs"
         tasks: ["handlebars"]
@@ -111,4 +120,6 @@ module.exports = (grunt) ->
       ]
 
   require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks)
+
+  grunt.registerTask "coffee2js", ["coffee", "removelogging", "uglify"]
   grunt.registerTask "default", ["configureProxies", "connect:server", "watch"]
