@@ -86,6 +86,18 @@ module.exports = (grunt) ->
         files: "scss/**/*.scss"
         tasks: ["compass"]
 
+    assemble:
+      app:
+        options:
+          ext: ".hbs"
+          data: "assemble/data/*.yaml"
+        files: [
+          expand: true
+          cwd: "assemble/template/"
+          src: "**/*.hbs"
+          dest: "template/sub/"
+        ]
+
     testem:
       app:
         src: [
@@ -120,6 +132,7 @@ module.exports = (grunt) ->
       ]
 
   require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks)
+  grunt.loadNpmTasks "assemble"
 
   grunt.registerTask "coffee2js", ["coffee", "removelogging", "uglify"]
   grunt.registerTask "default", ["configureProxies", "connect:server", "watch"]
