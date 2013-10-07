@@ -16,6 +16,7 @@
     "grunt-contrib-handlebars": "~0.5.11",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-connect-proxy": "~0.1.6",
-    "grunt-contrib-testem": "~0.5.5"
+    "grunt-contrib-testem": "~0.5.5",
+    "grunt-contrib-compass": "~0.6.0"
   }
 }

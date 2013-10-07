@@ -1,0 +1,21 @@
+/* line 1, ../../scss/app.scss */
+#mainview {
+  position: absolute;
+  height: 600px;
+  width: 400px;
+  background-color: #DDD;
+}
+
+/* line 7, ../../scss/app.scss */
+#subview {
+  position: relative;
+  top: 100px;
+  left: 50px;
+}
+
+/* line 12, ../../scss/app.scss */
+.subcontent {
+  height: 400px;
+  width: 300px;
+  background-color: #EEE;
+}

@@ -33,6 +33,26 @@ module.exports = (grunt) ->
         options:
           processContent: (content) -> content.replace /src="(.*)?"/gm, "src=\"#{staticHost}$1\""
 
+    compass:
+      options:
+        bundleExec: true
+        sassDir: "scss"
+        imageDir: "img"
+      product:
+        options:
+          httpPath: staticHost
+          httpStylesheetsPath: "#{staticHost}/css"
+          cssDir: "public/css/product"
+          noLineComments: true
+          outputStyle: "compressed"
+      develop:
+        options:
+          httpPath: "/"
+          httpStylesheetsPath: "/css"
+          cssDir: "public/css"
+          noLineComments: false
+          outputStyle: "expanded"
+
     concat:
       vendorJS:
         src: [
@@ -53,6 +73,9 @@ module.exports = (grunt) ->
       handlebars:
         files: "template/**/*.hbs"
         tasks: ["handlebars"]
+      scss:
+        files: "scss/**/*.scss"
+        tasks: ["compass"]
 
     testem:
       app:
