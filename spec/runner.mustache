@@ -1,18 +1,27 @@
 <!doctype html>
 <html>
 <head>
-<title>Test'em</title>
-<link rel="stylesheet" href="/testem/mocha.css">
-<script src="/testem/mocha.js"></script>
-<script src="/testem.js"></script>
-<script>mocha.setup('bdd')</script>
-{{#serve_files}}
-<script src="{{src}}"></script>
-{{/serve_files}}
+  <title>Test'em</title>
+  <link rel="stylesheet" href="/testem/mocha.css">
+  <script src="/testem/mocha.js"></script>
+  <script src="/testem.js"></script>
+  <script>
+    mocha.setup('bdd')
+  </script>
+</head>
 <body>
-<div id="mocha"></div>
-<script>
-mocha.run()
-</script>
+  <div id="mocha"></div>
+  <!-- for unit test -->
+  <article style="display: none;">
+    <section id="mainview"></section>
+    <section id="subview"></section>
+  </article>
+
+  {{#serve_files}}
+    <script src="{{src}}"></script>
+  {{/serve_files}}
+  <script>
+    mocha.run()
+    </script>
 </body>
 </html>
