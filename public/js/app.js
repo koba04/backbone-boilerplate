@@ -19,20 +19,25 @@
       sync = function() {
         return originalSync(method, model, options);
       };
-      if (method !== "read") {
-        model.removeStorage();
-        sync();
-      }
-      if (model.isSaveStorage == null) {
+      if (!model.isSaveStorage) {
         return sync();
       }
-      cache = model.getStorage();
-      if (cache != null) {
-        return options.success(cache);
-      }
       successCallback = options.success;
+      if (method === "delete") {
+        options.success = function(data) {
+          model.removeStorage();
+          return successCallback(data);
+        };
+        return sync();
+      }
+      if (method === "read") {
+        cache = model.getStorage();
+        if (cache != null) {
+          return successCallback(cache);
+        }
+      }
       options.success = function(data) {
-        model.saveStorage(data);
+        model.saveStorage(method, data);
         return successCallback(data);
       };
       return sync();

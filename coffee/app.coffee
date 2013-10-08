@@ -21,24 +21,27 @@ do ->
     # call original sync
     sync = -> originalSync method, model, options
 
-    # POST or PUT or DELETE
-    if method isnt "read"
-      model.removeStorage()
-      sync()
+    # not save storage
+    return sync() unless model.isSaveStorage
 
-    # GET request
-
-    # not save storage target
-    return sync() unless model.isSaveStorage?
-
-    cache = model.getStorage()
-    # success callback
-    return options.success cache if cache?
-
-    # API request and save storage
     successCallback = options.success
+
+    # DELETE
+    if method is "delete"
+      options.success = (data) ->
+        model.removeStorage()
+        successCallback data
+      return sync()
+
+    # GET and hit cache
+    if method is "read"
+      cache = model.getStorage()
+      # success callback
+      return successCallback cache if cache?
+
+    # set saveStorage in successCallback
     options.success = (data) ->
-      model.saveStorage data
+      model.saveStorage method, data
       successCallback data
     sync()
 
