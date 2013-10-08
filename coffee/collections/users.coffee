@@ -2,5 +2,5 @@ do ->
   'use strict'
 
   MyApp.Collection.Users = Backbone.Collection.extend
-    urlRoot:  '/api/users/'
+    url:  '/api/users/'
     model:    MyApp.Model.User

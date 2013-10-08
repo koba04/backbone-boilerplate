@@ -12,16 +12,22 @@ do ->
       new MyApp.View.Main.Top().render()
 
     my: ->
-      MyApp.Util.Http.get('/api/my/').next (data) ->
-        new MyApp.View.Main.Default().show(data)
-        new MyApp.View.Sub.My().show(data)
+      my = new MyApp.Model.User({ id: 1 })
+      my.fetch
+        success: ->
+          data = my.toJSON()
+          new MyApp.View.Main.Default().show data
+          new MyApp.View.Sub.My().show data
 
     friends: ->
-      MyApp.Util.Http.get('/api/users/').next (data) ->
-        new MyApp.View.Sub.Friends().show(data)
-        # TODO: Cache
-        MyApp.Util.Http.get('/api/my/').next (data) ->
-          new MyApp.View.Main.Default().show(data)
+      users = new MyApp.Collection.Users()
+      users.fetch
+        success: ->
+          new MyApp.View.Sub.Friends().show users.toJSON()
+          my = new MyApp.Model.User({ id: 1 })
+          my.fetch
+            success: ->
+              new MyApp.View.Main.Default().show my.toJSON()
 
   MyApp.Router = new Router()
   Backbone.history.start()

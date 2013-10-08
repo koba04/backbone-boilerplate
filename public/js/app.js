@@ -74,6 +74,7 @@
   (function() {
     'use strict';
     return MyApp.Model.User = Backbone.Model.extend({
+      urlRoot: "/api/users/",
       say: function() {
         return "I am " + (this.get("name"));
       }
@@ -86,7 +87,7 @@
   (function() {
     'use strict';
     return MyApp.Collection.Users = Backbone.Collection.extend({
-      urlRoot: '/api/users/',
+      url: '/api/users/',
       model: MyApp.Model.User
     });
   })();
@@ -196,17 +197,35 @@
         return new MyApp.View.Main.Top().render();
       },
       my: function() {
-        return MyApp.Util.Http.get('/api/my/').next(function(data) {
-          new MyApp.View.Main.Default().show(data);
-          return new MyApp.View.Sub.My().show(data);
+        var my;
+        my = new MyApp.Model.User({
+          id: 1
+        });
+        return my.fetch({
+          success: function() {
+            var data;
+            data = my.toJSON();
+            new MyApp.View.Main.Default().show(data);
+            return new MyApp.View.Sub.My().show(data);
+          }
         });
       },
       friends: function() {
-        return MyApp.Util.Http.get('/api/users/').next(function(data) {
-          new MyApp.View.Sub.Friends().show(data);
-          return MyApp.Util.Http.get('/api/my/').next(function(data) {
-            return new MyApp.View.Main.Default().show(data);
-          });
+        var users;
+        users = new MyApp.Collection.Users();
+        return users.fetch({
+          success: function() {
+            var my;
+            new MyApp.View.Sub.Friends().show(users.toJSON());
+            my = new MyApp.Model.User({
+              id: 1
+            });
+            return my.fetch({
+              success: function() {
+                return new MyApp.View.Main.Default().show(my.toJSON());
+              }
+            });
+          }
         });
       }
     });
