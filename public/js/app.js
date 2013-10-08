@@ -158,7 +158,7 @@
   (function(model, util) {
     'use strict';
     return model.Base = Backbone.Model.extend({
-      storageKey: "",
+      storageKey: null,
       sync: util.CacheSync.sync,
       getStorage: function() {
         var data;
@@ -200,7 +200,7 @@
   (function(model, collection, util) {
     'use strict';
     return collection.Base = Backbone.Collection.extend({
-      storageKey: "",
+      storageKey: null,
       sync: util.CacheSync.sync,
       model: model.Base,
       getStorage: function() {

@@ -2,7 +2,7 @@
   'use strict'
 
   collection.Base = Backbone.Collection.extend
-    storageKey: ""
+    storageKey: null
     sync: util.CacheSync.sync
     model: model.Base
 
