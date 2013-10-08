@@ -118,7 +118,7 @@ module.exports = (grunt) ->
       app:
         src: [
           "bower_components/expect/expect.js"
-          "bower_components/sinon/lib/sinon.js"
+          "bower_components/sinon/index.js"
           "public/js/vendor.js"
           "public/js/template.js"
           "public/js/app.js"

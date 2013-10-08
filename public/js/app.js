@@ -73,7 +73,11 @@
 (function() {
   (function() {
     'use strict';
-    return MyApp.Model.User = Backbone.Model.extend;
+    return MyApp.Model.User = Backbone.Model.extend({
+      say: function() {
+        return "I am " + (this.get("name"));
+      }
+    });
   })();
 
 }).call(this);

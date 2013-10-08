@@ -18,6 +18,6 @@
     "handlebars": "~1.0.0",
     "jsdeferred": "git@github.com:cho45/jsdeferred.git",
     "expect": "~0.2.0",
-    "sinon": "~1.7.3"
+    "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js"
   }
 }
