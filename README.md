@@ -1,6 +1,17 @@
-# Backbone - Handlebars sample application
+# My frontend boilerplate
 
-this is sample application of Backbone and Handlebars
+* coffeescript
+* backbone
+* lodash (underscore)
+* zepto (jQuery)
+* handlebars
+* compass
+* connect (proxy + easymock)
+* livereload
+* assemble
+* testem
+* mocha + expect
+* sinon
 
 ## setup
 
@@ -19,7 +30,7 @@ this is sample application of Backbone and Handlebars
 % open http://localhost:9000/
 ```
 
-### liveread
+### livereload
 
 * chrome
   * https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
