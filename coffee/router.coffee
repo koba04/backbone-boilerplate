@@ -1,4 +1,4 @@
-do ->
+( (Backbone, model, view, collection) ->
   'use strict'
   Router = Backbone.Router.extend
 
@@ -8,27 +8,28 @@ do ->
       "friends/": "friends"
 
     top: ->
-      new MyApp.View.Sub.Top().render()
-      new MyApp.View.Main.Top().render()
+      new view.sub.Top().render()
+      new view.main.Top().render()
 
     my: ->
-      my = new MyApp.Model.User({ id: 1 })
+      my = new model.User({ id: 1 })
       my.fetch
         success: ->
           data = my.toJSON()
-          new MyApp.View.Main.Default().show data
-          new MyApp.View.Sub.My().show data
+          new view.main.Default().show data
+          new view.sub.My().show data
 
     friends: ->
-      users = new MyApp.Collection.Users()
+      users = new collection.Users()
       users.fetch
         success: ->
-          new MyApp.View.Sub.Friends().show users.toJSON()
-          my = new MyApp.Model.User({ id: 1 })
+          new view.sub.Friends().show users.toJSON()
+          my = new model.User({ id: 1 })
           my.fetch
             success: ->
-              new MyApp.View.Main.Default().show my.toJSON()
+              new view.main.Default().show my.toJSON()
 
-  MyApp.Router = new Router()
+  myapp.Router = new Router()
   Backbone.history.start()
 
+).call(this, myapp.Backbone, myapp.model, myapp.view, myapp.collection)

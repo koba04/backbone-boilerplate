@@ -1,11 +1,12 @@
-do ->
+( (SubView, sub) ->
   'use strict'
 
-  MyApp.View.Sub.Friends = MyApp.View.SubView.extend
-    tmpl: MyApp.JST['sub/friends']
+  sub.Friends = SubView.extend
+    tmpl: SubView.JST 'sub/friends'
 
     show: (users) ->
       console.log users
       @render
         friends: users
 
+).call(this, myapp.view.SubView,  myapp.view.sub)

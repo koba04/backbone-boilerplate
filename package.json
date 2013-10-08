@@ -1,5 +1,5 @@
 {
-  "name": "MyApp",
+  "name": "myapp",
   "version": "0.0.1",
   "description": "sample project of backbone + handlebars",
   "main": "public/index.html",

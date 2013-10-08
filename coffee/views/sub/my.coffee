@@ -1,8 +1,9 @@
-do ->
+( (SubView, sub) ->
   'use strict'
 
-  MyApp.View.Sub.My = MyApp.View.SubView.extend
-    tmpl: MyApp.JST['sub/my']
+  sub.My = SubView.extend
+    tmpl: SubView.JST 'sub/my'
 
     show: (user) ->
       @render(user)
+).call(this, myapp.view.SubView,  myapp.view.sub)

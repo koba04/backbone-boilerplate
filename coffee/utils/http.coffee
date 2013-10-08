@@ -1,4 +1,4 @@
-do ->
+( (util) ->
   'use strict'
 
   # http.get('/path/to/api', { key: 'val'}).next(data) -> console.log data
@@ -37,5 +37,6 @@ do ->
           deferred.fail xhr
       deferred
 
-  MyApp.Util.Http = new Http()
+  util.Http = new Http()
 
+).call(this, myapp.util)

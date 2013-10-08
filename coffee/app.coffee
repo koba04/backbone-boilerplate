@@ -2,10 +2,21 @@ do ->
   'use strict'
 
   # define namespace
-  MyApp = window.MyApp
-  MyApp.Model = {}
-  MyApp.Collection = {}
-  MyApp.View =
-    Main: {}
-    Sub: {}
-  MyApp.Util = {}
+  myapp = window.myapp
+  myapp.model = {}
+  myapp.collection = {}
+  myapp.view =
+    main: {}
+    sub: {}
+  myapp.util = {}
+
+  # MyApp
+  class App
+
+  # extend Backbone for MyApp
+  class MyBackbone extends Backbone
+
+
+
+  myapp.App = new App()
+  myapp.Backbone = MyBackbone

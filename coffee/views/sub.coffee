@@ -1,7 +1,7 @@
-do ->
+( (view) ->
   'use strict'
 
-  MyApp.View.SubView = Backbone.View.extend
+  view.SubView = view.MyApp.extend
     el: $('#subview')
-    render: (data) ->
-      @$el.html @tmpl(data)
+
+).call(this, myapp.view)

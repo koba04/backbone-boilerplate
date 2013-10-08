@@ -1,6 +1,9 @@
-do ->
+( (Backbone, model, collection) ->
   'use strict'
 
-  MyApp.Collection.Users = Backbone.Collection.extend
+  collection.Users = Backbone.Collection.extend
     url:  '/api/users/'
-    model:    MyApp.Model.User
+    model: model.User
+
+
+).call(this, myapp.Backbone, myapp.model, myapp.collection)

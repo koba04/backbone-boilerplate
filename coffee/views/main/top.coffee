@@ -1,5 +1,7 @@
-do ->
+( (MainView, main) ->
   'use strict'
 
-  MyApp.View.Main.Top = MyApp.View.MainView.extend
-    tmpl: MyApp.JST['main/top']
+  main.Top = MainView.extend
+    tmpl: MainView.JST 'main/top'
+
+).call(this, myapp.view.MainView,  myapp.view.main)

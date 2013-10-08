@@ -1,8 +1,10 @@
-do ->
+( (MainView, main) ->
   'use strict'
 
-  MyApp.View.Main.Default = MyApp.View.MainView.extend
-    tmpl: MyApp.JST['main/default']
+  main.Default = MainView.extend
+    tmpl: MainView.JST 'main/default'
 
     show: (user) ->
       @render(user)
+
+).call(this, myapp.view.MainView,  myapp.view.main)
