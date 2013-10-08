@@ -1,9 +1,10 @@
 ( (model, collection) ->
   'use strict'
 
-  collection.Users = Backbone.Collection.extend
+  class collection.Users extends collection.Base
+    isSaveStorage: true
     url:  '/api/users/'
     model: model.User
-
+    storageKey: "collection:users"
 
 ).call(this, myapp.model, myapp.collection)

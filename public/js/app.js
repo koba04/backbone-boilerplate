@@ -192,12 +192,90 @@
 }).call(this);
 
 (function() {
+  (function(model, collection, util) {
+    'use strict';
+    return collection.Base = Backbone.Collection.extend({
+      isSaveStorage: false,
+      storageKey: "",
+      model: model.Base,
+      getStorage: function() {
+        var data, datas, id, ids, _i, _len;
+        ids = util.Storage.get(this.storageKey);
+        if (ids == null) {
+          return;
+        }
+        datas = [];
+        for (_i = 0, _len = ids.length; _i < _len; _i++) {
+          id = ids[_i];
+          model = new this.model({
+            id: id
+          });
+          data = util.Storage.get(model.storageKey);
+          if (data == null) {
+            return;
+          }
+          datas.push(data);
+        }
+        return datas;
+      },
+      saveStorage: function(method, datas) {
+        var data, ids, _i, _len;
+        ids = [];
+        for (_i = 0, _len = datas.length; _i < _len; _i++) {
+          data = datas[_i];
+          ids.push(data.id);
+          model = new this.model({
+            id: data.id
+          });
+          util.Storage.set(model.storageKey, JSON.stringify(data));
+        }
+        return util.Storage.set(this.storageKey, JSON.stringify(ids));
+      },
+      removeStorage: function() {
+        var id, ids, _i, _len, _results;
+        ids = util.Storage.get(this.storageKey);
+        util.Storage.remove(this.storageKey);
+        _results = [];
+        for (_i = 0, _len = ids.length; _i < _len; _i++) {
+          id = ids[_i];
+          model = new this.model({
+            id: id
+          });
+          _results.push(util.Storage.remove(model.storageKey));
+        }
+        return _results;
+      }
+    });
+  }).call(this, myapp.model, myapp.collection, myapp.util);
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function(model, collection) {
     'use strict';
-    return collection.Users = Backbone.Collection.extend({
-      url: '/api/users/',
-      model: model.User
-    });
+    var _ref;
+    return collection.Users = (function(_super) {
+      __extends(Users, _super);
+
+      function Users() {
+        _ref = Users.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Users.prototype.isSaveStorage = true;
+
+      Users.prototype.url = '/api/users/';
+
+      Users.prototype.model = model.User;
+
+      Users.prototype.storageKey = "collection:users";
+
+      return Users;
+
+    })(collection.Base);
   }).call(this, myapp.model, myapp.collection);
 
 }).call(this);
