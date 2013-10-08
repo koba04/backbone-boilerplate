@@ -1,4 +1,5 @@
-( (Backbone, model, view, collection) ->
+( (model, view, collection) ->
+
   'use strict'
   Router = Backbone.Router.extend
 
@@ -32,4 +33,4 @@
   myapp.Router = new Router()
   Backbone.history.start()
 
-).call(this, myapp.Backbone, myapp.model, myapp.view, myapp.collection)
+).call(this, myapp.model, myapp.view, myapp.collection)

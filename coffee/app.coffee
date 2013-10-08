@@ -12,11 +12,10 @@ do ->
 
   # MyApp
   class App
-
-  # extend Backbone for MyApp
-  class MyBackbone extends Backbone
-
-
-
   myapp.App = new App()
-  myapp.Backbone = MyBackbone
+
+  # override Backbone.sync
+  originalSync = Backbone.sync
+  Backbone.sync = (method, model, options) ->
+    originalSync method, model, options
+

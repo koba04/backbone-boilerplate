@@ -1,4 +1,4 @@
-( (Backbone, model) ->
+( (model) ->
   'use strict'
 
   model.User = Backbone.Model.extend
@@ -6,4 +6,4 @@
     say: ->
       "I am #{@get("name")}"
 
-).call(this, myapp.Backbone, myapp.model)
+).call(this, myapp.model)

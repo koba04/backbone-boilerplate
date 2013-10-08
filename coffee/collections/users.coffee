@@ -1,4 +1,4 @@
-( (Backbone, model, collection) ->
+( (model, collection) ->
   'use strict'
 
   collection.Users = Backbone.Collection.extend
@@ -6,4 +6,4 @@
     model: model.User
 
 
-).call(this, myapp.Backbone, myapp.model, myapp.collection)
+).call(this, myapp.model, myapp.collection)

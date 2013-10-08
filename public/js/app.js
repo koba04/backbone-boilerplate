@@ -1,10 +1,7 @@
 (function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
   (function() {
     'use strict';
-    var App, MyBackbone, myapp, _ref;
+    var App, myapp, originalSync;
     myapp = window.myapp;
     myapp.model = {};
     myapp.collection = {};
@@ -19,19 +16,11 @@
       return App;
 
     })();
-    MyBackbone = (function(_super) {
-      __extends(MyBackbone, _super);
-
-      function MyBackbone() {
-        _ref = MyBackbone.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      return MyBackbone;
-
-    })(Backbone);
     myapp.App = new App();
-    return myapp.Backbone = MyBackbone;
+    originalSync = Backbone.sync;
+    return Backbone.sync = function(method, model, options) {
+      return originalSync(method, model, options);
+    };
   })();
 
 }).call(this);
@@ -93,7 +82,7 @@
 }).call(this);
 
 (function() {
-  (function(Backbone, model) {
+  (function(model) {
     'use strict';
     return model.User = Backbone.Model.extend({
       urlRoot: "/api/users/",
@@ -101,23 +90,23 @@
         return "I am " + (this.get("name"));
       }
     });
-  }).call(this, myapp.Backbone, myapp.model);
+  }).call(this, myapp.model);
 
 }).call(this);
 
 (function() {
-  (function(Backbone, model, collection) {
+  (function(model, collection) {
     'use strict';
     return collection.Users = Backbone.Collection.extend({
       url: '/api/users/',
       model: model.User
     });
-  }).call(this, myapp.Backbone, myapp.model, myapp.collection);
+  }).call(this, myapp.model, myapp.collection);
 
 }).call(this);
 
 (function() {
-  (function(Backbone, view, JST) {
+  (function(view, JST) {
     'use strict';
     return view.MyApp = Backbone.View.extend({
       render: function(data) {
@@ -128,7 +117,7 @@
         return JST[template];
       }
     });
-  }).call(this, myapp.Backbone, myapp.view, myapp.JST);
+  }).call(this, myapp.view, myapp.JST);
 
 }).call(this);
 
@@ -215,7 +204,7 @@
 }).call(this);
 
 (function() {
-  (function(Backbone, model, view, collection) {
+  (function(model, view, collection) {
     'use strict';
     var Router;
     Router = Backbone.Router.extend({
@@ -263,6 +252,6 @@
     });
     myapp.Router = new Router();
     return Backbone.history.start();
-  }).call(this, myapp.Backbone, myapp.model, myapp.view, myapp.collection);
+  }).call(this, myapp.model, myapp.view, myapp.collection);
 
 }).call(this);

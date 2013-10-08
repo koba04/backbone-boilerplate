@@ -1,4 +1,4 @@
-( (Backbone, view, JST) ->
+( (view, JST) ->
   'use strict'
 
   view.MyApp = Backbone.View.extend({
@@ -9,4 +9,4 @@
       JST[template]
   })
 
-).call(this, myapp.Backbone, myapp.view, myapp.JST)
+).call(this, myapp.view, myapp.JST)
