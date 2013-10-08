@@ -1,7 +1,7 @@
 ( (model, collection) ->
   'use strict'
 
-  class collection.Users extends collection.Base
+  collection.Users = collection.Base.extend
     isSaveStorage: true
     url:  '/api/users/'
     model: model.User

@@ -162,31 +162,19 @@
 }).call(this);
 
 (function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
   (function(model) {
     'use strict';
-    var _ref;
-    return model.User = (function(_super) {
-      __extends(User, _super);
-
-      function User() {
-        _ref = User.__super__.constructor.apply(this, arguments);
-        return _ref;
+    return model.User = model.Base.extend({
+      isSaveStorage: true,
+      urlRoot: "/api/users/",
+      initialize: function(attrs) {
+        this.storageKey = "model:user:" + attrs.id;
+        return this.name = attrs.name;
+      },
+      say: function() {
+        return "I am " + this.name;
       }
-
-      User.prototype.isSaveStorage = true;
-
-      User.prototype.urlRoot = "/api/users/";
-
-      User.prototype.initialize = function(attrs) {
-        return this.storageKey = "model:user:" + attrs.id;
-      };
-
-      return User;
-
-    })(model.Base);
+    });
   }).call(this, myapp.model);
 
 }).call(this);
@@ -251,31 +239,14 @@
 }).call(this);
 
 (function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
   (function(model, collection) {
     'use strict';
-    var _ref;
-    return collection.Users = (function(_super) {
-      __extends(Users, _super);
-
-      function Users() {
-        _ref = Users.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      Users.prototype.isSaveStorage = true;
-
-      Users.prototype.url = '/api/users/';
-
-      Users.prototype.model = model.User;
-
-      Users.prototype.storageKey = "collection:users";
-
-      return Users;
-
-    })(collection.Base);
+    return collection.Users = collection.Base.extend({
+      isSaveStorage: true,
+      url: '/api/users/',
+      model: model.User,
+      storageKey: "collection:users"
+    });
   }).call(this, myapp.model, myapp.collection);
 
 }).call(this);

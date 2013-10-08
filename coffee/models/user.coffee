@@ -1,11 +1,15 @@
 ( (model) ->
   'use strict'
 
-  class model.User extends model.Base
+  model.User = model.Base.extend
     isSaveStorage: true
     urlRoot: "/api/users/"
 
     initialize: (attrs) ->
       @storageKey = "model:user:#{attrs.id}"
+      @name = attrs.name
+
+    say: ->
+      "I am #{@name}"
 
 ).call(this, myapp.model)

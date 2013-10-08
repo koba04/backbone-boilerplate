@@ -4,8 +4,7 @@ describe "sample", ->
 
 describe "model.User", ->
   it "say", ->
-    user = new myapp.model.User
-      name: "John"
+    user = new myapp.model.User name: "John"
     expect(user.say()).to.be("I am John")
 
 describe "view.sub.My", ->
