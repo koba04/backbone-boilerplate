@@ -103,27 +103,90 @@
 }).call(this);
 
 (function() {
-  (function(model) {
+  (function() {
     'use strict';
-    return model.User = Backbone.Model.extend({
-      isSaveStorage: true,
-      urlRoot: "/api/users/",
-      initialize: function(attrs) {
-        return this.storageKey = "model:user:" + attrs.id;
-      },
-      saveStorage: function(data) {
-        return sessionStorage.setItem(this.storageKey, JSON.stringify(data));
-      },
+    var Storage, global;
+    global = this;
+    Storage = (function() {
+      function Storage() {
+        this.storage = sessionStorage;
+      }
+
+      Storage.prototype.get = function(key) {
+        return this.storage.getItem(key);
+      };
+
+      Storage.prototype.set = function(key, data) {
+        return this.storage.setItem(key, data);
+      };
+
+      Storage.prototype.remove = function(key) {
+        return this.storage.removeItem(key);
+      };
+
+      Storage.prototype.clear = function() {
+        return this.storage.clear();
+      };
+
+      return Storage;
+
+    })();
+    return myapp.util.Storage = new Storage();
+  })();
+
+}).call(this);
+
+(function() {
+  (function(model, util) {
+    'use strict';
+    return model.Base = Backbone.Model.extend({
+      isSaveStorage: false,
+      storageKey: "",
       getStorage: function() {
-        return JSON.parse(sessionStorage.getItem(this.storageKey));
+        var data;
+        data = util.Storage.get(this.storageKey);
+        if (data == null) {
+          return;
+        }
+        return JSON.parse(data);
+      },
+      saveStorage: function(method, data) {
+        return util.Storage.set(this.storageKey, JSON.stringify(data));
       },
       removeStorage: function() {
-        return sessionStorage.removeItem(this.storageKey);
-      },
-      say: function() {
-        return "I am " + (this.get("name"));
+        return util.Storage.remove(this.storageKey);
       }
     });
+  }).call(this, myapp.model, myapp.util);
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  (function(model) {
+    'use strict';
+    var _ref;
+    return model.User = (function(_super) {
+      __extends(User, _super);
+
+      function User() {
+        _ref = User.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      User.prototype.isSaveStorage = true;
+
+      User.prototype.urlRoot = "/api/users/";
+
+      User.prototype.initialize = function(attrs) {
+        return this.storageKey = "model:user:" + attrs.id;
+      };
+
+      return User;
+
+    })(model.Base);
   }).call(this, myapp.model);
 
 }).call(this);
