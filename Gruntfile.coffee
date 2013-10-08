@@ -13,7 +13,7 @@ module.exports = (grunt) ->
       compile:
         files:
           "public/js/app.js": [
-            "coffee/app.coffee"
+            "coffee/namespace.coffee"
             "coffee/utils/**/*.coffee"
             "coffee/models/*.coffee"
             "coffee/collections/*.coffee"
@@ -21,6 +21,7 @@ module.exports = (grunt) ->
             "coffee/views/*.coffee"
             "coffee/views/**/*.coffee"
             "coffee/router.coffee"
+            "coffee/app.coffee"
           ]
 
     handlebars:

@@ -1,7 +1,10 @@
 (function() {
   (function() {
     'use strict';
-    var myapp, originalSync;
+    var myapp;
+    if (window.myapp == null) {
+      window.myapp = {};
+    }
     myapp = window.myapp;
     myapp.model = {};
     myapp.collection = {};
@@ -9,40 +12,55 @@
       main: {},
       sub: {}
     };
-    myapp.util = {};
-    originalSync = Backbone.sync;
-    return Backbone.sync = function(method, model, options) {
-      var cache, successCallback, sync;
-      options.error = function() {
-        return window.location = "#/error/";
-      };
-      sync = function() {
-        return originalSync(method, model, options);
-      };
-      if (!model.isSaveStorage) {
-        return sync();
-      }
-      successCallback = options.success;
-      if (method === "delete") {
+    return myapp.util = {};
+  })();
+
+}).call(this);
+
+(function() {
+  (function(util) {
+    'use strict';
+    var CacheSync;
+    CacheSync = (function() {
+      function CacheSync() {}
+
+      CacheSync.prototype.sync = function(method, model, options) {
+        var cache, successCallback, sync;
+        options.error = function() {
+          return window.location = "#/error/";
+        };
+        sync = function() {
+          return Backbone.sync(method, model, options);
+        };
+        if (!model.storageKey) {
+          return sync();
+        }
+        successCallback = options.success;
+        if (method === "delete") {
+          options.success = function(data) {
+            model.removeStorage();
+            return successCallback(data);
+          };
+          return sync();
+        }
+        if (method === "read") {
+          cache = model.getStorage();
+          if (cache != null) {
+            return successCallback(cache);
+          }
+        }
         options.success = function(data) {
-          model.removeStorage();
+          model.saveStorage(method, data);
           return successCallback(data);
         };
         return sync();
-      }
-      if (method === "read") {
-        cache = model.getStorage();
-        if (cache != null) {
-          return successCallback(cache);
-        }
-      }
-      options.success = function(data) {
-        model.saveStorage(method, data);
-        return successCallback(data);
       };
-      return sync();
-    };
-  })();
+
+      return CacheSync;
+
+    })();
+    return util.CacheSync = new CacheSync();
+  }).call(this, myapp.util);
 
 }).call(this);
 
@@ -140,8 +158,8 @@
   (function(model, util) {
     'use strict';
     return model.Base = Backbone.Model.extend({
-      isSaveStorage: false,
       storageKey: "",
+      sync: util.CacheSync.sync,
       getStorage: function() {
         var data;
         data = util.Storage.get(this.storageKey);
@@ -165,7 +183,6 @@
   (function(model) {
     'use strict';
     return model.User = model.Base.extend({
-      isSaveStorage: true,
       urlRoot: "/api/users/",
       initialize: function(attrs) {
         this.storageKey = "model:user:" + attrs.id;
@@ -183,8 +200,8 @@
   (function(model, collection, util) {
     'use strict';
     return collection.Base = Backbone.Collection.extend({
-      isSaveStorage: false,
       storageKey: "",
+      sync: util.CacheSync.sync,
       model: model.Base,
       getStorage: function() {
         var data, datas, id, ids, _i, _len;
@@ -242,7 +259,6 @@
   (function(model, collection) {
     'use strict';
     return collection.Users = collection.Base.extend({
-      isSaveStorage: true,
       url: '/api/users/',
       model: model.User,
       storageKey: "collection:users"
@@ -399,5 +415,22 @@
     myapp.Router = new Router();
     return Backbone.history.start();
   }).call(this, myapp.model, myapp.view, myapp.collection);
+
+}).call(this);
+
+(function() {
+  (function(util) {
+    'use strict';
+    var App;
+    App = (function() {
+      function App() {
+        util.Storage.clear();
+      }
+
+      return App;
+
+    })();
+    return myapp.App = new App();
+  }).call(this, myapp.util);
 
 }).call(this);

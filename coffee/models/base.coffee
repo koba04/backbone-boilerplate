@@ -2,8 +2,8 @@
   'use strict'
 
   model.Base = Backbone.Model.extend
-    isSaveStorage: false
     storageKey: ""
+    sync: util.CacheSync.sync
 
     getStorage: ->
       data = util.Storage.get @storageKey

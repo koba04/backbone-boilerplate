@@ -2,7 +2,6 @@
   'use strict'
 
   model.User = model.Base.extend
-    isSaveStorage: true
     urlRoot: "/api/users/"
 
     initialize: (attrs) ->
