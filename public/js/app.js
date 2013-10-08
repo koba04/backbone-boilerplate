@@ -137,7 +137,7 @@
 (function() {
   (function(view, JST) {
     'use strict';
-    return view.MyApp = Backbone.View.extend({
+    return view.Base = Backbone.View.extend({
       render: function(data) {
         return this.$el.html(this.tmpl(data));
       }
@@ -153,7 +153,7 @@
 (function() {
   (function(view) {
     'use strict';
-    return view.MainView = view.MyApp.extend({
+    return view.MainView = view.Base.extend({
       el: $('#mainview')
     });
   }).call(this, myapp.view);
@@ -163,7 +163,7 @@
 (function() {
   (function(view) {
     'use strict';
-    return view.SubView = view.MyApp.extend({
+    return view.SubView = view.Base.extend({
       el: $('#subview')
     });
   }).call(this, myapp.view);

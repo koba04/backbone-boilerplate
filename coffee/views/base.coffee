@@ -1,7 +1,7 @@
 ( (view, JST) ->
   'use strict'
 
-  view.MyApp = Backbone.View.extend({
+  view.Base = Backbone.View.extend({
     render: (data) ->
       @$el.html @tmpl(data)
   }, {
