@@ -11,7 +11,9 @@
         window.location = "#/error/"
 
       # call original sync
-      sync = -> Backbone.sync method, model, options
+      sync = (success) ->
+        options.success = success if success?
+        Backbone.sync method, model, options
 
       # not save storage
       return sync() unless model.storageKey
@@ -20,10 +22,9 @@
 
       # DELETE
       if method is "delete"
-        options.success = (data) ->
+        return sync (data) ->
           model.removeStorage()
           successCallback data
-        return sync()
 
       # GET and hit cache
       if method is "read"
@@ -32,10 +33,9 @@
         return successCallback cache if cache?
 
       # set saveStorage in successCallback
-      options.success = (data) ->
+      sync (data) ->
         model.saveStorage method, data
         successCallback data
-      sync()
 
   util.CacheSync = new CacheSync()
 

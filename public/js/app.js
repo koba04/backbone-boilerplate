@@ -29,7 +29,10 @@
         options.error = function() {
           return window.location = "#/error/";
         };
-        sync = function() {
+        sync = function(success) {
+          if (success != null) {
+            options.success = success;
+          }
           return Backbone.sync(method, model, options);
         };
         if (!model.storageKey) {
@@ -37,11 +40,10 @@
         }
         successCallback = options.success;
         if (method === "delete") {
-          options.success = function(data) {
+          return sync(function(data) {
             model.removeStorage();
             return successCallback(data);
-          };
-          return sync();
+          });
         }
         if (method === "read") {
           cache = model.getStorage();
@@ -49,11 +51,10 @@
             return successCallback(cache);
           }
         }
-        options.success = function(data) {
+        return sync(function(data) {
           model.saveStorage(method, data);
           return successCallback(data);
-        };
-        return sync();
+        });
       };
 
       return CacheSync;
