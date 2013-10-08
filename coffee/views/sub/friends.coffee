@@ -5,7 +5,6 @@
     tmpl: SubView.JST 'sub/friends'
 
     show: (users) ->
-      console.log users
       @render
         friends: users
 

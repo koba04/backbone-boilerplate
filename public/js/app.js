@@ -154,6 +154,7 @@
         if (ids == null) {
           return;
         }
+        ids = JSON.parse(ids);
         datas = [];
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
@@ -164,7 +165,7 @@
           if (data == null) {
             return;
           }
-          datas.push(data);
+          datas.push(JSON.parse(data));
         }
         return datas;
       },
@@ -277,7 +278,6 @@
     return sub.Friends = SubView.extend({
       tmpl: SubView.JST('sub/friends'),
       show: function(users) {
-        console.log(users);
         return this.render({
           friends: users
         });

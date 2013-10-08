@@ -9,13 +9,14 @@
     getStorage: ->
       ids = util.Storage.get @storageKey
       return unless ids?
+      ids = JSON.parse ids
 
       datas = []
       for id in ids
         model = new @model id: id
         data = util.Storage.get model.storageKey
         return unless data?
-        datas.push data
+        datas.push JSON.parse(data)
       datas
 
     saveStorage: (method, datas) ->
