@@ -1,4 +1,4 @@
-describe "BaseSpec", ->
+describe "model.Base", ->
 
   User = myapp.model.Base.extend
     urlRoot: "/users/"
@@ -17,6 +17,7 @@ describe "BaseSpec", ->
 
     after ->
       server.restore()
+      myapp.util.Storage.clear()
 
     beforeEach ->
       user = new User id: 1, name: "jim", age: 20
