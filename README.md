@@ -12,6 +12,7 @@
 * testem
 * mocha + expect
 * sinon
+* foreman
 
 ## setup
 
