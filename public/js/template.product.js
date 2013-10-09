@@ -58,7 +58,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 this["myapp"]["JST"]["sub/friends"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};
-  var buffer = "", stack1, self=this;
+  var buffer = "", stack1, stack2, options, self=this, helperMissing=helpers.helperMissing, escapeExpression=this.escapeExpression;
 
 function program1(depth0,data) {
   
@@ -70,9 +70,12 @@ function program1(depth0,data) {
   return buffer;
   }
 
-  buffer += "<div class=\"subcontent\">\n  <div>this is my friends</div>\n  <ul>\n    ";
-  stack1 = helpers.each.call(depth0, depth0.friends, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
-  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "<div class=\"subcontent\">\n  <div>";
+  options = {hash:{},data:data};
+  buffer += escapeExpression(((stack1 = helpers.upperCase || depth0.upperCase),stack1 ? stack1.call(depth0, "this is my friends", options) : helperMissing.call(depth0, "upperCase", "this is my friends", options)))
+    + "</div>\n  <ul>\n    ";
+  stack2 = helpers.each.call(depth0, depth0.friends, {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
+  if(stack2 || stack2 === 0) { buffer += stack2; }
   buffer += "\n  </ul>\n</div>\n";
   return buffer;
   });

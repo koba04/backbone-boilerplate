@@ -123,7 +123,7 @@
 
       App.prototype.setupTemplate = function() {
         Handlebars.registerHelper('upperCase', function(str) {
-          return str.upperCase();
+          return str.toUpperCase();
         });
         return Handlebars.registerPartial('user', JST['particle/user']);
       };

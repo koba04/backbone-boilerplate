@@ -20,7 +20,7 @@
     setupTemplate: ->
 
       # helper
-      Handlebars.registerHelper 'upperCase', (str) -> str.upperCase()
+      Handlebars.registerHelper 'upperCase', (str) -> str.toUpperCase()
 
       # particle
       Handlebars.registerPartial 'user', JST['particle/user']
