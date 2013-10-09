@@ -101,6 +101,42 @@
 }).call(this);
 
 (function() {
+  (function(util, JST) {
+    'use strict';
+    var App;
+    App = (function() {
+      function App() {
+        util.Storage.clear();
+        this.setupAjax();
+        this.setupTemplate();
+      }
+
+      App.prototype.setupAjax = function() {
+        $.ajaxSettings.timeout = 5000;
+        $.ajaxSettings.cache = false;
+        return $.ajaxSettings.xhr = function() {
+          var xhr;
+          xhr = new XMLHttpRequest();
+          return xhr;
+        };
+      };
+
+      App.prototype.setupTemplate = function() {
+        Handlebars.registerHelper('upperCase', function(str) {
+          return str.upperCase();
+        });
+        return Handlebars.registerPartial('user', JST['particle/user']);
+      };
+
+      return App;
+
+    })();
+    return myapp.App = new App();
+  }).call(this, myapp.util, myapp.JST);
+
+}).call(this);
+
+(function() {
   (function(model, util) {
     'use strict';
     return model.Base = Backbone.Model.extend({
@@ -281,7 +317,6 @@
     return sub.Friends = SubView.extend({
       tmpl: SubView.JST('sub/friends'),
       show: function(users) {
-        Handlebars.registerPartial('user', SubView.JST('particle/user'));
         return this.render({
           friends: users.toJSON()
         });
@@ -362,29 +397,5 @@
     myapp.Router = new Router();
     return Backbone.history.start();
   }).call(this, myapp.model, myapp.view, myapp.collection);
-
-}).call(this);
-
-(function() {
-  (function(util) {
-    'use strict';
-    var App;
-    App = (function() {
-      function App() {
-        util.Storage.clear();
-        $.ajaxSettings.timeout = 5000;
-        $.ajaxSettings.cache = false;
-        $.ajaxSettings.xhr = function() {
-          var xhr;
-          xhr = new XMLHttpRequest();
-          return xhr;
-        };
-      }
-
-      return App;
-
-    })();
-    return myapp.App = new App();
-  }).call(this, myapp.util);
 
 }).call(this);
