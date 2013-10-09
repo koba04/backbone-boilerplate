@@ -15,7 +15,7 @@ describe "CacheSync", ->
     server = null
     spy = null
 
-    before (done) ->
+    before ->
       model = new SaveModel id: 1, name: "jim"
       response =
         id: 1
@@ -27,11 +27,9 @@ describe "CacheSync", ->
         {},
         JSON.stringify response
       ])
-      done()
 
-    beforeEach (done) ->
+    beforeEach ->
       spy = sinon.spy()
-      done()
 
     it "call success callback", ->
       model.fetch success: spy
@@ -66,12 +64,10 @@ describe "CacheSync", ->
       expect(spy.calledOnce).to.ok()
       expect(storage).to.empty()
 
-    afterEach (done) ->
+    afterEach ->
       spy.reset()
-      done()
 
-    after (done) ->
+    after ->
       server.restore()
-      done()
 
   describe "case POST, PUT, DELETE method", ->
