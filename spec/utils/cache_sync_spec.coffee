@@ -23,7 +23,7 @@ describe "CacheSync", ->
         name: "jim"
         message: "hello world"
       server = sinon.fakeServer.create()
-      server.respondWith "GET", "/test/1", [
+      server.respondWith "GET", /\/test\/1/, [
         200, {}, JSON.stringify response
       ]
 
@@ -76,13 +76,13 @@ describe "CacheSync", ->
 
     before ->
       server = sinon.fakeServer.create()
-      server.respondWith "POST", "/test/", [
+      server.respondWith "POST", /\/test\//, [
         200, {}, JSON.stringify id: 1, name: "jim", message: "post request"
       ]
-      server.respondWith "PUT", "/test/1", [
+      server.respondWith "PUT", /\/test\/1/, [
         200, {}, JSON.stringify id: 1, name: "tom", message: "put request"
       ]
-      server.respondWith "DELETE", "/test/1", [
+      server.respondWith "DELETE", /\/test\/1/, [
         200, {}, JSON.stringify message: "ok"
       ]
 
