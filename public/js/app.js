@@ -329,7 +329,9 @@
     return sub.My = SubView.extend({
       tmpl: SubView.JST('sub/my'),
       show: function(user) {
-        return this.render(user);
+        return this.render({
+          user: user.toJSON()
+        });
       }
     });
   }).call(this, myapp.view.SubView, myapp.view.sub);
