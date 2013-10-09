@@ -4,10 +4,11 @@ describe "CacheSync", ->
   SaveModel = Backbone.Model.extend
     urlRoot: "/test/"
     sync: myapp.util.CacheSync.sync
-    initialize: (attrs) -> @storageKey = "savemodel:#{attrs.id}"
-    getStorage: -> storage[@storageKey]
+    initialize: (attrs) -> @storageKey = "savemodel:#{attrs.id}" if attrs?
+    getStorage: -> storage[@storageKey] if @storageKey
     saveStorage: (method, data) -> storage[@storageKey] = data
-    removeStorage: -> delete storage[@storageKey]
+    removeStorage: ->
+      delete storage[@storageKey]
 
   describe "set and get storage", ->
     model = null
@@ -22,14 +23,18 @@ describe "CacheSync", ->
         name: "jim"
         message: "hello world"
       server = sinon.fakeServer.create()
-      server.respondWith("GET", "/test/1", [
-        200,
-        {},
-        JSON.stringify response
-      ])
+      server.respondWith "GET", "/test/1", [
+        200, {}, JSON.stringify response
+      ]
+
+    after ->
+      server.restore()
 
     beforeEach ->
       spy = sinon.spy()
+
+    afterEach ->
+      spy.reset()
 
     it "call success callback", ->
       model.fetch success: spy
@@ -64,10 +69,56 @@ describe "CacheSync", ->
       expect(spy.calledOnce).to.ok()
       expect(storage).to.empty()
 
-    afterEach ->
-      spy.reset()
+  describe "case POST, PUT, DELETE method", ->
+    model = null
+    server = null
+    spy = null
+
+    before ->
+      server = sinon.fakeServer.create()
+      server.respondWith "POST", "/test/", [
+        200, {}, JSON.stringify id: 1, name: "jim", message: "post request"
+      ]
+      server.respondWith "PUT", "/test/1", [
+        200, {}, JSON.stringify id: 1, name: "tom", message: "put request"
+      ]
+      server.respondWith "DELETE", "/test/1", [
+        200, {}, JSON.stringify message: "ok"
+      ]
 
     after ->
       server.restore()
 
-  describe "case POST, PUT, DELETE method", ->
+    beforeEach ->
+      model = new SaveModel id: 1, name: "jim"
+      spy = sinon.spy()
+
+    afterEach ->
+      spy.reset()
+
+    it "method POST", ->
+      model = new SaveModel name: "jim"
+      model.save {}, success: spy
+      server.respond()
+      expect(spy.calledOnce).to.ok()
+      expect(storage[model.storageKey]).to.eql id:1, name:"jim", message:"post request"
+      expect(model.get("message")).to.be "post request"
+
+    it "method PUT", ->
+      model.set "name", "tom"
+      model.save {}, success: spy
+      server.respond()
+      expect(spy.calledOnce).to.ok()
+      expect(storage[model.storageKey]).to.eql id:1, name:"tom", message:"put request"
+      expect(model.get("message")).to.be "put request"
+
+    it "method DELETE", ->
+      model.set "name", "tom"
+      model.save {}, success: ->
+      storageKey = model.storageKey
+      server.respond()
+      model.destroy success: spy
+      server.respond()
+      expect(spy.calledOnce).to.ok()
+      expect(storage[storageKey]).to.be undefined
+

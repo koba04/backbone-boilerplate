@@ -34,6 +34,8 @@
 
       # set saveStorage in successCallback
       sync (data) ->
+        # save model and storage
+        model.set data
         model.saveStorage method, data
         successCallback data
 

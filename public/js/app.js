@@ -52,6 +52,7 @@
           }
         }
         return sync(function(data) {
+          model.set(data);
           model.saveStorage(method, data);
           return successCallback(data);
         });
