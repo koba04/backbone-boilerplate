@@ -10,7 +10,7 @@
       return unless data?
       JSON.parse data
 
-    saveStorage: (method, data) -> util.Storage.set @storageKey, JSON.stringify(data)
+    saveStorage: (data, method) -> util.Storage.set @storageKey, JSON.stringify(data)
 
     removeStorage: -> util.Storage.remove @storageKey
 

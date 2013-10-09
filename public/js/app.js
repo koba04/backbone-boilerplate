@@ -53,7 +53,7 @@
         }
         return sync(function(data) {
           model.set(data);
-          model.saveStorage(method, data);
+          model.saveStorage(data, method);
           return successCallback(data);
         });
       };
@@ -114,7 +114,7 @@
         }
         return JSON.parse(data);
       },
-      saveStorage: function(method, data) {
+      saveStorage: function(data, method) {
         return util.Storage.set(this.storageKey, JSON.stringify(data));
       },
       removeStorage: function() {
@@ -170,7 +170,7 @@
         }
         return datas;
       },
-      saveStorage: function(method, datas) {
+      saveStorage: function(datas, method) {
         var data, ids, _i, _len;
         ids = [];
         for (_i = 0, _len = datas.length; _i < _len; _i++) {

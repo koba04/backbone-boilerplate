@@ -19,7 +19,7 @@
         datas.push JSON.parse(data)
       datas
 
-    saveStorage: (method, datas) ->
+    saveStorage: (datas, method) ->
       ids = []
       for data in datas
         ids.push data.id

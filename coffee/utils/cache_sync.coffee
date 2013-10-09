@@ -36,7 +36,7 @@
       sync (data) ->
         # save model and storage
         model.set data
-        model.saveStorage method, data
+        model.saveStorage data, method
         successCallback data
 
   util.CacheSync = new CacheSync()

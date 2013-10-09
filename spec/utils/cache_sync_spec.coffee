@@ -6,7 +6,7 @@ describe "CacheSync", ->
     sync: myapp.util.CacheSync.sync
     initialize: (attrs) -> @storageKey = "savemodel:#{attrs.id}" if attrs?
     getStorage: -> storage[@storageKey] if @storageKey
-    saveStorage: (method, data) -> storage[@storageKey] = data
+    saveStorage: (data, method) -> storage[@storageKey] = data
     removeStorage: ->
       delete storage[@storageKey]
 
