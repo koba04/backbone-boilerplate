@@ -8,6 +8,7 @@
 
       # setup XHR
       $.ajaxSettings.timeout = 5000
+      $.ajaxSettings.cache = false
       $.ajaxSettings.xhr = ->
         xhr = new XMLHttpRequest()
         # set http header to xhr

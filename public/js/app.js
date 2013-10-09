@@ -372,6 +372,7 @@
       function App() {
         util.Storage.clear();
         $.ajaxSettings.timeout = 5000;
+        $.ajaxSettings.cache = false;
         $.ajaxSettings.xhr = function() {
           var xhr;
           xhr = new XMLHttpRequest();
