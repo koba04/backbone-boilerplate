@@ -281,6 +281,7 @@
     return sub.Friends = SubView.extend({
       tmpl: SubView.JST('sub/friends'),
       show: function(users) {
+        Handlebars.registerPartial('user', SubView.JST('particle/user'));
         return this.render({
           friends: users.toJSON()
         });

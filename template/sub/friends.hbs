@@ -1,8 +1,8 @@
 <div class="subcontent">
   <div>this is my friends</div>
   <ul>
-   {{#each friends}}
-     <li>{{name}}:{{age}}</li>
-   {{/each}}
+    {{#each friends}}
+      {{> user}}
+    {{/each}}
   </ul>
 </div>
