@@ -39,7 +39,7 @@
 ## test
 
 ```
-# running on PhantomJS and Chrome
+# running on PhantomJS and Chrome and Safari
 % grunt testem:run:app
 or
 # running on PhantomJS
