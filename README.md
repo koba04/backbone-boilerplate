@@ -19,14 +19,14 @@
 % bunle install
 % npm install
 % bower install
+% npm install -g easymock
 ```
 
 ## start develop
 
 ```
-% grunt
+% bundle exec foreman start
 :
-
 % open http://localhost:9000/
 ```
 
@@ -43,12 +43,4 @@
 or
 # running on PhantomJS
 % grunt testem:ci:app
-```
-
-## easymock
-
-```
-npm install -g easymock
-cd easymock
-easymock
 ```
