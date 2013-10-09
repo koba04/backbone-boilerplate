@@ -1,5 +1,5 @@
 {
   "routes": [
-    "/api/users/:id"
+    "/users/:id"
   ]
 }

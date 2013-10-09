@@ -143,7 +143,9 @@ module.exports = (grunt) ->
               require("grunt-connect-proxy/lib/utils").proxyRequest
             ]
       proxies: [
-        context: "/api"
+        context: [
+          "/users/"
+        ]
         host: if proxyHost? then proxyHost  else "localhost"
         port: if proxyHost? then 80         else 3000
         changeOrigin: true

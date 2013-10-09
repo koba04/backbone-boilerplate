@@ -2,7 +2,7 @@
   'use strict'
 
   collection.Users = collection.Base.extend
-    url:  '/api/users/'
+    url:  "/users/"
     model: model.User
     storageKey: "collection:users"
 

@@ -2,7 +2,7 @@
   'use strict'
 
   model.User = model.Base.extend
-    urlRoot: "/api/users/"
+    urlRoot: "/users/"
 
     initialize: (attrs) ->
       @storageKey = "model:user:#{attrs.id}"

@@ -129,7 +129,7 @@
   (function(model) {
     'use strict';
     return model.User = model.Base.extend({
-      urlRoot: "/api/users/",
+      urlRoot: "/users/",
       initialize: function(attrs) {
         this.storageKey = "model:user:" + attrs.id;
         return this.name = attrs.name;
@@ -206,7 +206,7 @@
   (function(model, collection) {
     'use strict';
     return collection.Users = collection.Base.extend({
-      url: '/api/users/',
+      url: "/users/",
       model: model.User,
       storageKey: "collection:users"
     });
