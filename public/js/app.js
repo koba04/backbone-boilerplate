@@ -169,9 +169,6 @@
       initialize: function(attrs) {
         this.storageKey = "model:user:" + attrs.id;
         return this.name = attrs.name;
-      },
-      say: function() {
-        return "I am " + this.name;
       }
     });
   }).call(this, myapp.model);
