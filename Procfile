@@ -1,2 +1,2 @@
 grunt: grunt
-easymock: cd easymock && easymock
+easymock: sh easymock.sh
