@@ -5,6 +5,6 @@
     tmpl: MainView.JST 'main/default'
 
     show: (user) ->
-      @render(user)
+      @render user: user.toJSON()
 
 ).call(this, myapp.view.MainView,  myapp.view.main)

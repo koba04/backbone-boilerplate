@@ -256,7 +256,9 @@
     return main.Default = MainView.extend({
       tmpl: MainView.JST('main/default'),
       show: function(user) {
-        return this.render(user);
+        return this.render({
+          user: user.toJSON()
+        });
       }
     });
   }).call(this, myapp.view.MainView, myapp.view.main);
@@ -280,7 +282,7 @@
       tmpl: SubView.JST('sub/friends'),
       show: function(users) {
         return this.render({
-          friends: users
+          friends: users.toJSON()
         });
       }
     });
@@ -332,10 +334,8 @@
         });
         return my.fetch({
           success: function() {
-            var data;
-            data = my.toJSON();
-            new view.main.Default().show(data);
-            return new view.sub.My().show(data);
+            new view.main.Default().show(my);
+            return new view.sub.My().show(my);
           }
         });
       },
@@ -345,13 +345,13 @@
         return users.fetch({
           success: function() {
             var my;
-            new view.sub.Friends().show(users.toJSON());
+            new view.sub.Friends().show(users);
             my = new model.User({
               id: 1
             });
             return my.fetch({
               success: function() {
-                return new view.main.Default().show(my.toJSON());
+                return new view.main.Default().show(my);
               }
             });
           }
