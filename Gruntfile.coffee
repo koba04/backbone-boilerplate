@@ -103,6 +103,8 @@ module.exports = (grunt) ->
       publicHTMLDevelop:
         options:
           product: false
+          jsVersion: 1
+          cssVersion: 1
         files: [
           src: "assemble/template/public_html/index.hbs"
           dest: "public/index.html"
@@ -110,6 +112,8 @@ module.exports = (grunt) ->
       publicHTMLProduct:
         options:
           product: true
+          jsVersion: 1
+          cssVersion: 1
           staticHost: staticHost
         files: [
           src: "assemble/template/public_html/index.hbs"
