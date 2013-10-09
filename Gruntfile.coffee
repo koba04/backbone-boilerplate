@@ -145,6 +145,7 @@ module.exports = (grunt) ->
       proxies: [
         context: [
           "/users/"
+          "/items/"
         ]
         host: if proxyHost? then proxyHost  else "localhost"
         port: if proxyHost? then 80         else 3000
