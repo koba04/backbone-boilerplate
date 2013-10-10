@@ -8,10 +8,7 @@
     myapp = window.myapp;
     myapp.model = {};
     myapp.collection = {};
-    myapp.view = {
-      main: {},
-      sub: {}
-    };
+    myapp.view = {};
     return myapp.util = {};
   })();
 
@@ -97,8 +94,7 @@
         return Backbone.history.start();
       },
       top: function() {
-        new v.sub.Top().render();
-        return new v.main.Top().render();
+        return new v.Top().render();
       },
       my: function() {
         var my;
@@ -107,8 +103,7 @@
         });
         return my.fetch({
           success: function() {
-            new v.main.Default().show(my);
-            return new v.sub.My().show(my);
+            return new v.My().show(my);
           }
         });
       },
@@ -117,16 +112,7 @@
         users = new c.Users();
         return users.fetch({
           success: function() {
-            var my;
-            new v.sub.Friends().show(users);
-            my = new m.User({
-              id: 1
-            });
-            return my.fetch({
-              success: function() {
-                return new v.main.Default().show(my);
-              }
-            });
+            return new v.Friends().show(users);
           }
         });
       }
@@ -371,6 +357,7 @@
     var v;
     v = this.view;
     return v.Base = Backbone.View.extend({
+      el: $('#content'),
       render: function(data) {
         return this.$el.html(this.tmpl(data));
       }
@@ -382,66 +369,11 @@
 (function() {
   (function() {
     'use strict';
-    var v;
-    v = this.view;
-    return v.MainView = v.Base.extend({
-      el: $('#mainview')
-    });
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    var v;
-    v = this.view;
-    return v.SubView = v.Base.extend({
-      el: $('#subview')
-    });
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
     var a, v;
     a = this.app;
     v = this.view;
-    return v.main.Default = v.MainView.extend({
-      tmpl: a.template.get('main/default'),
-      show: function(user) {
-        return this.render({
-          user: user.toJSON()
-        });
-      }
-    });
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    var a, v;
-    a = this.app;
-    v = this.view;
-    return v.main.Top = v.MainView.extend({
-      tmpl: a.template.get('main/top')
-    });
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    var a, v;
-    a = this.app;
-    v = this.view;
-    return v.sub.Friends = v.SubView.extend({
-      tmpl: a.template.get('sub/friends'),
+    return v.Friends = v.Base.extend({
+      tmpl: a.template.get('friends'),
       show: function(users) {
         return this.render({
           friends: users.toJSON()
@@ -458,8 +390,8 @@
     var a, v;
     a = this.app;
     v = this.view;
-    return v.sub.My = v.SubView.extend({
-      tmpl: a.template.get('sub/my'),
+    return v.My = v.Base.extend({
+      tmpl: a.template.get('my'),
       show: function(user) {
         return this.render({
           user: user.toJSON()
@@ -476,8 +408,8 @@
     var a, v;
     a = this.app;
     v = this.view;
-    return v.sub.Top = v.SubView.extend({
-      tmpl: a.template.get('sub/top')
+    return v.Top = v.Base.extend({
+      tmpl: a.template.get('top')
     });
   }).call(myapp);
 

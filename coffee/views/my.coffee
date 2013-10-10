@@ -4,10 +4,9 @@
   a = @app
   v = @view
 
-  v.main.Default = v.MainView.extend
-    tmpl: a.template.get 'main/default'
+  v.My = v.Base.extend
+    tmpl: a.template.get 'my'
 
     show: (user) ->
       @render user: user.toJSON()
-
 ).call myapp
