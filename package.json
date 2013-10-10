@@ -4,7 +4,7 @@
   "description": "sample project of backbone + handlebars",
   "main": "public/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt testem:ci:app"
   },
   "author": "koba04",
   "devDependencies": {
