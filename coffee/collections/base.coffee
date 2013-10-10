@@ -3,7 +3,7 @@
 
   collection.Base = Backbone.Collection.extend
     storage: null
-    sync: util.CacheSync.sync
+    sync: myapp.app.sync
     model: model.Base
     createStorage: (key) -> @storage = new Storage key, @model
 

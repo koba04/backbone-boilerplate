@@ -1,4 +1,4 @@
-describe "model.Base", ->
+describe("model.Base", ->
 
   User = myapp.model.Base.extend
     urlRoot: "/users/"
@@ -40,3 +40,4 @@ describe "model.Base", ->
       user.storage.remove()
       expect(user.storage.get()).to.be.eql undefined
 
+)

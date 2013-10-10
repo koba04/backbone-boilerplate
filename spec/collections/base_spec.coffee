@@ -2,13 +2,13 @@ describe("collection.Base", ->
 
   User = myapp.model.Base.extend
     urlRoot: "/users/"
-    sync: myapp.util.CacheSync.sync
+    sync: myapp.app.sync
     initialize: (attrs) ->
       @createStorage "model:user:#{attrs.id}"
 
   Users = myapp.collection.Base.extend
     url: "/users/"
-    sync: myapp.util.CacheSync.sync
+    sync: myapp.app.sync
     model: User
     initialize: (attrs) ->
       @createStorage "collection:users"
@@ -54,8 +54,9 @@ describe("collection.Base", ->
       ]
       users.storage.set datas
       expect(users.storage.get()).to.be.eql datas
-#      user1 = new User id: 1
-#      expect(user1.storage.get()).to.be.eql id:1, name:"jim", age: 21
-#      user2 = new User id: 2
-#      expect(user2.storage.get()).to.be.eql id:2, name:"bob", age: 18
+      user1 = new User id: 1
+      expect(user1.storage.get()).to.be.eql id:1, name:"jim", age: 21
+      user2 = new User id: 2
+      expect(user2.storage.get()).to.be.eql id:2, name:"bob", age: 18
+
 )
