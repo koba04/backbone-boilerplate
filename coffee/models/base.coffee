@@ -1,24 +1,28 @@
-( (model, util) ->
+( ->
   'use strict'
 
-  model.Base = Backbone.Model.extend
-    storage: null
-    sync: myapp.app.sync
+  a = @app
+  m = @model
+  Storage = @util.Storage
 
-    createStorage: (key) -> @storage = new Storage key
+  m.Base = Backbone.Model.extend
+    storage: null
+    sync: a.sync
+
+    createStorage: (key) -> @storage = new ModelStorage key
 
   # for API cache
-  class Storage
+  class ModelStorage
     constructor: (@key) ->
 
     get: ->
-      data = util.Storage.get @key
+      data = Storage.get @key
       return unless data?
       JSON.parse data
 
     set: (data, method) ->
-      util.Storage.set @key, JSON.stringify(data)
+      Storage.set @key, JSON.stringify(data)
 
-    remove: -> util.Storage.remove @key
+    remove: -> Storage.remove @key
 
-).call(this, myapp.model, myapp.util)
+).call myapp

@@ -1,5 +1,8 @@
-do ->
+( ->
   'use strict'
+
+  myapp = @
+  Storage = @util.Storage
 
   class App
     constructor: ->
@@ -11,13 +14,13 @@ do ->
       $.ajaxSettings.timeout = 5000
       $.ajaxSettings.cache = false
       $.ajaxSettings.xhr = ->
-        xhr = new XMLHttpRequest()
+        xhr = new XMLHttpRequest
         # set http header to xhr
         xhr
 
     start: ->
       # clean up storage
-      myapp.util.Storage.clear()
+      Storage.clear()
       @setupAjax()
       @router.start()
 
@@ -60,3 +63,4 @@ do ->
 
   myapp.app = new App()
 
+).call myapp

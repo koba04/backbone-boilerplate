@@ -22,7 +22,7 @@
     'use strict';
     var storage;
     storage = sessionStorage;
-    return myapp.util.Storage = {
+    return this.util.Storage = {
       get: function(key) {
         return storage.getItem(key);
       },
@@ -36,14 +36,16 @@
         return storage.clear();
       }
     };
-  })();
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
   (function() {
     'use strict';
-    return myapp.Template = (function() {
+    var JST, Template;
+    JST = this.JST;
+    Template = (function() {
       function Template() {
         var fn, name, particle, _i, _len, _ref, _ref1;
         _ref = this.helper;
@@ -54,12 +56,12 @@
         _ref1 = this.particles;
         for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
           particle = _ref1[_i];
-          Handlebars.registerPartial(particle, myapp.JST["particle/" + particle]);
+          Handlebars.registerPartial(particle, JST["particle/" + particle]);
         }
       }
 
       Template.prototype.get = function(name) {
-        return myapp.JST[name];
+        return JST[name];
       };
 
       Template.prototype.helper = {
@@ -73,14 +75,19 @@
       return Template;
 
     })();
-  })();
+    return this.Template = Template;
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(model, view, collection) {
+  (function(Backbone) {
     'use strict';
-    return myapp.Router = Backbone.Router.extend({
+    var c, m, v;
+    v = this.view;
+    m = this.model;
+    c = this.collection;
+    return this.Router = Backbone.Router.extend({
       routes: {
         "": "top",
         "my/": "my",
@@ -90,48 +97,50 @@
         return Backbone.history.start();
       },
       top: function() {
-        new view.sub.Top().render();
-        return new view.main.Top().render();
+        new v.sub.Top().render();
+        return new v.main.Top().render();
       },
       my: function() {
         var my;
-        my = new model.User({
+        my = new m.User({
           id: 1
         });
         return my.fetch({
           success: function() {
-            new view.main.Default().show(my);
-            return new view.sub.My().show(my);
+            new v.main.Default().show(my);
+            return new v.sub.My().show(my);
           }
         });
       },
       friends: function() {
         var users;
-        users = new collection.Users();
+        users = new c.Users();
         return users.fetch({
           success: function() {
             var my;
-            new view.sub.Friends().show(users);
-            my = new model.User({
+            new v.sub.Friends().show(users);
+            my = new m.User({
               id: 1
             });
             return my.fetch({
               success: function() {
-                return new view.main.Default().show(my);
+                return new v.main.Default().show(my);
               }
             });
           }
         });
       }
     });
-  }).call(this, myapp.model, myapp.view, myapp.collection);
+  }).call(myapp, Backbone);
 
 }).call(this);
 
 (function() {
   (function() {
     'use strict';
-    var App;
+    var App, Storage, myapp;
+    myapp = this;
+    Storage = this.util.Storage;
     App = (function() {
       function App() {
         this.template = new myapp.Template();
@@ -143,13 +152,13 @@
         $.ajaxSettings.cache = false;
         return $.ajaxSettings.xhr = function() {
           var xhr;
-          xhr = new XMLHttpRequest();
+          xhr = new XMLHttpRequest;
           return xhr;
         };
       };
 
       App.prototype.start = function() {
-        myapp.util.Storage.clear();
+        Storage.clear();
         this.setupAjax();
         return this.router.start();
       };
@@ -192,85 +201,95 @@
 
     })();
     return myapp.app = new App();
-  })();
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(model, util) {
+  (function() {
     'use strict';
-    var Storage;
-    model.Base = Backbone.Model.extend({
+    var ModelStorage, Storage, a, m;
+    a = this.app;
+    m = this.model;
+    Storage = this.util.Storage;
+    m.Base = Backbone.Model.extend({
       storage: null,
-      sync: myapp.app.sync,
+      sync: a.sync,
       createStorage: function(key) {
-        return this.storage = new Storage(key);
+        return this.storage = new ModelStorage(key);
       }
     });
-    return Storage = (function() {
-      function Storage(key) {
+    return ModelStorage = (function() {
+      function ModelStorage(key) {
         this.key = key;
       }
 
-      Storage.prototype.get = function() {
+      ModelStorage.prototype.get = function() {
         var data;
-        data = util.Storage.get(this.key);
+        data = Storage.get(this.key);
         if (data == null) {
           return;
         }
         return JSON.parse(data);
       };
 
-      Storage.prototype.set = function(data, method) {
-        return util.Storage.set(this.key, JSON.stringify(data));
+      ModelStorage.prototype.set = function(data, method) {
+        return Storage.set(this.key, JSON.stringify(data));
       };
 
-      Storage.prototype.remove = function() {
-        return util.Storage.remove(this.key);
+      ModelStorage.prototype.remove = function() {
+        return Storage.remove(this.key);
       };
 
-      return Storage;
+      return ModelStorage;
 
     })();
-  }).call(this, myapp.model, myapp.util);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(model) {
+  (function() {
     'use strict';
-    return model.User = model.Base.extend({
+    var m;
+    m = this.model;
+    return m.User = m.Base.extend({
       urlRoot: "/users/",
       initialize: function(attrs) {
         this.createStorage("model:user:" + attrs.id);
         return this.name = attrs.name;
       }
     });
-  }).call(this, myapp.model);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(model, collection, util) {
+  (function() {
     'use strict';
-    var Storage;
-    collection.Base = Backbone.Collection.extend({
+    var CollectionStorage, Storage, a, c, m, v;
+    a = this.app;
+    m = this.model;
+    c = this.collection;
+    v = this.view;
+    Storage = this.util.Storage;
+    c.Base = Backbone.Collection.extend({
       storage: null,
-      sync: myapp.app.sync,
-      model: model.Base,
+      sync: a.sync,
+      model: m.Base,
       createStorage: function(key) {
-        return this.storage = new Storage(key, this.model);
+        return this.storage = new CollectionStorage(key, this.model);
       }
     });
-    return Storage = (function() {
-      function Storage(key, model) {
+    return CollectionStorage = (function() {
+      function CollectionStorage(key, model) {
         this.key = key;
         this.model = model;
       }
 
-      Storage.prototype.get = function() {
-        var data, datas, id, ids, _i, _len;
-        ids = util.Storage.get(this.key);
+      CollectionStorage.prototype.get = function() {
+        var data, datas, id, ids, model, _i, _len;
+        ids = Storage.get(this.key);
         if (ids == null) {
           return;
         }
@@ -290,8 +309,8 @@
         return datas;
       };
 
-      Storage.prototype.set = function(datas, method) {
-        var data, ids, _i, _len;
+      CollectionStorage.prototype.set = function(datas, method) {
+        var data, ids, model, _i, _len;
         ids = [];
         for (_i = 0, _len = datas.length; _i < _len; _i++) {
           data = datas[_i];
@@ -301,13 +320,13 @@
           });
           model.storage.set(data, method);
         }
-        return util.Storage.set(this.key, JSON.stringify(ids));
+        return Storage.set(this.key, JSON.stringify(ids));
       };
 
-      Storage.prototype.remove = function() {
-        var id, ids, _i, _len, _results;
-        ids = util.Storage.get(this.key);
-        util.Storage.remove(this.key);
+      CollectionStorage.prototype.remove = function() {
+        var id, ids, model, _i, _len, _results;
+        ids = Storage.get(this.key);
+        Storage.remove(this.key);
         _results = [];
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
@@ -319,121 +338,145 @@
         return _results;
       };
 
-      return Storage;
+      return CollectionStorage;
 
     })();
-  }).call(this, myapp.model, myapp.collection, myapp.util);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(model, collection) {
+  (function() {
     'use strict';
-    return collection.Users = collection.Base.extend({
+    var c, m;
+    m = this.model;
+    c = this.collection;
+    return c.Users = c.Base.extend({
       url: "/users/",
-      model: model.User,
+      model: m.User,
       initialize: function(attrs) {
         return this.createStorage("collection:users", this.model);
       }
     });
-  }).call(this, myapp.model, myapp.collection);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(view) {
+  (function() {
     'use strict';
-    return view.Base = Backbone.View.extend({
+    var v;
+    v = this.view;
+    return v.Base = Backbone.View.extend({
       render: function(data) {
         return this.$el.html(this.tmpl(data));
       }
     });
-  }).call(this, myapp.view);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(view) {
+  (function() {
     'use strict';
-    return view.MainView = view.Base.extend({
+    var v;
+    v = this.view;
+    return v.MainView = v.Base.extend({
       el: $('#mainview')
     });
-  }).call(this, myapp.view);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(view) {
+  (function() {
     'use strict';
-    return view.SubView = view.Base.extend({
+    var v;
+    v = this.view;
+    return v.SubView = v.Base.extend({
       el: $('#subview')
     });
-  }).call(this, myapp.view);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(MainView, main, app) {
+  (function() {
     'use strict';
-    return main.Default = MainView.extend({
-      tmpl: app.template.get('main/default'),
+    var a, v;
+    a = this.app;
+    v = this.view;
+    return v.main.Default = v.MainView.extend({
+      tmpl: a.template.get('main/default'),
       show: function(user) {
         return this.render({
           user: user.toJSON()
         });
       }
     });
-  }).call(this, myapp.view.MainView, myapp.view.main, myapp.app);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(MainView, main, app) {
+  (function() {
     'use strict';
-    return main.Top = MainView.extend({
-      tmpl: app.template.get('main/top')
+    var a, v;
+    a = this.app;
+    v = this.view;
+    return v.main.Top = v.MainView.extend({
+      tmpl: a.template.get('main/top')
     });
-  }).call(this, myapp.view.MainView, myapp.view.main, myapp.app);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(SubView, sub, app) {
+  (function() {
     'use strict';
-    return sub.Friends = SubView.extend({
-      tmpl: app.template.get('sub/friends'),
+    var a, v;
+    a = this.app;
+    v = this.view;
+    return v.sub.Friends = v.SubView.extend({
+      tmpl: a.template.get('sub/friends'),
       show: function(users) {
         return this.render({
           friends: users.toJSON()
         });
       }
     });
-  }).call(this, myapp.view.SubView, myapp.view.sub, myapp.app);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(SubView, sub, app) {
+  (function() {
     'use strict';
-    return sub.My = SubView.extend({
-      tmpl: app.template.get('sub/my'),
+    var a, v;
+    a = this.app;
+    v = this.view;
+    return v.sub.My = v.SubView.extend({
+      tmpl: a.template.get('sub/my'),
       show: function(user) {
         return this.render({
           user: user.toJSON()
         });
       }
     });
-  }).call(this, myapp.view.SubView, myapp.view.sub, myapp.app);
+  }).call(myapp);
 
 }).call(this);
 
 (function() {
-  (function(SubView, sub, app) {
+  (function() {
     'use strict';
-    return sub.Top = SubView.extend({
-      tmpl: app.template.get('sub/top')
+    var a, v;
+    a = this.app;
+    v = this.view;
+    return v.sub.Top = v.SubView.extend({
+      tmpl: a.template.get('sub/top')
     });
-  }).call(this, myapp.view.SubView, myapp.view.sub, myapp.app);
+  }).call(myapp);
 
 }).call(this);
 

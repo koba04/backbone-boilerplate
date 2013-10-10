@@ -1,7 +1,9 @@
-( (view) ->
+( ->
   'use strict'
 
-  view.SubView = view.Base.extend
+  v = @view
+
+  v.SubView = v.Base.extend
     el: $('#subview')
 
-).call(this, myapp.view)
+).call myapp

@@ -1,7 +1,10 @@
-( (MainView, main, app) ->
+( ->
   'use strict'
 
-  main.Top = MainView.extend
-    tmpl: app.template.get 'main/top'
+  a = @app
+  v = @view
 
-).call(this, myapp.view.MainView,  myapp.view.main, myapp.app)
+  v.main.Top = v.MainView.extend
+    tmpl: a.template.get 'main/top'
+
+).call myapp

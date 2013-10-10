@@ -1,10 +1,13 @@
-( (model, collection) ->
+( ->
   'use strict'
 
-  collection.Users = collection.Base.extend
-    url:  "/users/"
-    model: model.User
-    initialize: (attrs) ->
-      @createStorage "collection:users", @model 
+  m = @model
+  c = @collection
 
-).call(this, myapp.model, myapp.collection)
+  c.Users = c.Base.extend
+    url:  "/users/"
+    model: m.User
+    initialize: (attrs) ->
+      @createStorage "collection:users", @model
+
+).call myapp

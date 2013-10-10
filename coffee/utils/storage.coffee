@@ -1,8 +1,8 @@
-do ->
+( ->
   'use strict'
 
   storage = sessionStorage
-  myapp.util.Storage =
+  @util.Storage =
     get: (key) -> storage.getItem key
 
     set: (key, data) -> storage.setItem key, data
@@ -11,3 +11,4 @@ do ->
 
     clear: -> storage.clear()
 
+).call myapp

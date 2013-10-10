@@ -1,17 +1,19 @@
-do ->
+( ->
   'use strict'
 
-  class myapp.Template
+  JST = @JST
+
+  class Template
     constructor: ->
       # registerHelper
       for name, fn of @helper
         Handlebars.registerHelper name, fn
       # registerParticle
       for particle in @particles
-        Handlebars.registerPartial particle, myapp.JST["particle/#{particle}"]
+        Handlebars.registerPartial particle, JST["particle/#{particle}"]
 
     get: (name) ->
-      myapp.JST[name]
+      JST[name]
 
     helper:
       upperCase: (str) -> str.toUpperCase()
@@ -20,3 +22,6 @@ do ->
       'user'
     ]
 
+  @Template = Template
+
+).call myapp

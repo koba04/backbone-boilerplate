@@ -1,9 +1,12 @@
-( (SubView, sub, app) ->
+( ->
   'use strict'
 
-  sub.My = SubView.extend
-    tmpl: app.template.get 'sub/my'
+  a = @app
+  v = @view
+
+  v.sub.My = v.SubView.extend
+    tmpl: a.template.get 'sub/my'
 
     show: (user) ->
       @render user: user.toJSON()
-).call(this, myapp.view.SubView,  myapp.view.sub, myapp.app)
+).call myapp

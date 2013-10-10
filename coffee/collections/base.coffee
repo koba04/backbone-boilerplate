@@ -1,18 +1,24 @@
-( (model, collection, util) ->
+( ->
   'use strict'
 
-  collection.Base = Backbone.Collection.extend
+  a = @app
+  m = @model
+  c = @collection
+  v = @view
+  Storage = @util.Storage
+
+  c.Base = Backbone.Collection.extend
     storage: null
-    sync: myapp.app.sync
-    model: model.Base
-    createStorage: (key) -> @storage = new Storage key, @model
+    sync: a.sync
+    model: m.Base
+    createStorage: (key) -> @storage = new CollectionStorage key, @model
 
   # for API cache
-  class Storage
+  class CollectionStorage
     constructor: (@key, @model) ->
 
     get: ->
-      ids = util.Storage.get @key
+      ids = Storage.get @key
       return unless ids?
 
       datas = []
@@ -32,14 +38,14 @@
         model = new @model id: data.id
         model.storage.set data, method
       # save to collection
-      util.Storage.set @key, JSON.stringify(ids)
+      Storage.set @key, JSON.stringify(ids)
 
     remove: ->
-      ids = util.Storage.get @key
-      util.Storage.remove @key
+      ids = Storage.get @key
+      Storage.remove @key
       for id in ids
         # remove from model
         model = new @model id: id
         model.storage.remove()
 
-).call(this, myapp.model, myapp.collection, myapp.util)
+).call myapp
