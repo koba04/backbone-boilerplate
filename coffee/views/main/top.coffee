@@ -1,7 +1,7 @@
-( (MainView, main) ->
+( (MainView, main, app) ->
   'use strict'
 
   main.Top = MainView.extend
-    tmpl: MainView.JST 'main/top'
+    tmpl: app.template.get 'main/top'
 
-).call(this, myapp.view.MainView,  myapp.view.main)
+).call(this, myapp.view.MainView,  myapp.view.main, myapp.app)

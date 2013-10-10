@@ -1,8 +1,7 @@
-( (SubView, sub) ->
+( (SubView, sub, app) ->
   'use strict'
 
   sub.Top = SubView.extend
-    tmpl: SubView.JST 'sub/top'
+    tmpl: app.template.get 'sub/top'
 
-
-).call(this, myapp.view.SubView,  myapp.view.sub)
+).call(this, myapp.view.SubView,  myapp.view.sub, myapp.app)

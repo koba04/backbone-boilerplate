@@ -1,12 +1,10 @@
-( (util, JST) ->
+( (util) ->
   'use strict'
 
   class App
     constructor: ->
-      # clean up storage
-      util.Storage.clear()
-      @setupAjax()
-      @setupTemplate()
+      @template = new myapp.Template()
+      @router = new myapp.Router()
 
     setupAjax: ->
       # setup XHR
@@ -17,14 +15,12 @@
         # set http header to xhr
         xhr
 
-    setupTemplate: ->
+    start: ->
+      # clean up storage
+      util.Storage.clear()
+      @setupAjax()
+      @router.start()
 
-      # helper
-      Handlebars.registerHelper 'upperCase', (str) -> str.toUpperCase()
+  myapp.app = new App()
 
-      # particle
-      Handlebars.registerPartial 'user', JST['particle/user']
-
-  myapp.App = new App()
-
-).call(this,  myapp.util, myapp.JST)
+).call(this,  myapp.util)

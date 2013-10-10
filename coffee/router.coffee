@@ -1,12 +1,14 @@
 ( (model, view, collection) ->
 
   'use strict'
-  Router = Backbone.Router.extend
+  myapp.Router = Backbone.Router.extend
 
     routes:
       "":         "top"
       "my/":      "my"
       "friends/": "friends"
+
+    start: -> Backbone.history.start()
 
     top: ->
       new view.sub.Top().render()
@@ -25,8 +27,5 @@
         my = new model.User id: 1
         my.fetch success: ->
           new view.main.Default().show my
-
-  myapp.Router = new Router()
-  Backbone.history.start()
 
 ).call(this, myapp.model, myapp.view, myapp.collection)

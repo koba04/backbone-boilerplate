@@ -88,14 +88,101 @@
 }).call(this);
 
 (function() {
-  (function(util, JST) {
+  (function() {
+    'use strict';
+    return myapp.Template = (function() {
+      function Template() {
+        var fn, name, particle, _i, _len, _ref, _ref1;
+        _ref = this.helper;
+        for (name in _ref) {
+          fn = _ref[name];
+          Handlebars.registerHelper(name, fn);
+        }
+        _ref1 = this.particles;
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          particle = _ref1[_i];
+          Handlebars.registerPartial(particle, myapp.JST["particle/" + particle]);
+        }
+      }
+
+      Template.prototype.get = function(name) {
+        return myapp.JST[name];
+      };
+
+      Template.prototype.helper = {
+        upperCase: function(str) {
+          return str.toUpperCase();
+        }
+      };
+
+      Template.prototype.particles = ['user'];
+
+      return Template;
+
+    })();
+  })();
+
+}).call(this);
+
+(function() {
+  (function(model, view, collection) {
+    'use strict';
+    return myapp.Router = Backbone.Router.extend({
+      routes: {
+        "": "top",
+        "my/": "my",
+        "friends/": "friends"
+      },
+      start: function() {
+        return Backbone.history.start();
+      },
+      top: function() {
+        new view.sub.Top().render();
+        return new view.main.Top().render();
+      },
+      my: function() {
+        var my;
+        my = new model.User({
+          id: 1
+        });
+        return my.fetch({
+          success: function() {
+            new view.main.Default().show(my);
+            return new view.sub.My().show(my);
+          }
+        });
+      },
+      friends: function() {
+        var users;
+        users = new collection.Users();
+        return users.fetch({
+          success: function() {
+            var my;
+            new view.sub.Friends().show(users);
+            my = new model.User({
+              id: 1
+            });
+            return my.fetch({
+              success: function() {
+                return new view.main.Default().show(my);
+              }
+            });
+          }
+        });
+      }
+    });
+  }).call(this, myapp.model, myapp.view, myapp.collection);
+
+}).call(this);
+
+(function() {
+  (function(util) {
     'use strict';
     var App;
     App = (function() {
       function App() {
-        util.Storage.clear();
-        this.setupAjax();
-        this.setupTemplate();
+        this.template = new myapp.Template();
+        this.router = new myapp.Router();
       }
 
       App.prototype.setupAjax = function() {
@@ -108,18 +195,17 @@
         };
       };
 
-      App.prototype.setupTemplate = function() {
-        Handlebars.registerHelper('upperCase', function(str) {
-          return str.toUpperCase();
-        });
-        return Handlebars.registerPartial('user', JST['particle/user']);
+      App.prototype.start = function() {
+        util.Storage.clear();
+        this.setupAjax();
+        return this.router.start();
       };
 
       return App;
 
     })();
-    return myapp.App = new App();
-  }).call(this, myapp.util, myapp.JST);
+    return myapp.app = new App();
+  }).call(this, myapp.util);
 
 }).call(this);
 
@@ -268,18 +354,14 @@
 }).call(this);
 
 (function() {
-  (function(view, JST) {
+  (function(view) {
     'use strict';
     return view.Base = Backbone.View.extend({
       render: function(data) {
         return this.$el.html(this.tmpl(data));
       }
-    }, {
-      JST: function(template) {
-        return JST[template];
-      }
     });
-  }).call(this, myapp.view, myapp.JST);
+  }).call(this, myapp.view);
 
 }).call(this);
 
@@ -304,117 +386,74 @@
 }).call(this);
 
 (function() {
-  (function(MainView, main) {
+  (function(MainView, main, app) {
     'use strict';
     return main.Default = MainView.extend({
-      tmpl: MainView.JST('main/default'),
+      tmpl: app.template.get('main/default'),
       show: function(user) {
         return this.render({
           user: user.toJSON()
         });
       }
     });
-  }).call(this, myapp.view.MainView, myapp.view.main);
+  }).call(this, myapp.view.MainView, myapp.view.main, myapp.app);
 
 }).call(this);
 
 (function() {
-  (function(MainView, main) {
+  (function(MainView, main, app) {
     'use strict';
     return main.Top = MainView.extend({
-      tmpl: MainView.JST('main/top')
+      tmpl: app.template.get('main/top')
     });
-  }).call(this, myapp.view.MainView, myapp.view.main);
+  }).call(this, myapp.view.MainView, myapp.view.main, myapp.app);
 
 }).call(this);
 
 (function() {
-  (function(SubView, sub) {
+  (function(SubView, sub, app) {
     'use strict';
     return sub.Friends = SubView.extend({
-      tmpl: SubView.JST('sub/friends'),
+      tmpl: app.template.get('sub/friends'),
       show: function(users) {
         return this.render({
           friends: users.toJSON()
         });
       }
     });
-  }).call(this, myapp.view.SubView, myapp.view.sub);
+  }).call(this, myapp.view.SubView, myapp.view.sub, myapp.app);
 
 }).call(this);
 
 (function() {
-  (function(SubView, sub) {
+  (function(SubView, sub, app) {
     'use strict';
     return sub.My = SubView.extend({
-      tmpl: SubView.JST('sub/my'),
+      tmpl: app.template.get('sub/my'),
       show: function(user) {
         return this.render({
           user: user.toJSON()
         });
       }
     });
-  }).call(this, myapp.view.SubView, myapp.view.sub);
+  }).call(this, myapp.view.SubView, myapp.view.sub, myapp.app);
 
 }).call(this);
 
 (function() {
-  (function(SubView, sub) {
+  (function(SubView, sub, app) {
     'use strict';
     return sub.Top = SubView.extend({
-      tmpl: SubView.JST('sub/top')
+      tmpl: app.template.get('sub/top')
     });
-  }).call(this, myapp.view.SubView, myapp.view.sub);
+  }).call(this, myapp.view.SubView, myapp.view.sub, myapp.app);
 
 }).call(this);
 
 (function() {
-  (function(model, view, collection) {
+  (function() {
     'use strict';
-    var Router;
-    Router = Backbone.Router.extend({
-      routes: {
-        "": "top",
-        "my/": "my",
-        "friends/": "friends"
-      },
-      top: function() {
-        new view.sub.Top().render();
-        return new view.main.Top().render();
-      },
-      my: function() {
-        var my;
-        my = new model.User({
-          id: 1
-        });
-        return my.fetch({
-          success: function() {
-            new view.main.Default().show(my);
-            return new view.sub.My().show(my);
-          }
-        });
-      },
-      friends: function() {
-        var users;
-        users = new collection.Users();
-        return users.fetch({
-          success: function() {
-            var my;
-            new view.sub.Friends().show(users);
-            my = new model.User({
-              id: 1
-            });
-            return my.fetch({
-              success: function() {
-                return new view.main.Default().show(my);
-              }
-            });
-          }
-        });
-      }
-    });
-    myapp.Router = new Router();
-    return Backbone.history.start();
-  }).call(this, myapp.model, myapp.view, myapp.collection);
+    return myapp.app.start();
+  })();
 
 }).call(this);

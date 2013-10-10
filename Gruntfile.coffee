@@ -15,13 +15,15 @@ module.exports = (grunt) ->
           "public/js/app.js": [
             "coffee/namespace.coffee"
             "coffee/utils/**/*.coffee"
+            "coffee/template.coffee"
+            "coffee/router.coffee"
             "coffee/app.coffee"
             "coffee/models/*.coffee"
             "coffee/collections/*.coffee"
             "coffee/views/base.coffee"
             "coffee/views/*.coffee"
             "coffee/views/**/*.coffee"
-            "coffee/router.coffee"
+            "coffee/init.coffee"
           ]
 
     handlebars:

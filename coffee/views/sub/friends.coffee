@@ -1,10 +1,10 @@
-( (SubView, sub) ->
+( (SubView, sub, app) ->
   'use strict'
 
   sub.Friends = SubView.extend
-    tmpl: SubView.JST 'sub/friends'
+    tmpl: app.template.get 'sub/friends'
 
     show: (users) ->
       @render friends: users.toJSON()
 
-).call(this, myapp.view.SubView,  myapp.view.sub)
+).call(this, myapp.view.SubView,  myapp.view.sub, myapp.app)
