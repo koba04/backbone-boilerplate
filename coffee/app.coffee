@@ -28,6 +28,10 @@
     # 2. define storage to model or collection
     # 3. storage need implement get save remove method
     sync: (method, model, options) ->
+
+      # throw Error if called like app.sync()
+      throw new Error "sync method is for override model or collection's sync()" if @ instanceof App
+
       # define error callback
       options.error = ->
         window.location = "#/error/"

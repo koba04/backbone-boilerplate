@@ -1,5 +1,7 @@
 describe("App", ->
 
+  app = myapp.app
+
   describe "sync", ->
     storageData = {}
     # Dummy Class
@@ -11,7 +13,7 @@ describe("App", ->
 
     SaveModel = Backbone.Model.extend
       urlRoot: "/test/"
-      sync: myapp.app.sync
+      sync: app.sync
       initialize: (attrs) ->
         @storage = new Storage "savemodel:#{attrs.id}" if attrs?
 
@@ -126,4 +128,11 @@ describe("App", ->
         server.respond()
         expect(spy.calledOnce).to.ok()
         expect(storageData["savemodel:1"]).to.be null
+
+    describe "app.sync()", ->
+      it "throw exception", ->
+        fn = ->
+          app.sync()
+        expect(fn).to.throwError /^sync method/
+
 )

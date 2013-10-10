@@ -165,6 +165,9 @@
 
       App.prototype.sync = function(method, model, options) {
         var cache, successCallback, sync;
+        if (this instanceof App) {
+          throw new Error("sync method is for override model or collection's sync()");
+        }
         options.error = function() {
           return window.location = "#/error/";
         };
