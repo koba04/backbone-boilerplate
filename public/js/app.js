@@ -20,11 +20,10 @@
 (function() {
   (function(util) {
     'use strict';
-    var CacheSync;
-    CacheSync = (function() {
+    return util.CacheSync = (function() {
       function CacheSync() {}
 
-      CacheSync.prototype.sync = function(method, model, options) {
+      CacheSync.sync = function(method, model, options) {
         var cache, successCallback, sync;
         options.error = function() {
           return window.location = "#/error/";
@@ -61,7 +60,6 @@
       return CacheSync;
 
     })();
-    return util.CacheSync = new CacheSync();
   }).call(this, myapp.util);
 
 }).call(this);

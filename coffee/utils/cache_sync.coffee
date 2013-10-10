@@ -4,8 +4,8 @@
   # 1. Override sync method on Backbone.Model or Backbone.Collection (or SubClass)
   # 2. define storageKey value. ex. "model:user:#{@id}", "collection:users"
   # 3. implement getStorage(), saveStorage(method, data), removeStorage()
-  class CacheSync
-    sync: (method, model, options) ->
+  class util.CacheSync
+    @sync: (method, model, options) ->
       # define error callback
       options.error = ->
         window.location = "#/error/"
@@ -38,7 +38,5 @@
         model.set data
         model.saveStorage data, method
         successCallback data
-
-  util.CacheSync = new CacheSync()
 
 ).call(this, myapp.util)
