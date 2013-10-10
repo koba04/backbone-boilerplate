@@ -7,16 +7,16 @@
     model: model.Base
     createStorage: (key) -> @storage = new Storage key, @model
 
+  # for API cache
   class Storage
     constructor: (@key, @model) ->
 
     get: ->
       ids = util.Storage.get @key
       return unless ids?
-      ids = JSON.parse ids
 
       datas = []
-      console.log @model
+      ids = JSON.parse ids
       for id in ids
         model = new @model id: id
         data = model.storage.get()

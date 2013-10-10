@@ -201,9 +201,8 @@
         if (ids == null) {
           return;
         }
-        ids = JSON.parse(ids);
         datas = [];
-        console.log(this.model);
+        ids = JSON.parse(ids);
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
           model = new this.model({

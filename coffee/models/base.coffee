@@ -7,6 +7,7 @@
 
     createStorage: (key) -> @storage = new Storage key
 
+  # for API cache
   class Storage
     constructor: (@key) ->
 
