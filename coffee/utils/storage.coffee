@@ -1,17 +1,13 @@
 do ->
   'use strict'
 
-  global = @
+  storage = sessionStorage
+  myapp.util.Storage =
+    get: (key) -> storage.getItem key
 
-  class Storage
-    constructor: -> @storage = sessionStorage
+    set: (key, data) -> storage.setItem key, data
 
-    get: (key) -> @storage.getItem key
+    remove: (key) -> storage.removeItem key
 
-    set: (key, data) -> @storage.setItem key, data
+    clear: -> storage.clear()
 
-    remove: (key) -> @storage.removeItem key
-
-    clear: -> @storage.clear()
-
-  myapp.util.Storage = new Storage()

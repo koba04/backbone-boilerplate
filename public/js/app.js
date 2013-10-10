@@ -67,33 +67,22 @@
 (function() {
   (function() {
     'use strict';
-    var Storage, global;
-    global = this;
-    Storage = (function() {
-      function Storage() {
-        this.storage = sessionStorage;
+    var storage;
+    storage = sessionStorage;
+    return myapp.util.Storage = {
+      get: function(key) {
+        return storage.getItem(key);
+      },
+      set: function(key, data) {
+        return storage.setItem(key, data);
+      },
+      remove: function(key) {
+        return storage.removeItem(key);
+      },
+      clear: function() {
+        return storage.clear();
       }
-
-      Storage.prototype.get = function(key) {
-        return this.storage.getItem(key);
-      };
-
-      Storage.prototype.set = function(key, data) {
-        return this.storage.setItem(key, data);
-      };
-
-      Storage.prototype.remove = function(key) {
-        return this.storage.removeItem(key);
-      };
-
-      Storage.prototype.clear = function() {
-        return this.storage.clear();
-      };
-
-      return Storage;
-
-    })();
-    return myapp.util.Storage = new Storage();
+    };
   })();
 
 }).call(this);
