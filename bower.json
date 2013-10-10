@@ -16,7 +16,6 @@
     "backbone": "~1.0.0",
     "lodash": "~2.2.0",
     "handlebars": "~1.0.0",
-    "jsdeferred": "git@github.com:cho45/jsdeferred.git",
     "expect": "~0.2.0",
     "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js"
   }
