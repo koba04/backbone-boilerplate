@@ -5,7 +5,7 @@
     urlRoot: "/users/"
 
     initialize: (attrs) ->
-      @storageKey = "model:user:#{attrs.id}"
+      @createStorage "model:user:#{attrs.id}"
       @name = attrs.name
 
 ).call(this, myapp.model)

@@ -2,16 +2,22 @@
   'use strict'
 
   model.Base = Backbone.Model.extend
-    storageKey: null
+    storage: null
     sync: util.CacheSync.sync
 
-    getStorage: ->
-      data = util.Storage.get @storageKey
+    createStorage: (key) -> @storage = new Storage key
+
+  class Storage
+    constructor: (@key) ->
+
+    get: ->
+      data = util.Storage.get @key
       return unless data?
       JSON.parse data
 
-    saveStorage: (data, method) -> util.Storage.set @storageKey, JSON.stringify(data)
+    set: (data, method) ->
+      util.Storage.set @key, JSON.stringify(data)
 
-    removeStorage: -> util.Storage.remove @storageKey
+    remove: -> util.Storage.remove @key
 
 ).call(this, myapp.model, myapp.util)

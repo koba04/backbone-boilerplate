@@ -1,14 +1,17 @@
-describe "CacheSync", ->
-  storage = {}
+describe("CacheSync", ->
+  storageData = {}
   # Dummy Class
+  class Storage
+    constructor: (@key) ->
+    get: -> storageData[@key]
+    set: (data, method) -> storageData[@key] = data
+    remove: -> storageData[@key] = null
+
   SaveModel = Backbone.Model.extend
     urlRoot: "/test/"
     sync: myapp.util.CacheSync.sync
-    initialize: (attrs) -> @storageKey = "savemodel:#{attrs.id}" if attrs?
-    getStorage: -> storage[@storageKey] if @storageKey
-    saveStorage: (data, method) -> storage[@storageKey] = data
-    removeStorage: ->
-      delete storage[@storageKey]
+    initialize: (attrs) ->
+      @storage = new Storage "savemodel:#{attrs.id}" if attrs?
 
   describe "set and get storage", ->
     model = null
@@ -45,29 +48,29 @@ describe "CacheSync", ->
       model.fetch success: spy
       server.respond()
       expect(spy.calledOnce).to.be.ok()
-      expect(storage[model.storageKey]).to.eql response
+      expect(storageData["savemodel:1"]).to.eql response
 
     it "return from storage", ->
-      storage[model.storageKey].message = "good night"
+      storageData["savemodel:1"].message = "good night"
       model.fetch success: spy
       server.respond()
       expect(spy.calledOnce).to.be.ok()
-      expect(storage[model.storageKey].message).to.be "good night"
+      expect(storageData["savemodel:1"].message).to.be "good night"
 
     it "if remove storage data, call API and save on storage", ->
-      delete storage[model.storageKey]
+      storageData["savemodel:1"] = null
       model.fetch success: spy
       server.respond()
       expect(spy.calledOnce).to.be.ok()
-      expect(storage[model.storageKey]).to.eql response
+      expect(storageData["savemodel:1"]).to.eql response
 
     it "no saved model", ->
-      storage = {}
-      model.storageKey = null
+      storageData = {}
+      model.storage = null
       model.fetch success: spy
       server.respond()
       expect(spy.calledOnce).to.ok()
-      expect(storage).to.empty()
+      expect(storageData).to.empty()
 
   describe "case POST, PUT, DELETE method", ->
     model = null
@@ -98,10 +101,11 @@ describe "CacheSync", ->
 
     it "method POST", ->
       model = new SaveModel name: "jim"
+      model.storage = new Storage "savemodel:1"
       model.save {}, success: spy
       server.respond()
       expect(spy.calledOnce).to.ok()
-      expect(storage[model.storageKey]).to.eql id:1, name:"jim", message:"post request"
+      expect(storageData["savemodel:1"]).to.eql id:1, name:"jim", message:"post request"
       expect(model.get("message")).to.be "post request"
 
     it "method PUT", ->
@@ -109,16 +113,15 @@ describe "CacheSync", ->
       model.save {}, success: spy
       server.respond()
       expect(spy.calledOnce).to.ok()
-      expect(storage[model.storageKey]).to.eql id:1, name:"tom", message:"put request"
+      expect(storageData["savemodel:1"]).to.eql id:1, name:"tom", message:"put request"
       expect(model.get("message")).to.be "put request"
 
     it "method DELETE", ->
       model.set "name", "tom"
       model.save {}, success: ->
-      storageKey = model.storageKey
       server.respond()
       model.destroy success: spy
       server.respond()
       expect(spy.calledOnce).to.ok()
-      expect(storage[storageKey]).to.be undefined
-
+      expect(storageData["savemodel:1"]).to.be null
+)

@@ -18,9 +18,9 @@
 }).call(this);
 
 (function() {
-  (function(util) {
+  (function() {
     'use strict';
-    return util.CacheSync = (function() {
+    return myapp.util.CacheSync = (function() {
       function CacheSync() {}
 
       CacheSync.sync = function(method, model, options) {
@@ -34,25 +34,25 @@
           }
           return Backbone.sync(method, model, options);
         };
-        if (!model.storageKey) {
+        if (model.storage == null) {
           return sync();
         }
         successCallback = options.success;
         if (method === "delete") {
           return sync(function(data) {
-            model.removeStorage();
+            model.storage.remove();
             return successCallback(data);
           });
         }
         if (method === "read") {
-          cache = model.getStorage();
+          cache = model.storage.get();
           if (cache != null) {
             return successCallback(cache);
           }
         }
         return sync(function(data) {
           model.set(data);
-          model.saveStorage(data, method);
+          model.storage.set(data, method);
           return successCallback(data);
         });
       };
@@ -60,7 +60,7 @@
       return CacheSync;
 
     })();
-  }).call(this, myapp.util);
+  }).call(this);
 
 }).call(this);
 
@@ -137,24 +137,39 @@
 (function() {
   (function(model, util) {
     'use strict';
-    return model.Base = Backbone.Model.extend({
-      storageKey: null,
+    var Storage;
+    model.Base = Backbone.Model.extend({
+      storage: null,
       sync: util.CacheSync.sync,
-      getStorage: function() {
+      createStorage: function(key) {
+        return this.storage = new Storage(key);
+      }
+    });
+    return Storage = (function() {
+      function Storage(key) {
+        this.key = key;
+      }
+
+      Storage.prototype.get = function() {
         var data;
-        data = util.Storage.get(this.storageKey);
+        data = util.Storage.get(this.key);
         if (data == null) {
           return;
         }
         return JSON.parse(data);
-      },
-      saveStorage: function(data, method) {
-        return util.Storage.set(this.storageKey, JSON.stringify(data));
-      },
-      removeStorage: function() {
-        return util.Storage.remove(this.storageKey);
-      }
-    });
+      };
+
+      Storage.prototype.set = function(data, method) {
+        return util.Storage.set(this.key, JSON.stringify(data));
+      };
+
+      Storage.prototype.remove = function() {
+        return util.Storage.remove(this.key);
+      };
+
+      return Storage;
+
+    })();
   }).call(this, myapp.model, myapp.util);
 
 }).call(this);
@@ -165,7 +180,7 @@
     return model.User = model.Base.extend({
       urlRoot: "/users/",
       initialize: function(attrs) {
-        this.storageKey = "model:user:" + attrs.id;
+        this.createStorage("model:user:" + attrs.id);
         return this.name = attrs.name;
       }
     });
@@ -176,32 +191,45 @@
 (function() {
   (function(model, collection, util) {
     'use strict';
-    return collection.Base = Backbone.Collection.extend({
-      storageKey: null,
+    var Storage;
+    collection.Base = Backbone.Collection.extend({
+      storage: null,
       sync: util.CacheSync.sync,
       model: model.Base,
-      getStorage: function() {
+      createStorage: function(key) {
+        return this.storage = new Storage(key, this.model);
+      }
+    });
+    return Storage = (function() {
+      function Storage(key, model) {
+        this.key = key;
+        this.model = model;
+      }
+
+      Storage.prototype.get = function() {
         var data, datas, id, ids, _i, _len;
-        ids = util.Storage.get(this.storageKey);
+        ids = util.Storage.get(this.key);
         if (ids == null) {
           return;
         }
         ids = JSON.parse(ids);
         datas = [];
+        console.log(this.model);
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
           model = new this.model({
             id: id
           });
-          data = util.Storage.get(model.storageKey);
+          data = model.storage.get();
           if (data == null) {
             return;
           }
-          datas.push(JSON.parse(data));
+          datas.push(data);
         }
         return datas;
-      },
-      saveStorage: function(datas, method) {
+      };
+
+      Storage.prototype.set = function(datas, method) {
         var data, ids, _i, _len;
         ids = [];
         for (_i = 0, _len = datas.length; _i < _len; _i++) {
@@ -210,25 +238,29 @@
           model = new this.model({
             id: data.id
           });
-          util.Storage.set(model.storageKey, JSON.stringify(data));
+          model.storage.set(data, method);
         }
-        return util.Storage.set(this.storageKey, JSON.stringify(ids));
-      },
-      removeStorage: function() {
+        return util.Storage.set(this.key, JSON.stringify(ids));
+      };
+
+      Storage.prototype.remove = function() {
         var id, ids, _i, _len, _results;
-        ids = util.Storage.get(this.storageKey);
-        util.Storage.remove(this.storageKey);
+        ids = util.Storage.get(this.key);
+        util.Storage.remove(this.key);
         _results = [];
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
           model = new this.model({
             id: id
           });
-          _results.push(util.Storage.remove(model.storageKey));
+          _results.push(model.storage.remove());
         }
         return _results;
-      }
-    });
+      };
+
+      return Storage;
+
+    })();
   }).call(this, myapp.model, myapp.collection, myapp.util);
 
 }).call(this);
@@ -239,7 +271,9 @@
     return collection.Users = collection.Base.extend({
       url: "/users/",
       model: model.User,
-      storageKey: "collection:users"
+      initialize: function(attrs) {
+        return this.createStorage("collection:users", this.model);
+      }
     });
   }).call(this, myapp.model, myapp.collection);
 

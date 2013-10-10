@@ -4,6 +4,7 @@
   collection.Users = collection.Base.extend
     url:  "/users/"
     model: model.User
-    storageKey: "collection:users"
+    initialize: (attrs) ->
+      @createStorage "collection:users", @model 
 
 ).call(this, myapp.model, myapp.collection)

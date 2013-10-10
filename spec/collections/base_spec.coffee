@@ -1,14 +1,17 @@
-describe "collection.Base", ->
+describe("collection.Base", ->
 
   User = myapp.model.Base.extend
     urlRoot: "/users/"
+    sync: myapp.util.CacheSync.sync
     initialize: (attrs) ->
-      @storageKey = "model:user:#{attrs.id}"
+      @createStorage "model:user:#{attrs.id}"
 
   Users = myapp.collection.Base.extend
     url: "/users/"
-    storageKey: "collection:users"
+    sync: myapp.util.CacheSync.sync
     model: User
+    initialize: (attrs) ->
+      @createStorage "collection:users"
 
   describe "sync cache", ->
     users = null
@@ -31,7 +34,7 @@ describe "collection.Base", ->
       users = new Users()
 
     it "override sync method", ->
-      spy = sinon.spy users, 'saveStorage'
+      spy = sinon.spy users.storage, 'set'
       users.fetch()
       server.respond()
       expect(spy.calledOnce).to.be.ok()
@@ -49,10 +52,10 @@ describe "collection.Base", ->
         { id: 1, name: "jim", age: 21 }
         { id: 2, name: "bob", age: 18 }
       ]
-      users.saveStorage datas
-      expect(users.getStorage()).to.be.eql datas
-      user1 = new User id: 1
-      expect(user1.getStorage()).to.be.eql id:1, name:"jim", age: 21
-      user2 = new User id: 2
-      expect(user2.getStorage()).to.be.eql id:2, name:"bob", age: 18
-
+      users.storage.set datas
+      expect(users.storage.get()).to.be.eql datas
+#      user1 = new User id: 1
+#      expect(user1.storage.get()).to.be.eql id:1, name:"jim", age: 21
+#      user2 = new User id: 2
+#      expect(user2.storage.get()).to.be.eql id:2, name:"bob", age: 18
+)

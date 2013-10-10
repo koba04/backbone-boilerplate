@@ -2,39 +2,44 @@
   'use strict'
 
   collection.Base = Backbone.Collection.extend
-    storageKey: null
+    storage: null
     sync: util.CacheSync.sync
     model: model.Base
+    createStorage: (key) -> @storage = new Storage key, @model
 
-    getStorage: ->
-      ids = util.Storage.get @storageKey
+  class Storage
+    constructor: (@key, @model) ->
+
+    get: ->
+      ids = util.Storage.get @key
       return unless ids?
       ids = JSON.parse ids
 
       datas = []
+      console.log @model
       for id in ids
         model = new @model id: id
-        data = util.Storage.get model.storageKey
+        data = model.storage.get()
         return unless data?
-        datas.push JSON.parse(data)
+        datas.push data
       datas
 
-    saveStorage: (datas, method) ->
+    set: (datas, method) ->
       ids = []
       for data in datas
         ids.push data.id
-        model = new @model id: data.id
         # save to model
-        util.Storage.set model.storageKey, JSON.stringify(data)
+        model = new @model id: data.id
+        model.storage.set data, method
       # save to collection
-      util.Storage.set @storageKey, JSON.stringify(ids)
+      util.Storage.set @key, JSON.stringify(ids)
 
-    removeStorage: ->
-      ids = util.Storage.get @storageKey
-      util.Storage.remove @storageKey
+    remove: ->
+      ids = util.Storage.get @key
+      util.Storage.remove @key
       for id in ids
-        model = new @model id: id
         # remove from model
-        util.Storage.remove model.storageKey
+        model = new @model id: id
+        model.storage.remove()
 
 ).call(this, myapp.model, myapp.collection, myapp.util)
