@@ -22,18 +22,27 @@
 
       datas = []
       ids = JSON.parse ids
+      idAttribute = @_getModelIdAttribute()
+      opt = {}
       for id in ids
-        data = new @model(id: id).storage.get()
+        opt[idAttribute] = id
+        data = new @model(opt).storage.get()
         return unless data?
         datas.push data
       datas
 
     set: (datas, method) ->
       ids = []
+      idAttribute = @_getModelIdAttribute()
+      opt = {}
       for data in datas
-        ids.push data.id
+        # set model's id. (default is "id")
+        id = data[idAttribute]
+        ids.push id
         # save to model
-        new @model(id: data.id).storage.set data, method
+        opt[idAttribute] = id
+        m = new @model(opt)
+        m.storage.set data, method
       # save to collection
       Storage.set @key, JSON.stringify(ids)
 
@@ -43,5 +52,10 @@
       for id in ids
         # remove from model
         new @model(id: id).storage.remove()
+
+    _getModelIdAttribute: ->
+      if @model::idAttribute? then @model::idAttribute else "id"
+
+
 
 ).call myapp

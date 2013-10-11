@@ -276,18 +276,19 @@
       }
 
       CollectionStorage.prototype.get = function() {
-        var data, datas, id, ids, _i, _len;
+        var data, datas, id, idAttribute, ids, opt, _i, _len;
         ids = Storage.get(this.key);
         if (ids == null) {
           return;
         }
         datas = [];
         ids = JSON.parse(ids);
+        idAttribute = this._getModelIdAttribute();
+        opt = {};
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
-          data = new this.model({
-            id: id
-          }).storage.get();
+          opt[idAttribute] = id;
+          data = new this.model(opt).storage.get();
           if (data == null) {
             return;
           }
@@ -297,14 +298,17 @@
       };
 
       CollectionStorage.prototype.set = function(datas, method) {
-        var data, ids, _i, _len;
+        var data, id, idAttribute, ids, m, opt, _i, _len;
         ids = [];
+        idAttribute = this._getModelIdAttribute();
+        opt = {};
         for (_i = 0, _len = datas.length; _i < _len; _i++) {
           data = datas[_i];
-          ids.push(data.id);
-          new this.model({
-            id: data.id
-          }).storage.set(data, method);
+          id = data[idAttribute];
+          ids.push(id);
+          opt[idAttribute] = id;
+          m = new this.model(opt);
+          m.storage.set(data, method);
         }
         return Storage.set(this.key, JSON.stringify(ids));
       };
@@ -321,6 +325,14 @@
           }).storage.remove());
         }
         return _results;
+      };
+
+      CollectionStorage.prototype._getModelIdAttribute = function() {
+        if (this.model.prototype.idAttribute != null) {
+          return this.model.prototype.idAttribute;
+        } else {
+          return "id";
+        }
       };
 
       return CollectionStorage;
