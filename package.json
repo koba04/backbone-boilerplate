@@ -2,6 +2,7 @@
   "name": "myapp",
   "version": "0.0.1",
   "description": "sample project of backbone + handlebars",
+  "repository": "git@github.com:koba04/frontend-boilerplate.git",
   "main": "public/index.html",
   "scripts": {
     "test": "grunt testem:ci:app"
@@ -20,6 +21,7 @@
     "grunt-contrib-compass": "~0.6.0",
     "grunt-remove-logging": "~0.1.1",
     "grunt-contrib-uglify": "~0.2.4",
-    "assemble": "~0.4.11"
+    "assemble": "~0.4.11",
+    "grunt-notify": "~0.2.13"
   }
 }
