@@ -1,4 +1,4 @@
-# My frontend boilerplate
+# My backbone boilerplate
 
 * coffeescript
 * backbone

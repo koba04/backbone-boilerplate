@@ -13,7 +13,7 @@
   ],
   "devDependencies": {
     "zepto": "~1.0.0",
-    "backbone": "~1.0.0",
+    "backbone": "~1.1.0",
     "lodash": "~2.2.0",
     "handlebars": "~1.0.0",
     "expect": "~0.2.0",
