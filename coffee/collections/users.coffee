@@ -1,12 +1,12 @@
 ( ->
   'use strict'
 
-  m = @model
-  c = @collection
+  model = @model
+  collection = @collection
 
-  c.Users = c.Base.extend
+  collection.Users = collection.Base.extend
     url:  "/users/"
-    model: m.User
+    model: model.User
     initialize: (attrs) ->
       @createStorage "collection:users", @model
 

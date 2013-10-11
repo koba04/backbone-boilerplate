@@ -78,12 +78,12 @@
 }).call(this);
 
 (function() {
-  (function(Backbone) {
+  (function() {
     'use strict';
-    var c, m, v;
-    v = this.view;
-    m = this.model;
-    c = this.collection;
+    var collection, model, view;
+    view = this.view;
+    model = this.model;
+    collection = this.collection;
     return this.Router = Backbone.Router.extend({
       routes: {
         "": "top",
@@ -94,30 +94,30 @@
         return Backbone.history.start();
       },
       top: function() {
-        return new v.Top().render();
+        return new view.Top().render();
       },
       my: function() {
         var my;
-        my = new m.User({
+        my = new model.User({
           id: 1
         });
         return my.fetch({
           success: function() {
-            return new v.My().show(my);
+            return new view.My().show(my);
           }
         });
       },
       friends: function() {
         var users;
-        users = new c.Users();
+        users = new collection.Users();
         return users.fetch({
           success: function() {
-            return new v.Friends().show(users);
+            return new view.Friends().show(users);
           }
         });
       }
     });
-  }).call(myapp, Backbone);
+  }).call(myapp);
 
 }).call(this);
 
@@ -197,13 +197,13 @@
 (function() {
   (function() {
     'use strict';
-    var ModelStorage, Storage, a, m;
-    a = this.app;
-    m = this.model;
+    var ModelStorage, Storage, app, model;
+    app = this.app;
+    model = this.model;
     Storage = this.util.Storage;
-    m.Base = Backbone.Model.extend({
+    model.Base = Backbone.Model.extend({
       storage: null,
-      sync: a.sync,
+      sync: app.sync,
       createStorage: function(key) {
         return this.storage = new ModelStorage(key);
       }
@@ -240,9 +240,9 @@
 (function() {
   (function() {
     'use strict';
-    var m;
-    m = this.model;
-    return m.User = m.Base.extend({
+    var model;
+    model = this.model;
+    return model.User = model.Base.extend({
       urlRoot: "/users/",
       initialize: function(attrs) {
         this.createStorage("model:user:" + attrs.id);
@@ -256,16 +256,15 @@
 (function() {
   (function() {
     'use strict';
-    var CollectionStorage, Storage, a, c, m, v;
-    a = this.app;
-    m = this.model;
-    c = this.collection;
-    v = this.view;
+    var CollectionStorage, Storage, app, collection, model;
+    app = this.app;
+    model = this.model;
+    collection = this.collection;
     Storage = this.util.Storage;
-    c.Base = Backbone.Collection.extend({
+    collection.Base = Backbone.Collection.extend({
       storage: null,
-      sync: a.sync,
-      model: m.Base,
+      sync: app.sync,
+      model: model.Base,
       createStorage: function(key) {
         return this.storage = new CollectionStorage(key, this.model);
       }
@@ -277,7 +276,7 @@
       }
 
       CollectionStorage.prototype.get = function() {
-        var data, datas, id, ids, model, _i, _len;
+        var data, datas, id, ids, _i, _len;
         ids = Storage.get(this.key);
         if (ids == null) {
           return;
@@ -286,10 +285,9 @@
         ids = JSON.parse(ids);
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
-          model = new this.model({
+          data = new this.model({
             id: id
-          });
-          data = model.storage.get();
+          }).storage.get();
           if (data == null) {
             return;
           }
@@ -299,30 +297,28 @@
       };
 
       CollectionStorage.prototype.set = function(datas, method) {
-        var data, ids, model, _i, _len;
+        var data, ids, _i, _len;
         ids = [];
         for (_i = 0, _len = datas.length; _i < _len; _i++) {
           data = datas[_i];
           ids.push(data.id);
-          model = new this.model({
+          new this.model({
             id: data.id
-          });
-          model.storage.set(data, method);
+          }).storage.set(data, method);
         }
         return Storage.set(this.key, JSON.stringify(ids));
       };
 
       CollectionStorage.prototype.remove = function() {
-        var id, ids, model, _i, _len, _results;
+        var id, ids, _i, _len, _results;
         ids = Storage.get(this.key);
         Storage.remove(this.key);
         _results = [];
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
-          model = new this.model({
+          _results.push(new this.model({
             id: id
-          });
-          _results.push(model.storage.remove());
+          }).storage.remove());
         }
         return _results;
       };
@@ -337,12 +333,12 @@
 (function() {
   (function() {
     'use strict';
-    var c, m;
-    m = this.model;
-    c = this.collection;
-    return c.Users = c.Base.extend({
+    var collection, model;
+    model = this.model;
+    collection = this.collection;
+    return collection.Users = collection.Base.extend({
       url: "/users/",
-      model: m.User,
+      model: model.User,
       initialize: function(attrs) {
         return this.createStorage("collection:users", this.model);
       }
@@ -354,9 +350,9 @@
 (function() {
   (function() {
     'use strict';
-    var v;
-    v = this.view;
-    return v.Base = Backbone.View.extend({
+    var view;
+    view = this.view;
+    return view.Base = Backbone.View.extend({
       el: $('#content'),
       render: function(data) {
         return this.$el.html(this.tmpl(data));
@@ -369,11 +365,11 @@
 (function() {
   (function() {
     'use strict';
-    var a, v;
-    a = this.app;
-    v = this.view;
-    return v.Friends = v.Base.extend({
-      tmpl: a.template.get('friends'),
+    var app, view;
+    app = this.app;
+    view = this.view;
+    return view.Friends = view.Base.extend({
+      tmpl: app.template.get('friends'),
       show: function(users) {
         return this.render({
           friends: users.toJSON()
@@ -387,11 +383,11 @@
 (function() {
   (function() {
     'use strict';
-    var a, v;
-    a = this.app;
-    v = this.view;
-    return v.My = v.Base.extend({
-      tmpl: a.template.get('my'),
+    var app, view;
+    app = this.app;
+    view = this.view;
+    return view.My = view.Base.extend({
+      tmpl: app.template.get('my'),
       show: function(user) {
         return this.render({
           user: user.toJSON()
@@ -405,11 +401,11 @@
 (function() {
   (function() {
     'use strict';
-    var a, v;
-    a = this.app;
-    v = this.view;
-    return v.Top = v.Base.extend({
-      tmpl: a.template.get('top')
+    var app, view;
+    app = this.app;
+    view = this.view;
+    return view.Top = view.Base.extend({
+      tmpl: app.template.get('top')
     });
   }).call(myapp);
 

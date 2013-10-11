@@ -1,9 +1,9 @@
 ( ->
   'use strict'
 
-  m = @model
+  model = @model
 
-  m.User = m.Base.extend
+  model.User = model.Base.extend
     urlRoot: "/users/"
 
     initialize: (attrs) ->

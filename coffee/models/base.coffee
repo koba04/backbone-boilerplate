@@ -1,13 +1,13 @@
 ( ->
   'use strict'
 
-  a = @app
-  m = @model
+  app = @app
+  model = @model
   Storage = @util.Storage
 
-  m.Base = Backbone.Model.extend
+  model.Base = Backbone.Model.extend
     storage: null
-    sync: a.sync
+    sync: app.sync
 
     createStorage: (key) -> @storage = new ModelStorage key
 

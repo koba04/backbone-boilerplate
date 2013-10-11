@@ -1,10 +1,10 @@
 ( ->
   'use strict'
 
-  a = @app
-  v = @view
+  app = @app
+  view = @view
 
-  v.Top = v.Base.extend
-    tmpl: a.template.get 'top'
+  view.Top = view.Base.extend
+    tmpl: app.template.get 'top'
 
 ).call myapp

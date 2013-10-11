@@ -1,9 +1,9 @@
 ( ->
   'use strict'
 
-  v = @view
+  view = @view
 
-  v.Base = Backbone.View.extend
+  view.Base = Backbone.View.extend
     el: $('#content')
     render: (data) ->
       @$el.html @tmpl(data)
