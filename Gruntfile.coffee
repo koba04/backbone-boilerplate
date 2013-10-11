@@ -135,7 +135,7 @@ module.exports = (grunt) ->
           test_page: "spec/runner.mustache"
           #parallel: 4
           launch_in_dev: ["PhantomJS", "Chrome", "Safari"]
-          launch_in_ci:  ["PhantomJS"]
+          launch_in_ci:  ["PhantomJS", "Firefox"]
 
     connect:
       server:
