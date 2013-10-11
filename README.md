@@ -19,9 +19,9 @@
 
 ```
 % bunle install
+% npm install -g grunt-cli bower easymock
 % npm install
 % bower install
-% npm install -g easymock
 ```
 
 ## start develop
