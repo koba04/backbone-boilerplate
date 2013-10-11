@@ -88,6 +88,9 @@ module.exports = (grunt) ->
       scss:
         files: "scss/**/*.scss"
         tasks: ["compass"]
+      assemble:
+        files: "assemble/**/*"
+        tasks: ["assemble"]
 
     assemble:
       term:
@@ -99,7 +102,7 @@ module.exports = (grunt) ->
           expand: true
           cwd: "assemble/template/term"
           src: "**/*.hbs"
-          dest: "template/sub/term"
+          dest: "template/term"
         ]
       publicHTMLDevelop:
         options:
