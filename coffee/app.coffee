@@ -19,8 +19,6 @@
         xhr
 
     start: ->
-      # clean up storage
-      Storage.clear()
       @setupAjax()
       @router.start()
 

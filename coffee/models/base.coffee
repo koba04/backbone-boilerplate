@@ -3,26 +3,26 @@
 
   app = @app
   model = @model
-  Storage = @util.Storage
+  util = @util
 
   model.Base = Backbone.Model.extend
     storage: null
     sync: app.sync
-
-    createStorage: (key) -> @storage = new ModelStorage key
+    setStorage: (key) -> @storage = new ModelStorage key
 
   # for API cache
   class ModelStorage
-    constructor: (@key) ->
+    constructor: (@key, storageType = "session") ->
+      @storage = if storageType is "local" then util.localStorage else util.sessionStorage
 
     get: ->
-      data = Storage.get @key
+      data = @storage.get @key
       return unless data?
       JSON.parse data
 
     set: (data, method) ->
-      Storage.set @key, JSON.stringify(data)
+      @storage.set @key, JSON.stringify(data)
 
-    remove: -> Storage.remove @key
+    remove: -> @storage.remove @key
 
 ).call myapp

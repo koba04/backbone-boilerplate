@@ -4,20 +4,21 @@
   app = @app
   model = @model
   collection = @collection
-  Storage = @util.Storage
+  util = @util
 
   collection.Base = Backbone.Collection.extend
     storage: null
     sync: app.sync
     model: model.Base
-    createStorage: (key) -> @storage = new CollectionStorage key, @model
+    setStorage: (key) -> @storage = new CollectionStorage key, @model
 
   # for API cache
   class CollectionStorage
-    constructor: (@key, @model) ->
+    constructor: (@key, @model, storageType = "session") ->
+      @storage = if storageType is "local" then util.localStorage else util.sessionStorage
 
     get: ->
-      ids = Storage.get @key
+      ids = @storage.get @key
       return unless ids?
 
       datas = []
@@ -43,11 +44,11 @@
         opt[idAttribute] = id
         new @model(opt).storage.set data, method
       # save to collection
-      Storage.set @key, JSON.stringify(ids)
+      @storage.set @key, JSON.stringify(ids)
 
     remove: ->
-      ids = Storage.get @key
-      Storage.remove @key
+      ids = @storage.get @key
+      @storage.remove @key
       for id in ids
         # remove from model
         new @model(id: id).storage.remove()

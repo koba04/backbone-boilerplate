@@ -7,7 +7,7 @@ describe("model.Base", ->
     User = myapp.model.Base.extend
       urlRoot: "/users/"
       initialize: (attrs) ->
-        @createStorage "model:user:#{attrs.id}"
+        @setStorage "model:user:#{attrs.id}"
 
     before ->
       server = sinon.fakeServer.create()
@@ -17,7 +17,7 @@ describe("model.Base", ->
 
     after ->
       server.restore()
-      myapp.util.Storage.clear()
+      myapp.util.sessionStorage.clear()
 
     beforeEach ->
       user = new User id: 1, name: "jim", age: 20
@@ -48,7 +48,7 @@ describe("model.Base", ->
       urlRoot: "/users/"
       idAttribute: "name"
       initialize: (attrs) ->
-        @createStorage "model:user:#{attrs.name}"
+        @setStorage "model:user:#{attrs.name}"
 
     before ->
       server = sinon.fakeServer.create()
@@ -58,7 +58,7 @@ describe("model.Base", ->
 
     after ->
       server.restore()
-      myapp.util.Storage.clear()
+      myapp.util.sessionStorage.clear()
 
     beforeEach ->
       user = new User name: "jim", age: 20

@@ -17,22 +17,33 @@
 (function() {
   (function() {
     'use strict';
-    var storage;
-    storage = sessionStorage;
-    return this.util.Storage = {
-      get: function(key) {
-        return storage.getItem(key);
-      },
-      set: function(key, data) {
-        return storage.setItem(key, data);
-      },
-      remove: function(key) {
-        return storage.removeItem(key);
-      },
-      clear: function() {
-        return storage.clear();
+    var Storage;
+    Storage = (function() {
+      function Storage(storage) {
+        this.storage = storage;
       }
-    };
+
+      Storage.prototype.get = function(key) {
+        return this.storage.getItem(key);
+      };
+
+      Storage.prototype.set = function(key, data) {
+        return this.storage.setItem(key, data);
+      };
+
+      Storage.prototype.remove = function(key) {
+        return this.storage.removeItem(key);
+      };
+
+      Storage.prototype.clear = function() {
+        return this.storage.clear();
+      };
+
+      return Storage;
+
+    })();
+    this.util.sessionStorage = new Storage(sessionStorage);
+    return this.util.localStorage = new Storage(localStorage);
   }).call(myapp);
 
 }).call(this);
@@ -144,7 +155,6 @@
       };
 
       App.prototype.start = function() {
-        Storage.clear();
         this.setupAjax();
         return this.router.start();
       };
@@ -197,25 +207,29 @@
 (function() {
   (function() {
     'use strict';
-    var ModelStorage, Storage, app, model;
+    var ModelStorage, app, model, util;
     app = this.app;
     model = this.model;
-    Storage = this.util.Storage;
+    util = this.util;
     model.Base = Backbone.Model.extend({
       storage: null,
       sync: app.sync,
-      createStorage: function(key) {
+      setStorage: function(key) {
         return this.storage = new ModelStorage(key);
       }
     });
     return ModelStorage = (function() {
-      function ModelStorage(key) {
+      function ModelStorage(key, storageType) {
         this.key = key;
+        if (storageType == null) {
+          storageType = "session";
+        }
+        this.storage = storageType === "local" ? util.localStorage : util.sessionStorage;
       }
 
       ModelStorage.prototype.get = function() {
         var data;
-        data = Storage.get(this.key);
+        data = this.storage.get(this.key);
         if (data == null) {
           return;
         }
@@ -223,11 +237,11 @@
       };
 
       ModelStorage.prototype.set = function(data, method) {
-        return Storage.set(this.key, JSON.stringify(data));
+        return this.storage.set(this.key, JSON.stringify(data));
       };
 
       ModelStorage.prototype.remove = function() {
-        return Storage.remove(this.key);
+        return this.storage.remove(this.key);
       };
 
       return ModelStorage;
@@ -245,7 +259,7 @@
     return model.User = model.Base.extend({
       urlRoot: "/users/",
       initialize: function(attrs) {
-        this.createStorage("model:user:" + attrs.id);
+        this.setStorage("model:user:" + attrs.id);
         return this.name = attrs.name;
       }
     });
@@ -256,28 +270,32 @@
 (function() {
   (function() {
     'use strict';
-    var CollectionStorage, Storage, app, collection, model;
+    var CollectionStorage, app, collection, model, util;
     app = this.app;
     model = this.model;
     collection = this.collection;
-    Storage = this.util.Storage;
+    util = this.util;
     collection.Base = Backbone.Collection.extend({
       storage: null,
       sync: app.sync,
       model: model.Base,
-      createStorage: function(key) {
+      setStorage: function(key) {
         return this.storage = new CollectionStorage(key, this.model);
       }
     });
     return CollectionStorage = (function() {
-      function CollectionStorage(key, model) {
+      function CollectionStorage(key, model, storageType) {
         this.key = key;
         this.model = model;
+        if (storageType == null) {
+          storageType = "session";
+        }
+        this.storage = storageType === "local" ? util.localStorage : util.sessionStorage;
       }
 
       CollectionStorage.prototype.get = function() {
         var data, datas, id, idAttribute, ids, opt, _i, _len;
-        ids = Storage.get(this.key);
+        ids = this.storage.get(this.key);
         if (ids == null) {
           return;
         }
@@ -309,13 +327,13 @@
           opt[idAttribute] = id;
           new this.model(opt).storage.set(data, method);
         }
-        return Storage.set(this.key, JSON.stringify(ids));
+        return this.storage.set(this.key, JSON.stringify(ids));
       };
 
       CollectionStorage.prototype.remove = function() {
         var id, ids, _i, _len, _results;
-        ids = Storage.get(this.key);
-        Storage.remove(this.key);
+        ids = this.storage.get(this.key);
+        this.storage.remove(this.key);
         _results = [];
         for (_i = 0, _len = ids.length; _i < _len; _i++) {
           id = ids[_i];
@@ -351,7 +369,7 @@
       url: "/users/",
       model: model.User,
       initialize: function(attrs) {
-        return this.createStorage("collection:users", this.model);
+        return this.setStorage("collection:users", this.model);
       }
     });
   }).call(myapp);

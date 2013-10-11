@@ -8,14 +8,14 @@ describe("collection.Base", ->
       urlRoot: "/users/"
       sync: myapp.app.sync
       initialize: (attrs) ->
-        @createStorage "model:user:#{attrs.id}"
+        @setStorage "model:user:#{attrs.id}"
 
     Users = myapp.collection.Base.extend
       url: "/users/"
       sync: myapp.app.sync
       model: User
       initialize: (attrs) ->
-        @createStorage "collection:users"
+        @setStorage "collection:users"
 
     before ->
       server = sinon.fakeServer.create()
@@ -28,7 +28,7 @@ describe("collection.Base", ->
 
     after ->
       server.restore()
-      myapp.util.Storage.clear()
+      myapp.util.sessionStorage.clear()
 
     beforeEach ->
       users = new Users()
@@ -68,14 +68,14 @@ describe("collection.Base", ->
       sync: myapp.app.sync
       idAttribute: "name"
       initialize: (attrs) ->
-        @createStorage "model:user:#{attrs.name}"
+        @setStorage "model:user:#{attrs.name}"
 
     Users = myapp.collection.Base.extend
       url: "/users/"
       sync: myapp.app.sync
       model: User
       initialize: (attrs) ->
-        @createStorage "collection:users"
+        @setStorage "collection:users"
 
     before ->
       server = sinon.fakeServer.create()
@@ -88,7 +88,7 @@ describe("collection.Base", ->
 
     after ->
       server.restore()
-      myapp.util.Storage.clear()
+      myapp.util.sessionStorage.clear()
 
     beforeEach ->
       users = new Users()

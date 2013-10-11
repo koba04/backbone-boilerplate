@@ -8,6 +8,6 @@
     url:  "/users/"
     model: model.User
     initialize: (attrs) ->
-      @createStorage "collection:users", @model
+      @setStorage "collection:users", @model
 
 ).call myapp
