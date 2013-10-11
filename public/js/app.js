@@ -298,7 +298,7 @@
       };
 
       CollectionStorage.prototype.set = function(datas, method) {
-        var data, id, idAttribute, ids, m, opt, _i, _len;
+        var data, id, idAttribute, ids, opt, _i, _len;
         ids = [];
         idAttribute = this._getModelIdAttribute();
         opt = {};
@@ -307,8 +307,7 @@
           id = data[idAttribute];
           ids.push(id);
           opt[idAttribute] = id;
-          m = new this.model(opt);
-          m.storage.set(data, method);
+          new this.model(opt).storage.set(data, method);
         }
         return Storage.set(this.key, JSON.stringify(ids));
       };

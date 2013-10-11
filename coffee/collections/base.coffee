@@ -41,8 +41,7 @@
         ids.push id
         # save to model
         opt[idAttribute] = id
-        m = new @model(opt)
-        m.storage.set data, method
+        new @model(opt).storage.set data, method
       # save to collection
       Storage.set @key, JSON.stringify(ids)
 
