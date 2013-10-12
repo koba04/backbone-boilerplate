@@ -32,11 +32,6 @@
 % open http://localhost:9000/
 ```
 
-### livereload
-
-* chrome
-  * https://chrome.google.com/webstore/detail/livereload/jnihajbhpnppcggbcgedagnkighmdlei
-
 ### notify
 
 when your os is Mac OSX10.7 (lion), you need install growlnotify from http://growl.info/downloads#generaldownloads

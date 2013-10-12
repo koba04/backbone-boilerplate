@@ -143,6 +143,7 @@ module.exports = (grunt) ->
     connect:
       server:
         options:
+          livereload: true
           port: 9000
           base: "public"
           middleware: (connect, options) ->
