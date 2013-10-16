@@ -85,5 +85,19 @@ describe("model.Base", ->
       user.storage.remove()
       expect(user.storage.get()).to.be.eql undefined
 
+  describe "set Storage", ->
+
+    User = myapp.model.Base.extend
+      urlRoot: "/users/"
+
+    it "set sessionStorage (default)", ->
+      user = new User()
+      user.setStorage "hoge"
+      expect(user.storage.storage.type).to.be('session')
+
+    it "set localStorage", ->
+      user = new User()
+      user.setStorage "hoge", 'local'
+      expect(user.storage.storage.type).to.be('local')
 
 )

@@ -10,7 +10,7 @@
     storage: null
     sync: app.sync
     model: model.Base
-    setStorage: (key) -> @storage = new CollectionStorage key, @model
+    setStorage: (key, storageType) -> @storage = new CollectionStorage key, @model, storageType
 
   # for API cache
   class CollectionStorage

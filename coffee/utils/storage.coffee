@@ -2,7 +2,8 @@
   'use strict'
 
   class Storage
-    constructor: (@storage) ->
+    constructor: (@type) -> @storage = if @type is "local" then localStorage else sessionStorage
+
     get: (key) -> @storage.getItem key
 
     set: (key, data) -> @storage.setItem key, data
@@ -11,7 +12,7 @@
 
     clear: -> @storage.clear()
 
-  @util.sessionStorage = new Storage sessionStorage
-  @util.localStorage = new Storage localStorage
+  @util.sessionStorage = new Storage 'session'
+  @util.localStorage = new Storage 'local'
 
 ).call myapp

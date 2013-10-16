@@ -119,4 +119,20 @@ describe("collection.Base", ->
       user2 = new User name: "bob"
       expect(user2.storage.get()).to.be.eql name:"bob", age: 18
 
+  describe "set Storage", ->
+
+    Users = myapp.collection.Base.extend
+      url: "/users/"
+
+    it "set sessionStorage (default)", ->
+      users = new Users()
+      users.setStorage "hoge"
+      expect(users.storage.storage.type).to.be('session')
+
+    it "set localStorage", ->
+      users = new Users()
+      users.setStorage "hoge", 'local'
+      expect(users.storage.storage.type).to.be('local')
+
+
 )

@@ -8,7 +8,7 @@
   model.Base = Backbone.Model.extend
     storage: null
     sync: app.sync
-    setStorage: (key) -> @storage = new ModelStorage key
+    setStorage: (key, storageType) -> @storage = new ModelStorage key, storageType
 
   # for API cache
   class ModelStorage

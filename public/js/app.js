@@ -19,8 +19,9 @@
     'use strict';
     var Storage;
     Storage = (function() {
-      function Storage(storage) {
-        this.storage = storage;
+      function Storage(type) {
+        this.type = type;
+        this.storage = this.type === "local" ? localStorage : sessionStorage;
       }
 
       Storage.prototype.get = function(key) {
@@ -42,8 +43,8 @@
       return Storage;
 
     })();
-    this.util.sessionStorage = new Storage(sessionStorage);
-    return this.util.localStorage = new Storage(localStorage);
+    this.util.sessionStorage = new Storage('session');
+    return this.util.localStorage = new Storage('local');
   }).call(myapp);
 
 }).call(this);
@@ -214,8 +215,8 @@
     model.Base = Backbone.Model.extend({
       storage: null,
       sync: app.sync,
-      setStorage: function(key) {
-        return this.storage = new ModelStorage(key);
+      setStorage: function(key, storageType) {
+        return this.storage = new ModelStorage(key, storageType);
       }
     });
     return ModelStorage = (function() {
@@ -279,8 +280,8 @@
       storage: null,
       sync: app.sync,
       model: model.Base,
-      setStorage: function(key) {
-        return this.storage = new CollectionStorage(key, this.model);
+      setStorage: function(key, storageType) {
+        return this.storage = new CollectionStorage(key, this.model, storageType);
       }
     });
     return CollectionStorage = (function() {
