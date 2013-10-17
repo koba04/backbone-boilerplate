@@ -1,11 +1,13 @@
 describe "util.Storage", ->
   data = JSON.stringify id: 1, name: "jim", age: 20
+  storage = null
 
   for storageType in ['sessionStorage', 'localStorage']
 
     describe storageType, ->
 
-      storage = myapp.util[storageType]
+      before ->
+        storage = myapp.util[storageType]
 
       after ->
         storage.clear()
@@ -25,6 +27,12 @@ describe "util.Storage", ->
         storage.clear()
         expect(storage.get("user_data1")).to.not.be.ok()
         expect(storage.get("user_data2")).to.not.be.ok()
+
+      it "type", ->
+        if storageType is 'sessionStorage'
+          expect(storage.type).to.be('session')
+        else
+          expect(storage.type).to.be('local')
 
   it "sessionStorage and localStorage are independent storage", ->
     myapp.util.sessionStorage.set "hogehoge", "foofoo"
