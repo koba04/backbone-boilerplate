@@ -4,7 +4,7 @@
   app = @app
   view = @view
 
-  view.Top = view.Base.extend
+  class view.Top extends view.Base
     tmpl: app.template.get 'top'
 
 ).call myapp

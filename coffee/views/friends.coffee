@@ -4,9 +4,8 @@
   app = @app
   view = @view
 
-  view.Friends = view.Base.extend
+  class view.Friends extends view.Base
     tmpl: app.template.get 'friends'
-
     show: (users) ->
       @render friends: users.toJSON()
 

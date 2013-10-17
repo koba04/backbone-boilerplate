@@ -3,11 +3,11 @@
 
   model = @model
 
-  model.User = model.Base.extend
+  class model.User extends model.Base
     urlRoot: "/users/"
-
+    storageType: "session"
     initialize: (attrs) ->
-      @setStorage "model:user:#{attrs.id}"
+      super
       @name = attrs.name
 
 ).call myapp

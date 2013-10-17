@@ -4,10 +4,9 @@
   model = @model
   collection = @collection
 
-  collection.Users = collection.Base.extend
-    url:  "/users/"
+  class collection.Users extends collection.Base
+    url: "/users/"
     model: model.User
-    initialize: (attrs) ->
-      @setStorage "collection:users", @model
+    storageType: "session"
 
 ).call myapp

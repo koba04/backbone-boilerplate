@@ -4,10 +4,9 @@ describe "model.Base", ->
     user = null
     server = null
 
-    User = myapp.model.Base.extend
+    class User extends myapp.model.Base
       urlRoot: "/users/"
-      initialize: (attrs) ->
-        @setStorage "model:user:#{attrs.id}"
+      storageType: "session"
 
     before ->
       server = sinon.fakeServer.create()
@@ -44,11 +43,11 @@ describe "model.Base", ->
     user = null
     server = null
 
-    User = myapp.model.Base.extend
-      urlRoot: "/users/"
+
+    class User extends myapp.model.Base
       idAttribute: "name"
-      initialize: (attrs) ->
-        @setStorage "model:user:#{attrs.name}"
+      urlRoot: "/users/"
+      storageType: "session"
 
     before ->
       server = sinon.fakeServer.create()
@@ -87,15 +86,17 @@ describe "model.Base", ->
 
   describe "set Storage", ->
 
-    User = myapp.model.Base.extend
-      urlRoot: "/users/"
-
     it "set sessionStorage (default)", ->
-      user = new User()
-      user.setStorage "hoge"
+      class User extends myapp.model.Base
+        urlRoot: "/users/"
+        storageType: "session"
+      user = new User id: 1
       expect(user.storage.storage.type).to.be('session')
+      expect(user.storage.key).to.be "model:User:1"
 
     it "set localStorage", ->
-      user = new User()
-      user.setStorage "hoge", 'local'
+      class User extends myapp.model.Base
+        urlRoot: "/users/"
+        storageType: "local"
+      user = new User id: 1
       expect(user.storage.storage.type).to.be('local')

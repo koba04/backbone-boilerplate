@@ -8,11 +8,13 @@
   model.Base = Backbone.Model.extend
     storage: null
     sync: app.sync
-    setStorage: (key, storageType) -> @storage = new ModelStorage key, storageType
+    initialize: (attrs) ->
+      id = if @idAttribute? then @idAttribute else 'id'
+      @storage = new ModelStorage "model:#{@constructor.name}:#{attrs[id]}", @storageType if @storageType?
 
   # for API cache
   class ModelStorage
-    constructor: (@key, storageType = "session") ->
+    constructor: (@key, storageType) ->
       @storage = if storageType is "local" then util.localStorage else util.sessionStorage
 
     get: ->

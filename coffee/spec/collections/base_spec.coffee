@@ -4,18 +4,14 @@ describe "collection.Base", ->
     users = null
     server = null
 
-    User = myapp.model.Base.extend
+    class User extends myapp.model.Base
       urlRoot: "/users/"
-      sync: myapp.app.sync
-      initialize: (attrs) ->
-        @setStorage "model:user:#{attrs.id}"
+      storageType: "session"
 
-    Users = myapp.collection.Base.extend
+    class Users extends myapp.collection.Base
       url: "/users/"
-      sync: myapp.app.sync
       model: User
-      initialize: (attrs) ->
-        @setStorage "collection:users"
+      storageType: "session"
 
     before ->
       server = sinon.fakeServer.create()
@@ -63,19 +59,17 @@ describe "collection.Base", ->
     users = null
     server = null
 
-    User = myapp.model.Base.extend
-      urlRoot: "/users/"
-      sync: myapp.app.sync
+    class User extends myapp.model.Base
       idAttribute: "name"
       initialize: (attrs) ->
-        @setStorage "model:user:#{attrs.name}"
+        @urlRoot = "/users/"
+        @storageType = "session"
+        super
 
-    Users = myapp.collection.Base.extend
+    class Users extends myapp.collection.Base
       url: "/users/"
-      sync: myapp.app.sync
       model: User
-      initialize: (attrs) ->
-        @setStorage "collection:users"
+      storageType: "session"
 
     before ->
       server = sinon.fakeServer.create()
@@ -119,18 +113,19 @@ describe "collection.Base", ->
       user2 = new User name: "bob"
       expect(user2.storage.get()).to.be.eql name:"bob", age: 18
 
-  describe "set Storage", ->
+  describe "storage", ->
 
-    Users = myapp.collection.Base.extend
-      url: "/users/"
-
-    it "set sessionStorage (default)", ->
+    it "set sessionStorage", ->
+      class Users extends myapp.collection.Base
+        storageType: "session"
       users = new Users()
-      users.setStorage "hoge"
-      expect(users.storage.storage.type).to.be('session')
+      expect(users.storage.storage.type).to.be "session"
+      expect(users.storage.key).to.be "collection:Users"
+      expect(users.storage.model).to.be users.model
 
     it "set localStorage", ->
+      class Users extends myapp.collection.Base
+        storageType: "local"
       users = new Users()
-      users.setStorage "hoge", 'local'
-      expect(users.storage.storage.type).to.be('local')
+      expect(users.storage.storage.type).to.be "local"
 

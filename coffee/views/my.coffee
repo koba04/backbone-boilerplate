@@ -4,9 +4,8 @@
   app = @app
   view = @view
 
-  view.My = view.Base.extend
+  class view.My extends view.Base
     tmpl: app.template.get 'my'
-
     show: (user) ->
       @render user: user.toJSON()
 ).call myapp

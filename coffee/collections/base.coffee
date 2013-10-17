@@ -10,11 +10,12 @@
     storage: null
     sync: app.sync
     model: model.Base
-    setStorage: (key, storageType) -> @storage = new CollectionStorage key, @model, storageType
+    initialize: ->
+      @storage = new CollectionStorage "collection:#{@constructor.name}", @model, @storageType if @storageType?
 
   # for API cache
   class CollectionStorage
-    constructor: (@key, @model, storageType = "session") ->
+    constructor: (@key, @model, storageType) ->
       @storage = if storageType is "local" then util.localStorage else util.sessionStorage
 
     get: ->

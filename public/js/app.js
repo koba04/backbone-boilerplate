@@ -215,16 +215,17 @@
     model.Base = Backbone.Model.extend({
       storage: null,
       sync: app.sync,
-      setStorage: function(key, storageType) {
-        return this.storage = new ModelStorage(key, storageType);
+      initialize: function(attrs) {
+        var id;
+        id = this.idAttribute != null ? this.idAttribute : 'id';
+        if (this.storageType != null) {
+          return this.storage = new ModelStorage("model:" + this.constructor.name + ":" + attrs[id], this.storageType);
+        }
       }
     });
     return ModelStorage = (function() {
       function ModelStorage(key, storageType) {
         this.key = key;
-        if (storageType == null) {
-          storageType = "session";
-        }
         this.storage = storageType === "local" ? util.localStorage : util.sessionStorage;
       }
 
@@ -253,17 +254,33 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var model;
+    var model, _ref;
     model = this.model;
-    return model.User = model.Base.extend({
-      urlRoot: "/users/",
-      initialize: function(attrs) {
-        this.setStorage("model:user:" + attrs.id);
-        return this.name = attrs.name;
+    return model.User = (function(_super) {
+      __extends(User, _super);
+
+      function User() {
+        _ref = User.__super__.constructor.apply(this, arguments);
+        return _ref;
       }
-    });
+
+      User.prototype.urlRoot = "/users/";
+
+      User.prototype.storageType = "session";
+
+      User.prototype.initialize = function(attrs) {
+        User.__super__.initialize.apply(this, arguments);
+        return this.name = attrs.name;
+      };
+
+      return User;
+
+    })(model.Base);
   }).call(myapp);
 
 }).call(this);
@@ -280,17 +297,16 @@
       storage: null,
       sync: app.sync,
       model: model.Base,
-      setStorage: function(key, storageType) {
-        return this.storage = new CollectionStorage(key, this.model, storageType);
+      initialize: function() {
+        if (this.storageType != null) {
+          return this.storage = new CollectionStorage("collection:" + this.constructor.name, this.model, this.storageType);
+        }
       }
     });
     return CollectionStorage = (function() {
       function CollectionStorage(key, model, storageType) {
         this.key = key;
         this.model = model;
-        if (storageType == null) {
-          storageType = "session";
-        }
         this.storage = storageType === "local" ? util.localStorage : util.sessionStorage;
       }
 
@@ -361,18 +377,31 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var collection, model;
+    var collection, model, _ref;
     model = this.model;
     collection = this.collection;
-    return collection.Users = collection.Base.extend({
-      url: "/users/",
-      model: model.User,
-      initialize: function(attrs) {
-        return this.setStorage("collection:users", this.model);
+    return collection.Users = (function(_super) {
+      __extends(Users, _super);
+
+      function Users() {
+        _ref = Users.__super__.constructor.apply(this, arguments);
+        return _ref;
       }
-    });
+
+      Users.prototype.url = "/users/";
+
+      Users.prototype.model = model.User;
+
+      Users.prototype.storageType = "session";
+
+      return Users;
+
+    })(collection.Base);
   }).call(myapp);
 
 }).call(this);
@@ -394,50 +423,91 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var app, view;
+    var app, view, _ref;
     app = this.app;
     view = this.view;
-    return view.Friends = view.Base.extend({
-      tmpl: app.template.get('friends'),
-      show: function(users) {
+    return view.Friends = (function(_super) {
+      __extends(Friends, _super);
+
+      function Friends() {
+        _ref = Friends.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Friends.prototype.tmpl = app.template.get('friends');
+
+      Friends.prototype.show = function(users) {
         return this.render({
           friends: users.toJSON()
         });
-      }
-    });
+      };
+
+      return Friends;
+
+    })(view.Base);
   }).call(myapp);
 
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var app, view;
+    var app, view, _ref;
     app = this.app;
     view = this.view;
-    return view.My = view.Base.extend({
-      tmpl: app.template.get('my'),
-      show: function(user) {
+    return view.My = (function(_super) {
+      __extends(My, _super);
+
+      function My() {
+        _ref = My.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      My.prototype.tmpl = app.template.get('my');
+
+      My.prototype.show = function(user) {
         return this.render({
           user: user.toJSON()
         });
-      }
-    });
+      };
+
+      return My;
+
+    })(view.Base);
   }).call(myapp);
 
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var app, view;
+    var app, view, _ref;
     app = this.app;
     view = this.view;
-    return view.Top = view.Base.extend({
-      tmpl: app.template.get('top')
-    });
+    return view.Top = (function(_super) {
+      __extends(Top, _super);
+
+      function Top() {
+        _ref = Top.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Top.prototype.tmpl = app.template.get('top');
+
+      return Top;
+
+    })(view.Base);
   }).call(myapp);
 
 }).call(this);
