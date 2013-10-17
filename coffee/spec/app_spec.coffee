@@ -2,7 +2,7 @@ describe "App", ->
 
   app = myapp.app
 
-  describe "sync", ->
+  describe "for override Backbone.sync method", ->
     storageData = {}
     # Dummy Class
     class Storage
@@ -17,14 +17,13 @@ describe "App", ->
       initialize: (attrs) ->
         @storage = new Storage "savemodel:#{attrs.id}" if attrs?
 
-    describe "set and get storage", ->
+    describe "case GET Method. (override fetch)", ->
       model = null
       response = null
       server = null
       spy = null
 
       before ->
-        model = new SaveModel id: 1, name: "jim"
         response =
           id: 1
           name: "jim"
@@ -33,20 +32,38 @@ describe "App", ->
         server.respondWith "GET", /\/test\/1/, [
           200, {}, JSON.stringify response
         ]
+        server.respondWith "GET", /\/test\/2/, [
+          500, {}, '{"error":"message"}'
+        ]
+
 
       after ->
         server.restore()
 
       beforeEach ->
+        model = new SaveModel id: 1, name: "jim"
         spy = sinon.spy()
 
       afterEach ->
         spy.reset()
 
-      it "call success callback", ->
+      it "called success callback", ->
         model.fetch success: spy
         server.respond()
         expect(spy.calledOnce).to.ok()
+
+      it "called failed callback", ->
+        model = new SaveModel id: 2, name: "jim"
+        model.fetch
+          success: ->
+          error: spy
+        server.respond()
+        expect(spy.calledOnce).to.ok()
+
+      it "called default failed callback", ->
+        model = new SaveModel id: 2, name: "jim"
+        model.fetch()
+        expect(window.location.hash).to.be "#/error/"
 
       it "save storage", ->
         model.fetch success: spy
@@ -54,7 +71,7 @@ describe "App", ->
         expect(spy.calledOnce).to.be.ok()
         expect(storageData["savemodel:1"]).to.eql response
 
-      it "return from storage", ->
+      it "get data from storage", ->
         storageData["savemodel:1"].message = "good night"
         model.fetch success: spy
         server.respond()
@@ -68,7 +85,7 @@ describe "App", ->
         expect(spy.calledOnce).to.be.ok()
         expect(storageData["savemodel:1"]).to.eql response
 
-      it "no saved model", ->
+      it "not storage property, no use storage cache", ->
         storageData = {}
         model.storage = null
         model.fetch success: spy
@@ -103,7 +120,7 @@ describe "App", ->
       afterEach ->
         spy.reset()
 
-      it "method POST", ->
+      it "POST response saved storage", ->
         model = new SaveModel name: "jim"
         model.storage = new Storage "savemodel:1"
         model.save {}, success: spy
@@ -112,7 +129,7 @@ describe "App", ->
         expect(storageData["savemodel:1"]).to.eql id:1, name:"jim", message:"post request"
         expect(model.get("message")).to.be "post request"
 
-      it "method PUT", ->
+      it "PUT response saved storage", ->
         model.set "name", "tom"
         model.save {}, success: spy
         server.respond()
@@ -120,7 +137,7 @@ describe "App", ->
         expect(storageData["savemodel:1"]).to.eql id:1, name:"tom", message:"put request"
         expect(model.get("message")).to.be "put request"
 
-      it "method DELETE", ->
+      it "DELETE request remove storage data", ->
         model.set "name", "tom"
         model.save {}, success: ->
         server.respond()
@@ -129,7 +146,7 @@ describe "App", ->
         expect(spy.calledOnce).to.ok()
         expect(storageData["savemodel:1"]).to.be null
 
-    describe "app.sync()", ->
+    describe "instance method call like app.sync()", ->
       it "throw exception", ->
         fn = ->
           app.sync()

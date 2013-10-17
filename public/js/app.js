@@ -165,9 +165,11 @@
         if (this instanceof App) {
           throw new Error("sync method is for override model or collection's sync()");
         }
-        options.error = function() {
-          return window.location = "#/error/";
-        };
+        if (options.error == null) {
+          options.error = function() {
+            return window.location = "#/error/";
+          };
+        }
         sync = function(success) {
           if (success != null) {
             options.success = success;

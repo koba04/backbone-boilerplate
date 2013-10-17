@@ -31,8 +31,8 @@
       throw new Error "sync method is for override model or collection's sync()" if @ instanceof App
 
       # define error callback
-      options.error = ->
-        window.location = "#/error/"
+      unless options.error?
+        options.error = -> window.location = "#/error/"
 
       # call original sync
       sync = (success) ->
