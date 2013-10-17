@@ -385,7 +385,8 @@
     return view.Base = Backbone.View.extend({
       el: $('#content'),
       render: function(data) {
-        return this.$el.html(this.tmpl(data));
+        this.$el.html(this.tmpl(data));
+        return this;
       }
     });
   }).call(myapp);

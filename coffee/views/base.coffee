@@ -7,5 +7,6 @@
     el: $('#content')
     render: (data) ->
       @$el.html @tmpl(data)
+      @
 
 ).call myapp
