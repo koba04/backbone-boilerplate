@@ -1,4 +1,4 @@
-describe("model.Base", ->
+describe "model.Base", ->
 
   describe "sync cache", ->
     user = null
@@ -99,5 +99,3 @@ describe("model.Base", ->
       user = new User()
       user.setStorage "hoge", 'local'
       expect(user.storage.storage.type).to.be('local')
-
-)

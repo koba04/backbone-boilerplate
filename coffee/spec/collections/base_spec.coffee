@@ -1,4 +1,4 @@
-describe("collection.Base", ->
+describe "collection.Base", ->
 
   describe "sync cache", ->
     users = null
@@ -134,5 +134,3 @@ describe("collection.Base", ->
       users.setStorage "hoge", 'local'
       expect(users.storage.storage.type).to.be('local')
 
-
-)

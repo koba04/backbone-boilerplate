@@ -1,4 +1,4 @@
-describe("App", ->
+describe "App", ->
 
   app = myapp.app
 
@@ -135,4 +135,3 @@ describe("App", ->
           app.sync()
         expect(fn).to.throwError /^sync method/
 
-)
