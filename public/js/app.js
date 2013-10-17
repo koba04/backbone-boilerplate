@@ -350,15 +350,15 @@
       };
 
       CollectionStorage.prototype.remove = function() {
-        var id, ids, _i, _len, _results;
-        ids = this.storage.get(this.key);
-        this.storage.remove(this.key);
+        var data, datas, _i, _len, _results;
+        datas = this.get();
+        if (datas != null) {
+          this.storage.remove(this.key);
+        }
         _results = [];
-        for (_i = 0, _len = ids.length; _i < _len; _i++) {
-          id = ids[_i];
-          _results.push(new this.model({
-            id: id
-          }).storage.remove());
+        for (_i = 0, _len = datas.length; _i < _len; _i++) {
+          data = datas[_i];
+          _results.push(new this.model(data).storage.remove());
         }
         return _results;
       };

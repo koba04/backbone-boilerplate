@@ -48,15 +48,12 @@
       @storage.set @key, JSON.stringify(ids)
 
     remove: ->
-      ids = @storage.get @key
-      @storage.remove @key
-      for id in ids
-        # remove from model
-        new @model(id: id).storage.remove()
+      datas = @get()
+      @storage.remove @key if datas?
+      for data in datas
+        new @model(data).storage.remove()
 
     _getModelIdAttribute: ->
       if @model::idAttribute? then @model::idAttribute else "id"
-
-
 
 ).call myapp

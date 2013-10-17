@@ -1,6 +1,6 @@
 describe "model.Base", ->
 
-  describe "sync cache", ->
+  describe "override Model.sync", ->
     user = null
     server = null
 
@@ -21,7 +21,7 @@ describe "model.Base", ->
     beforeEach ->
       user = new User id: 1, name: "jim", age: 20
 
-    it "override sync method", ->
+    it "set storage fetched data", ->
       spy = sinon.spy user.storage, 'set'
       user.fetch()
       server.respond()
@@ -39,7 +39,7 @@ describe "model.Base", ->
       user.storage.remove()
       expect(user.storage.get()).to.be.eql undefined
 
-  describe "sync cache (specified idAttribute model)", ->
+  describe "override Model.sync (specified idAttribute model)", ->
     user = null
     server = null
 
@@ -62,7 +62,7 @@ describe "model.Base", ->
     beforeEach ->
       user = new User name: "jim", age: 20
 
-    it "override sync method", ->
+    it "set storage fetched data", ->
       spy = sinon.spy user.storage, 'set'
       user.fetch()
       server.respond()
@@ -86,7 +86,7 @@ describe "model.Base", ->
 
   describe "set Storage", ->
 
-    it "set sessionStorage (default)", ->
+    it "set sessionStorage", ->
       class User extends myapp.model.Base
         urlRoot: "/users/"
         storageType: "session"

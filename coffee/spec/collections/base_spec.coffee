@@ -1,6 +1,6 @@
 describe "collection.Base", ->
 
-  describe "sync cache", ->
+  describe "override Collection.sync", ->
     users = null
     server = null
 
@@ -29,7 +29,7 @@ describe "collection.Base", ->
     beforeEach ->
       users = new Users()
 
-    it "override sync method", ->
+    it "set storage fetched data", ->
       spy = sinon.spy users.storage, 'set'
       users.fetch()
       server.respond()
@@ -43,7 +43,7 @@ describe "collection.Base", ->
       ]
       spy.reset()
 
-    it "set, get and remove storage", ->
+    it "storage can set, get and remove", ->
       datas = [
         { id: 1, name: "jim", age: 21 }
         { id: 2, name: "bob", age: 18 }
@@ -55,7 +55,12 @@ describe "collection.Base", ->
       user2 = new User id: 2
       expect(user2.storage.get()).to.be.eql id:2, name:"bob", age: 18
 
-  describe "sync cache (specified idAttribute model)", ->
+      users.storage.remove()
+      expect(users.storage.get()).to.be.eql undefined
+      expect(user1.storage.get()).to.be.eql undefined
+      expect(user2.storage.get()).to.be.eql undefined
+
+  describe "override Collection.sync (specified idAttribute model)", ->
     users = null
     server = null
 
@@ -87,7 +92,7 @@ describe "collection.Base", ->
     beforeEach ->
       users = new Users()
 
-    it "override sync method", ->
+    it "set storage fetched data", ->
       spy = sinon.spy users.storage, 'set'
       users.fetch()
       server.respond()
@@ -101,7 +106,7 @@ describe "collection.Base", ->
       ]
       spy.reset()
 
-    it "set, get and remove storage", ->
+    it "storage can set, get and remove", ->
       datas = [
         { name: "jim", age: 21 }
         { name: "bob", age: 18 }
@@ -112,6 +117,11 @@ describe "collection.Base", ->
       expect(user1.storage.get()).to.be.eql name:"jim", age: 21
       user2 = new User name: "bob"
       expect(user2.storage.get()).to.be.eql name:"bob", age: 18
+
+      users.storage.remove()
+      expect(users.storage.get()).to.be.eql undefined
+      expect(user1.storage.get()).to.be.eql undefined
+      expect(user2.storage.get()).to.be.eql undefined
 
   describe "storage", ->
 
