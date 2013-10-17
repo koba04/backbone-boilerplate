@@ -1,7 +1,6 @@
 module.exports = (grunt) ->
 
   proxyHost = if grunt.option('proxy_host')? then grunt.option('proxy_host') else null
-  grunt.log.write "Proxy => #{proxyHost}"
 
   # product static server. cf, CDN...
   staticHost = "http://example.com"
