@@ -131,10 +131,10 @@ module.exports = (grunt) ->
           "public/js/vendor.js"
           "public/js/template.js"
           "public/js/app.js"
-          "spec/**/*_spec.coffee"
+          "coffee/spec/**/*_spec.coffee"
         ]
         options:
-          test_page: "spec/runner.mustache"
+          test_page: "coffee/spec/runner.mustache"
           #parallel: 4
           launch_in_dev: ["PhantomJS", "Chrome", "Safari"]
           launch_in_ci:  ["PhantomJS", "Firefox"]
