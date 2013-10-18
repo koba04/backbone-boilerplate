@@ -230,7 +230,16 @@
     return ModelStorage = (function() {
       function ModelStorage(key, storageType) {
         this.key = key;
-        this.storage = storageType === "local" ? util.localStorage : util.sessionStorage;
+        switch (storageType) {
+          case "session":
+            this.storage = util.sessionStorage;
+            break;
+          case "local":
+            this.storage = util.localStorage;
+            break;
+          default:
+            throw new Error("storageType is allowed 'session' or 'local'");
+        }
       }
 
       ModelStorage.prototype.get = function() {
@@ -311,7 +320,16 @@
       function CollectionStorage(key, model, storageType) {
         this.key = key;
         this.model = model;
-        this.storage = storageType === "local" ? util.localStorage : util.sessionStorage;
+        switch (storageType) {
+          case "session":
+            this.storage = util.sessionStorage;
+            break;
+          case "local":
+            this.storage = util.localStorage;
+            break;
+          default:
+            throw new Error("storageType is allowed 'session' or 'local'");
+        }
       }
 
       CollectionStorage.prototype.get = function() {

@@ -16,7 +16,10 @@
   # for API cache
   class CollectionStorage
     constructor: (@key, @model, storageType) ->
-      @storage = if storageType is "local" then util.localStorage else util.sessionStorage
+      switch storageType
+        when "session" then @storage = util.sessionStorage
+        when "local"   then @storage = util.localStorage
+        else throw new Error "storageType is allowed 'session' or 'local'"
 
     get: ->
       ids = @storage.get @key

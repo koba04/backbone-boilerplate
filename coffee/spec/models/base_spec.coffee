@@ -100,3 +100,13 @@ describe "model.Base", ->
         storageType: "local"
       user = new User id: 1
       expect(user.storage.storage.type).to.be('local')
+
+    it "invalid storageType", ->
+      class User extends myapp.model.Base
+        urlRoot: "/users/"
+        storageType: "locallll"
+      newUser = ->
+        user = new User id: 1
+      expect(newUser).to.throwException /storageType is allowed/
+
+

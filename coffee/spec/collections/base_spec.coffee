@@ -139,3 +139,11 @@ describe "collection.Base", ->
       users = new Users()
       expect(users.storage.storage.type).to.be "local"
 
+    it "invalid storageType", ->
+      class Users extends myapp.collection.Base
+        storageType: "sessions"
+      newUsers = ->
+        users = new Users()
+      expect(newUsers).to.throwException /storageType is allowed/
+
+
