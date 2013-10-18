@@ -1,6 +1,15 @@
 this["myapp"] = this["myapp"] || {};
 this["myapp"]["JST"] = this["myapp"]["JST"] || {};
 
+this["myapp"]["JST"]["error"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<div>this is error view</div>\n<a href=\"#/\">top page</a>\n";
+  });
+
 this["myapp"]["JST"]["friends"] = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); partials = this.merge(partials, Handlebars.partials); data = data || {};

@@ -99,6 +99,7 @@
     return this.Router = Backbone.Router.extend({
       routes: {
         "": "top",
+        "error/": "error",
         "my/": "my",
         "friends/": "friends"
       },
@@ -107,6 +108,9 @@
       },
       top: function() {
         return new view.Top().render();
+      },
+      error: function() {
+        return new view.Error().render();
       },
       my: function() {
         var my;
@@ -165,11 +169,9 @@
         if (this instanceof App) {
           throw new Error("sync method is for override model or collection's sync()");
         }
-        if (options.error == null) {
-          options.error = function() {
-            return window.location = "#/error/";
-          };
-        }
+        options.error = function() {
+          return myapp.app.router.navigate("#/error/", true);
+        };
         sync = function(success) {
           if (success != null) {
             options.success = success;
@@ -420,6 +422,32 @@
         return this;
       }
     });
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  (function() {
+    'use strict';
+    var app, view, _ref;
+    app = this.app;
+    view = this.view;
+    return view.Error = (function(_super) {
+      __extends(Error, _super);
+
+      function Error() {
+        _ref = Error.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Error.prototype.tmpl = app.template.get('error');
+
+      return Error;
+
+    })(view.Base);
   }).call(myapp);
 
 }).call(this);

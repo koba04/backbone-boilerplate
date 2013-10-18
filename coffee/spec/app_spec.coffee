@@ -54,16 +54,11 @@ describe "App", ->
 
       it "called failed callback", ->
         model = new SaveModel id: 2, name: "jim"
-        model.fetch
-          success: ->
-          error: spy
+        spy = sinon.spy app.router, "navigate"
+        model.fetch()
         server.respond()
         expect(spy.calledOnce).to.ok()
-
-      it "called default failed callback", ->
-        model = new SaveModel id: 2, name: "jim"
-        model.fetch()
-        expect(window.location.hash).to.be "#/error/"
+        expect(spy.args[0]).to.eql ["#/error/", true]
 
       it "save storage", ->
         model.fetch success: spy

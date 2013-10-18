@@ -9,6 +9,7 @@
 
     routes:
       "":         "top"
+      "error/":   "error"
       "my/":      "my"
       "friends/": "friends"
 
@@ -16,6 +17,9 @@
 
     top: ->
       new view.Top().render()
+
+    error: ->
+      new view.Error().render()
 
     my: ->
       my = new model.User id: 1
