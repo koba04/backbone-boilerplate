@@ -21,7 +21,8 @@
     <script src="{{src}}"></script>
   {{/serve_files}}
   <script>
+    mocha.globals(['jQuery']);
     mocha.run()
-    </script>
+  </script>
 </body>
 </html>
