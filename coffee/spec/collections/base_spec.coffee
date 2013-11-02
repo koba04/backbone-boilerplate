@@ -1,6 +1,6 @@
 describe "collection.Base", ->
 
-  describe "override Collection.sync", ->
+  describe "CollectionStorage", ->
     users = null
     server = null
 
@@ -29,21 +29,23 @@ describe "collection.Base", ->
     beforeEach ->
       users = new Users()
 
-    it "set storage fetched data", ->
-      spy = sinon.spy users.storage, 'set'
+    it "Storage is empty", ->
+      expect(users.storage.get()).to.be.eql undefined
+
+    it "Save to storage fetched data", ->
+      sinon.spy users.storage, 'set'
       users.fetch()
       server.respond()
-      expect(spy.calledOnce).to.be.ok()
-      expect(spy.args[0]).to.be.eql [
+      expect(users.storage.set.called).to.be.ok()
+      expect(users.storage.set.getCall(0).args).to.be.eql [
         [
           { id: 1, name: "jim", age: 21 }
           { id: 2, name: "bob", age: 18 }
         ]
-        "read"
       ]
-      spy.reset()
+      users.storage.set.restore()
 
-    it "storage can set, get and remove", ->
+    it "Get storage data and remove", ->
       datas = [
         { id: 1, name: "jim", age: 21 }
         { id: 2, name: "bob", age: 18 }
@@ -55,26 +57,42 @@ describe "collection.Base", ->
       user2 = new User id: 2
       expect(user2.storage.get()).to.be.eql id:2, name:"bob", age: 18
 
-      users.storage.remove()
-      expect(users.storage.get()).to.be.eql undefined
-      expect(user1.storage.get()).to.be.eql undefined
-      expect(user2.storage.get()).to.be.eql undefined
+    describe "When trigger events, update storage data", ->
+      beforeEach ->
+        users.fetch()
+        server.respond()
+        users.storage.remove()
 
-  describe "override Collection.sync (specified idAttribute model)", ->
+      it "When 'add' event, set storage", ->
+        users.trigger "add"
+        expect(users.storage.get()).to.be.eql users.toJSON()
+
+      it "When 'remove' event, set storage", ->
+        users.trigger "remove"
+        expect(users.storage.get()).to.be.eql users.toJSON()
+
+      it "When 'reset' event, set storage", ->
+        users.trigger "reset"
+        expect(users.storage.get()).to.be.eql users.toJSON()
+
+      it "When 'destroy' event, remove storage data", ->
+        users.trigger "reset"
+        users.trigger "destroy"
+        expect(users.storage.get()).to.be.eql undefined
+
+  describe "Specify idAttribute model", ->
     users = null
     server = null
 
     class User extends myapp.model.Base
+      urlRoot: "/users/"
+      storageType: "session"
       idAttribute: "name"
-      initialize: (attrs) ->
-        @urlRoot = "/users/"
-        @storageType = "session"
-        super
 
     class Users extends myapp.collection.Base
       url: "/users/"
-      model: User
       storageType: "session"
+      model: User
 
     before ->
       server = sinon.fakeServer.create()
@@ -92,21 +110,20 @@ describe "collection.Base", ->
     beforeEach ->
       users = new Users()
 
-    it "set storage fetched data", ->
-      spy = sinon.spy users.storage, 'set'
+    it "Save to storage", ->
+      sinon.spy users.storage, 'set'
       users.fetch()
       server.respond()
-      expect(spy.calledOnce).to.be.ok()
-      expect(spy.args[0]).to.be.eql [
+      expect(users.storage.set.called).to.be.ok()
+      expect(users.storage.set.getCall(0).args).to.be.eql [
         [
           { name: "jim", age: 21 }
           { name: "bob", age: 18 }
         ]
-        "read"
       ]
-      spy.reset()
+      users.storage.set.restore()
 
-    it "storage can set, get and remove", ->
+    it "Get storage data and remove", ->
       datas = [
         { name: "jim", age: 21 }
         { name: "bob", age: 18 }
@@ -118,32 +135,25 @@ describe "collection.Base", ->
       user2 = new User name: "bob"
       expect(user2.storage.get()).to.be.eql name:"bob", age: 18
 
-      users.storage.remove()
-      expect(users.storage.get()).to.be.eql undefined
-      expect(user1.storage.get()).to.be.eql undefined
-      expect(user2.storage.get()).to.be.eql undefined
-
-  describe "storage", ->
-
-    it "set sessionStorage", ->
+  describe "Specify storage", ->
+    Users = null
+    beforeEach ->
       class Users extends myapp.collection.Base
+        url: "/users/"
+        model: myapp.model.Base
         storageType: "session"
+
+    it "Set sessionStorage", ->
       users = new Users()
       expect(users.storage.storage.type).to.be "session"
-      expect(users.storage.key).to.be "collection:Users"
-      expect(users.storage.model).to.be users.model
 
-    it "set localStorage", ->
-      class Users extends myapp.collection.Base
-        storageType: "local"
+    it "Set localStorage", ->
+      Users::storageType = "local"
       users = new Users()
       expect(users.storage.storage.type).to.be "local"
 
-    it "invalid storageType", ->
-      class Users extends myapp.collection.Base
-        storageType: "sessions"
+    it "Throw Exception when invalid storageType ", ->
+      Users::storageType = "l"
       newUsers = ->
-        users = new Users()
+        users = new Users id: 1
       expect(newUsers).to.throwException /storageType is allowed/
-
-

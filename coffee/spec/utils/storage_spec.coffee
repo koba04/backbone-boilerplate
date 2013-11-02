@@ -12,23 +12,23 @@ describe "util.Storage", ->
       after ->
         storage.clear()
 
-      it "set and get data", ->
+      it "Can set and get data", ->
         storage.set "user_data", data
         expect(storage.get("user_data")).to.be data
 
-      it "remove data", ->
+      it "Can remove data", ->
         storage.set "user_data", data
         storage.remove "user_data"
         expect(storage.get("user_data")).to.not.be.ok()
 
-      it "clear data", ->
+      it "Can clear data", ->
         storage.set "user_data1", data
         storage.set "user_data2", data
         storage.clear()
         expect(storage.get("user_data1")).to.not.be.ok()
         expect(storage.get("user_data2")).to.not.be.ok()
 
-      it "type", ->
+      it "Can get type", ->
         if storageType is 'sessionStorage'
           expect(storage.type).to.be('session')
         else

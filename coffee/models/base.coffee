@@ -1,18 +1,23 @@
 ( ->
   'use strict'
 
-  app = @app
   model = @model
   util = @util
 
   model.Base = Backbone.Model.extend
     storage: null
-    sync: app.sync
-    initialize: (attrs) ->
-      id = if @idAttribute? then @idAttribute else 'id'
-      @storage = new ModelStorage "model:#{@constructor.name}:#{attrs[id]}", @storageType if @storageType?
+    sync: util.cachedSync
+    initialize: (attrs = {}) ->
+      if @storageType?
+        idAttribute = if @idAttribute? then @idAttribute else "id"
+        id = attrs[idAttribute] or ""
+        @storage = new ModelStorage "model:#{@constructor.name}:#{id}", @storageType
+        @on "change", =>
+          @storage.set @toJSON()
+        @on "destroy", =>
+          @storage.remove()
 
-  # for API cache
+  # for cache
   class ModelStorage
     constructor: (@key, storageType) ->
       switch storageType

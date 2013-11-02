@@ -1,19 +1,27 @@
 ( ->
   'use strict'
 
-  app = @app
   model = @model
   collection = @collection
   util = @util
 
   collection.Base = Backbone.Collection.extend
     storage: null
-    sync: app.sync
+    sync: util.cachedSync
     model: model.Base
     initialize: ->
-      @storage = new CollectionStorage "collection:#{@constructor.name}", @model, @storageType if @storageType?
+      if @storageType?
+        @storage = new CollectionStorage "collection:#{@constructor.name}", @model, @storageType
+        setStorage = =>
+          @storage.set @toJSON()
+        @on
+          "add": setStorage
+          "remove": setStorage
+          "reset": setStorage
+          "destroy": =>
+            @storage.remove()
 
-  # for API cache
+  # for cache
   class CollectionStorage
     constructor: (@key, @model, storageType) ->
       switch storageType
@@ -51,10 +59,11 @@
       @storage.set @key, JSON.stringify(ids)
 
     remove: ->
-      datas = @get()
-      @storage.remove @key if datas?
-      for data in datas
-        new @model(data).storage.remove()
+      ids = @storage.get @key
+      @storage.remove @key
+      for id in ids
+        # remove from model
+        new @model(id: id).storage.remove()
 
     _getModelIdAttribute: ->
       if @model::idAttribute? then @model::idAttribute else "id"

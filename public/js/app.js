@@ -17,6 +17,23 @@
 (function() {
   (function() {
     'use strict';
+    return this.util.cachedSync = function(method, model, options) {
+      var data;
+      if (method === "read" && (model.storage != null)) {
+        data = model.storage.get();
+        if (data != null) {
+          return options.success(data);
+        }
+      }
+      return Backbone.sync(method, model, options);
+    };
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
     var Storage;
     Storage = (function() {
       function Storage(type) {
@@ -164,43 +181,6 @@
         return this.router.start();
       };
 
-      App.prototype.sync = function(method, model, options) {
-        var cache, successCallback, sync;
-        if (this instanceof App) {
-          throw new Error("sync method is for override model or collection's sync()");
-        }
-        options.error = function() {
-          return myapp.app.router.navigate("#/error/", true);
-        };
-        sync = function(success) {
-          if (success != null) {
-            options.success = success;
-          }
-          return Backbone.sync(method, model, options);
-        };
-        if (model.storage == null) {
-          return sync();
-        }
-        successCallback = options.success;
-        if (method === "delete") {
-          return sync(function(data) {
-            model.storage.remove();
-            return successCallback(data);
-          });
-        }
-        if (method === "read") {
-          cache = model.storage.get();
-          if (cache != null) {
-            return successCallback(cache);
-          }
-        }
-        return sync(function(data) {
-          model.set(data);
-          model.storage.set(data, method);
-          return successCallback(data);
-        });
-      };
-
       return App;
 
     })();
@@ -212,18 +192,28 @@
 (function() {
   (function() {
     'use strict';
-    var ModelStorage, app, model, util;
-    app = this.app;
+    var ModelStorage, model, util;
     model = this.model;
     util = this.util;
     model.Base = Backbone.Model.extend({
       storage: null,
-      sync: app.sync,
+      sync: util.cachedSync,
       initialize: function(attrs) {
-        var id;
-        id = this.idAttribute != null ? this.idAttribute : 'id';
+        var id, idAttribute,
+          _this = this;
+        if (attrs == null) {
+          attrs = {};
+        }
         if (this.storageType != null) {
-          return this.storage = new ModelStorage("model:" + this.constructor.name + ":" + attrs[id], this.storageType);
+          idAttribute = this.idAttribute != null ? this.idAttribute : "id";
+          id = attrs[idAttribute] || "";
+          this.storage = new ModelStorage("model:" + this.constructor.name + ":" + id, this.storageType);
+          this.on("change", function() {
+            return _this.storage.set(_this.toJSON());
+          });
+          return this.on("destroy", function() {
+            return _this.storage.remove();
+          });
         }
       }
     });
@@ -301,18 +291,30 @@
 (function() {
   (function() {
     'use strict';
-    var CollectionStorage, app, collection, model, util;
-    app = this.app;
+    var CollectionStorage, collection, model, util;
     model = this.model;
     collection = this.collection;
     util = this.util;
     collection.Base = Backbone.Collection.extend({
       storage: null,
-      sync: app.sync,
+      sync: util.cachedSync,
       model: model.Base,
       initialize: function() {
+        var setStorage,
+          _this = this;
         if (this.storageType != null) {
-          return this.storage = new CollectionStorage("collection:" + this.constructor.name, this.model, this.storageType);
+          this.storage = new CollectionStorage("collection:" + this.constructor.name, this.model, this.storageType);
+          setStorage = function() {
+            return _this.storage.set(_this.toJSON());
+          };
+          return this.on({
+            "add": setStorage,
+            "remove": setStorage,
+            "reset": setStorage,
+            "destroy": function() {
+              return _this.storage.remove();
+            }
+          });
         }
       }
     });
@@ -370,15 +372,15 @@
       };
 
       CollectionStorage.prototype.remove = function() {
-        var data, datas, _i, _len, _results;
-        datas = this.get();
-        if (datas != null) {
-          this.storage.remove(this.key);
-        }
+        var id, ids, _i, _len, _results;
+        ids = this.storage.get(this.key);
+        this.storage.remove(this.key);
         _results = [];
-        for (_i = 0, _len = datas.length; _i < _len; _i++) {
-          data = datas[_i];
-          _results.push(new this.model(data).storage.remove());
+        for (_i = 0, _len = ids.length; _i < _len; _i++) {
+          id = ids[_i];
+          _results.push(new this.model({
+            id: id
+          }).storage.remove());
         }
         return _results;
       };
