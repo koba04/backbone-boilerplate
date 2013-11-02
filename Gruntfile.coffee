@@ -59,9 +59,10 @@ module.exports = (grunt) ->
     concat:
       vendorJS:
         src: [
-          "bower_components/zepto/zepto.min.js"
-          "bower_components/lodash/dist/lodash.min.js"
+          "bower_components/jquery/jquery.min.js"
+          "bower_components/underscore/underscore-min.js"
           "bower_components/backbone/backbone-min.js"
+          "bower_components/marionette/lib/backbone.marionette.min.js"
           "bower_components/handlebars/handlebars.js"
         ]
         dest: "public/js/vendor.js"
