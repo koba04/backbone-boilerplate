@@ -5,6 +5,6 @@
   view = @view
 
   class view.Top extends view.Base
-    tmpl: app.template.get 'top'
+    tmpl: JST['top']
 
 ).call myapp

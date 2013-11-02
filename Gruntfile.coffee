@@ -27,7 +27,6 @@ module.exports = (grunt) ->
 
     handlebars:
       options:
-        namespace: "<%= pkg.name %>.JST"
         processName: (filePath) -> filePath.replace /template\/(.*)?\.hbs$/, (path, name) -> return name
       develop:
         files: "public/js/template.js": ["template/**/*.hbs"]

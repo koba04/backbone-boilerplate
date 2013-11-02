@@ -12,9 +12,6 @@
       for particle in @particles
         Handlebars.registerPartial particle, JST["particle/#{particle}"]
 
-    get: (name) ->
-      JST[name]
-
     helper:
       upperCase: (str) -> str.toUpperCase()
 

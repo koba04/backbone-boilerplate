@@ -86,10 +86,6 @@
         }
       }
 
-      Template.prototype.get = function(name) {
-        return JST[name];
-      };
-
       Template.prototype.helper = {
         upperCase: function(str) {
           return str.toUpperCase();
@@ -452,8 +448,7 @@
 
   (function() {
     'use strict';
-    var app, view, _ref;
-    app = this.app;
+    var view, _ref;
     view = this.view;
     return view.Error = (function(_super) {
       __extends(Error, _super);
@@ -463,7 +458,7 @@
         return _ref;
       }
 
-      Error.prototype.tmpl = app.template.get('error');
+      Error.prototype.tmpl = JST['error'];
 
       return Error;
 
@@ -478,8 +473,7 @@
 
   (function() {
     'use strict';
-    var app, view, _ref;
-    app = this.app;
+    var view, _ref;
     view = this.view;
     return view.Friends = (function(_super) {
       __extends(Friends, _super);
@@ -489,7 +483,7 @@
         return _ref;
       }
 
-      Friends.prototype.tmpl = app.template.get('friends');
+      Friends.prototype.tmpl = JST['friends'];
 
       Friends.prototype.show = function(users) {
         return this.render({
@@ -510,8 +504,7 @@
 
   (function() {
     'use strict';
-    var app, view, _ref;
-    app = this.app;
+    var view, _ref;
     view = this.view;
     return view.My = (function(_super) {
       __extends(My, _super);
@@ -521,7 +514,7 @@
         return _ref;
       }
 
-      My.prototype.tmpl = app.template.get('my');
+      My.prototype.tmpl = JST['my'];
 
       My.prototype.show = function(user) {
         return this.render({
@@ -553,7 +546,7 @@
         return _ref;
       }
 
-      Top.prototype.tmpl = app.template.get('top');
+      Top.prototype.tmpl = JST['top'];
 
       return Top;
 

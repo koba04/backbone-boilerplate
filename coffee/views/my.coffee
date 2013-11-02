@@ -1,11 +1,10 @@
 ( ->
   'use strict'
 
-  app = @app
   view = @view
 
   class view.My extends view.Base
-    tmpl: app.template.get 'my'
+    tmpl: JST['my']
     show: (user) ->
       @render user: user.toJSON()
 ).call myapp
