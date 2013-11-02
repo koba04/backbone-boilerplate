@@ -1,8 +1,6 @@
 ( ->
   'use strict'
 
-  JST = @JST
-
   class Template
     constructor: ->
       # registerHelper

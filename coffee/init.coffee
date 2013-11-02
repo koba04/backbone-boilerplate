@@ -1,3 +1,3 @@
 do ->
   'use strict'
-  myapp.app.start()
+  myapp.App.start()

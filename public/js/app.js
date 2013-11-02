@@ -69,8 +69,7 @@
 (function() {
   (function() {
     'use strict';
-    var JST, Template;
-    JST = this.JST;
+    var Template;
     Template = (function() {
       function Template() {
         var fn, name, particle, _i, _len, _ref, _ref1;
@@ -153,34 +152,18 @@
 (function() {
   (function() {
     'use strict';
-    var App, Storage, myapp;
+    var App, myapp, setupAjax;
     myapp = this;
-    Storage = this.util.Storage;
-    App = (function() {
-      function App() {
-        this.template = new myapp.Template();
-        this.router = new myapp.Router();
-      }
-
-      App.prototype.setupAjax = function() {
-        $.ajaxSettings.timeout = 5000;
-        $.ajaxSettings.cache = false;
-        return $.ajaxSettings.xhr = function() {
-          var xhr;
-          xhr = new XMLHttpRequest;
-          return xhr;
-        };
-      };
-
-      App.prototype.start = function() {
-        this.setupAjax();
-        return this.router.start();
-      };
-
-      return App;
-
-    })();
-    return myapp.app = new App();
+    setupAjax = function() {
+      $.ajaxSettings.timeout = 5000;
+      return $.ajaxSettings.cache = false;
+    };
+    App = new Backbone.Marionette.Application();
+    App.addInitializer(function() {
+      this.router = new myapp.Router();
+      return setupAjax();
+    });
+    return myapp.App = App;
   }).call(myapp);
 
 }).call(this);
@@ -558,7 +541,7 @@
 (function() {
   (function() {
     'use strict';
-    return myapp.app.start();
+    return myapp.App.start();
   })();
 
 }).call(this);
