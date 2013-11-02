@@ -12,11 +12,12 @@
     "tests"
   ],
   "devDependencies": {
-    "zepto": "~1.0.0",
     "backbone": "~1.1.0",
-    "lodash": "~2.2.0",
     "handlebars": "~1.0.0",
     "expect": "~0.2.0",
-    "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js"
+    "sinon": "http://sinonjs.org/releases/sinon-1.7.3.js",
+    "jquery": "~2.0.3",
+    "marionette": "~1.2.2",
+    "underscore": "~1.5.2"
   }
 }
