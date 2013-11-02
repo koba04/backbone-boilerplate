@@ -108,16 +108,7 @@
     view = this.view;
     model = this.model;
     collection = this.collection;
-    return this.Router = Backbone.Router.extend({
-      routes: {
-        "": "top",
-        "error/": "error",
-        "my/": "my",
-        "friends/": "friends"
-      },
-      start: function() {
-        return Backbone.history.start();
-      },
+    return this.Controller = {
       top: function() {
         return new view.Top().render();
       },
@@ -142,6 +133,32 @@
           success: function() {
             return new view.Friends().show(users);
           }
+        });
+      }
+    };
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    return this.Router = Backbone.Marionette.AppRouter.extend({
+      controller: myapp.Controller,
+      appRoutes: {
+        "": "top",
+        "error/": "error",
+        "my/": "my",
+        "friends/": "friends"
+      },
+      assign: function(path) {
+        return Backbone.history.navigate("#" + path, {
+          replace: false
+        });
+      },
+      replace: function(path) {
+        return Backbone.history.navigate("#" + path, {
+          replace: true
         });
       }
     });

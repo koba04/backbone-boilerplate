@@ -15,6 +15,7 @@ module.exports = (grunt) ->
             "coffee/namespace.coffee"
             "coffee/utils/**/*.coffee"
             "coffee/template.coffee"
+            "coffee/controller.coffee"
             "coffee/router.coffee"
             "coffee/app.coffee"
             "coffee/models/*.coffee"
