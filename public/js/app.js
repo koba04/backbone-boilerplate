@@ -8,7 +8,12 @@
     myapp = window.myapp;
     myapp.model = {};
     myapp.collection = {};
-    myapp.view = {};
+    myapp.view = {
+      item: {},
+      collection: {},
+      composite: {},
+      layout: {}
+    };
     return myapp.util = {};
   })();
 
@@ -110,10 +115,14 @@
     collection = this.collection;
     return this.Controller = {
       top: function() {
-        return new view.Top().render();
+        var v;
+        v = new view.layout.Top();
+        return myapp.App.content.show(v);
       },
       error: function() {
-        return new view.Error().render();
+        var v;
+        v = new view.layout.Error();
+        return myapp.App.content.show(v);
       },
       my: function() {
         var my;
@@ -122,7 +131,11 @@
         });
         return my.fetch({
           success: function() {
-            return new view.My().show(my);
+            var v;
+            v = new view.layout.My({
+              model: my
+            });
+            return myapp.App.content.show(v);
           }
         });
       },
@@ -131,7 +144,11 @@
         users = new collection.Users();
         return users.fetch({
           success: function() {
-            return new view.Friends().show(users);
+            var v;
+            v = new view.layout.Friends({
+              collection: users
+            });
+            return myapp.App.content.show(v);
           }
         });
       }
@@ -179,6 +196,9 @@
     App.addInitializer(function() {
       this.router = new myapp.Router();
       return setupAjax();
+    });
+    App.addRegions({
+      content: "#content"
     });
     return myapp.App = App;
   }).call(myapp);
@@ -429,128 +449,19 @@
 (function() {
   (function() {
     'use strict';
-    var view;
-    view = this.view;
-    return view.Base = Backbone.View.extend({
-      el: $('#content'),
-      render: function(data) {
-        this.$el.html(this.tmpl(data));
-        return this;
-      }
+    return this.view.layout.Error = Backbone.Marionette.Layout.extend({
+      template: JST['layouts/error']
     });
   }).call(myapp);
 
 }).call(this);
 
 (function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
   (function() {
     'use strict';
-    var view, _ref;
-    view = this.view;
-    return view.Error = (function(_super) {
-      __extends(Error, _super);
-
-      function Error() {
-        _ref = Error.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      Error.prototype.tmpl = JST['error'];
-
-      return Error;
-
-    })(view.Base);
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  (function() {
-    'use strict';
-    var view, _ref;
-    view = this.view;
-    return view.Friends = (function(_super) {
-      __extends(Friends, _super);
-
-      function Friends() {
-        _ref = Friends.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      Friends.prototype.tmpl = JST['friends'];
-
-      Friends.prototype.show = function(users) {
-        return this.render({
-          friends: users.toJSON()
-        });
-      };
-
-      return Friends;
-
-    })(view.Base);
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  (function() {
-    'use strict';
-    var view, _ref;
-    view = this.view;
-    return view.My = (function(_super) {
-      __extends(My, _super);
-
-      function My() {
-        _ref = My.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      My.prototype.tmpl = JST['my'];
-
-      My.prototype.show = function(user) {
-        return this.render({
-          user: user.toJSON()
-        });
-      };
-
-      return My;
-
-    })(view.Base);
-  }).call(myapp);
-
-}).call(this);
-
-(function() {
-  var __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  (function() {
-    'use strict';
-    var app, view, _ref;
-    app = this.app;
-    view = this.view;
-    return view.Top = (function(_super) {
-      __extends(Top, _super);
-
-      function Top() {
-        _ref = Top.__super__.constructor.apply(this, arguments);
-        return _ref;
-      }
-
-      Top.prototype.tmpl = JST['top'];
-
-      return Top;
-
-    })(view.Base);
+    return this.view.layout.Friends = Backbone.Marionette.Layout.extend({
+      template: JST['layouts/friends']
+    });
   }).call(myapp);
 
 }).call(this);
@@ -558,7 +469,28 @@
 (function() {
   (function() {
     'use strict';
-    return myapp.App.start();
+    return this.view.layout.My = Backbone.Marionette.Layout.extend({
+      template: JST['layouts/my']
+    });
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    return this.view.layout.Top = Backbone.Marionette.Layout.extend({
+      template: JST['layouts/top']
+    });
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    myapp.App.start();
+    return Backbone.history.start();
   })();
 
 }).call(this);

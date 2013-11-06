@@ -12,6 +12,7 @@
   App.addInitializer ->
     @router = new myapp.Router()
     setupAjax()
+  App.addRegions content: "#content"
 
   myapp.App = App
 

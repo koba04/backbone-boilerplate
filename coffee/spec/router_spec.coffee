@@ -20,8 +20,9 @@ describe "Router", ->
       expect(router.controller).to.be myapp.Controller
 
   describe "assign", ->
-    it "Changed location.hash", ->
+    beforeEach ->
       router.assign "/test/"
+    it "Changed location.hash", ->
       expect(Backbone.history.navigate.calledOnce).to.be.ok()
       expect(Backbone.history.navigate.getCall(0).args).to.be.eql [
         "#/test/"
@@ -29,8 +30,9 @@ describe "Router", ->
       ]
 
   describe "replace", ->
-    it "Changed location.hash", ->
+    beforeEach ->
       router.replace "/test2/"
+    it "Changed location.hash", ->
       expect(Backbone.history.navigate.calledOnce).to.be.ok()
       expect(Backbone.history.navigate.getCall(0).args).to.be.eql [
         "#/test2/"

@@ -7,19 +7,23 @@
 
   @Controller =
     top: ->
-      new view.Top().render()
+      v = new view.layout.Top()
+      myapp.App.content.show v
 
     error: ->
-      new view.Error().render()
+      v = new view.layout.Error()
+      myapp.App.content.show v
 
     my: ->
       my = new model.User id: 1
       my.fetch success: ->
-        new view.My().show my
+        v = new view.layout.My model: my
+        myapp.App.content.show v
 
     friends: ->
       users = new collection.Users()
       users.fetch success: ->
-        new view.Friends().show users
+        v = new view.layout.Friends collection: users
+        myapp.App.content.show v
 
 ).call myapp

@@ -6,6 +6,11 @@ do ->
   myapp = window.myapp
   myapp.model = {}
   myapp.collection = {}
-  myapp.view = {}
+  myapp.view = {
+    item: {}
+    collection: {}
+    composite: {}
+    layout: {}
+  }
   myapp.util = {}
 
