@@ -20,9 +20,10 @@ module.exports = (grunt) ->
             "coffee/app.coffee"
             "coffee/models/*.coffee"
             "coffee/collections/*.coffee"
-            "coffee/views/base.coffee"
-            "coffee/views/*.coffee"
-            "coffee/views/**/*.coffee"
+            "coffee/views/items/*.coffee"
+            "coffee/views/collections/*.coffee"
+            "coffee/views/composites/*.coffee"
+            "coffee/views/layouts/*.coffee"
             "coffee/init.coffee"
           ]
 

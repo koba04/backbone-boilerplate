@@ -115,14 +115,14 @@
     collection = this.collection;
     return this.Controller = {
       top: function() {
-        var v;
-        v = new view.layout.Top();
-        return myapp.App.content.show(v);
+        var topView;
+        topView = new view.layout.Top();
+        return myapp.App.content.show(topView);
       },
       error: function() {
-        var v;
-        v = new view.layout.Error();
-        return myapp.App.content.show(v);
+        var errorView;
+        errorView = new view.layout.Error();
+        return myapp.App.content.show(errorView);
       },
       my: function() {
         var my;
@@ -131,26 +131,16 @@
         });
         return my.fetch({
           success: function() {
-            var v;
-            v = new view.layout.My({
+            var myView;
+            myView = new view.layout.My({
               model: my
             });
-            return myapp.App.content.show(v);
+            return myapp.App.content.show(myView);
           }
         });
       },
       friends: function() {
-        var users;
-        users = new collection.Users();
-        return users.fetch({
-          success: function() {
-            var v;
-            v = new view.layout.Friends({
-              collection: users
-            });
-            return myapp.App.content.show(v);
-          }
-        });
+        return new view.layout.Friends().show();
       }
     };
   }).call(myapp);
@@ -449,6 +439,30 @@
 (function() {
   (function() {
     'use strict';
+    var view;
+    view = this.view;
+    return view.item.Friend = Backbone.Marionette.ItemView.extend({
+      template: JST['items/friend']
+    });
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    var view;
+    view = this.view;
+    return view.collection.Friends = Backbone.Marionette.CollectionView.extend({
+      itemView: view.item.Friend
+    });
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
     return this.view.layout.Error = Backbone.Marionette.Layout.extend({
       template: JST['layouts/error']
     });
@@ -459,8 +473,27 @@
 (function() {
   (function() {
     'use strict';
-    return this.view.layout.Friends = Backbone.Marionette.Layout.extend({
-      template: JST['layouts/friends']
+    var collection, view;
+    view = this.view;
+    collection = this.collection;
+    return view.layout.Friends = Backbone.Marionette.Layout.extend({
+      template: JST['layouts/friends'],
+      regions: {
+        friends: "#friends"
+      },
+      show: function() {
+        var users,
+          _this = this;
+        users = new collection.Users();
+        return users.fetch({
+          success: function() {
+            myapp.App.content.show(_this);
+            return _this.friends.show(new view.collection.Friends({
+              collection: users
+            }));
+          }
+        });
+      }
     });
   }).call(myapp);
 
