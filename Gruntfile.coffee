@@ -81,7 +81,13 @@ module.exports = (grunt) ->
       options:
         livereload: true
       coffee:
-        files: "coffee/**/*.coffee"
+        files: [
+          "coffee/*.coffee"
+          "coffee/utils/**/*.coffee"
+          "coffee/models/*.coffee"
+          "coffee/collections/*.coffee"
+          "coffee/views/**/*.coffee"
+        ]
         tasks: ["coffee2js"]
       handlebars:
         files: "template/**/*.hbs"
