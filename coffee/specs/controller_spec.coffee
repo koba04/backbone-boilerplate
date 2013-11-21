@@ -40,7 +40,7 @@ describe "Controller", ->
 
   describe "friends", ->
     beforeEach ->
-      sinon.spy view.layout.Friends.prototype, "show"
+      sinon.stub view.layout.Friends.prototype, "show"
       Controller.friends()
     afterEach ->
       view.layout.Friends.prototype.show.restore()
