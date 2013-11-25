@@ -27,6 +27,7 @@ describe "collection.Base", ->
       myapp.util.sessionStorage.clear()
 
     beforeEach ->
+      myapp.util.sessionStorage.clear()
       users = new Users()
 
     it "Storage is empty", ->

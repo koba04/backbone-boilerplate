@@ -143,8 +143,7 @@ module.exports = (grunt) ->
         ]
         options:
           test_page: "coffee/specs/runner.mustache"
-          #parallel: 4
-          launch_in_dev: ["PhantomJS", "Chrome", "Safari"]
+          launch_in_dev: ["Chrome"]
           launch_in_ci:  ["PhantomJS", "Firefox"]
 
     connect:
