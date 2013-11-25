@@ -1,7 +1,7 @@
 ( ->
   'use strict'
 
-  @view.layout.Error = Backbone.Marionette.Layout.extend
+  class @view.layout.Error extends Backbone.Marionette.Layout
     template: JST['layouts/error']
 
 ).call myapp

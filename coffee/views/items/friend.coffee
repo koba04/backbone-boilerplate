@@ -2,7 +2,7 @@
   'use strict'
 
   view = @view
-  view.item.Friend = Backbone.Marionette.ItemView.extend
+  class view.item.Friend extends Backbone.Marionette.ItemView
     template: JST['items/friend']
 
 ).call myapp

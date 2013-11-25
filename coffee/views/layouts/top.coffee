@@ -1,7 +1,7 @@
 ( ->
   'use strict'
 
-  @view.layout.Top = Backbone.Marionette.Layout.extend
+  class @view.layout.Top extends Backbone.Marionette.Layout
     template: JST['layouts/top']
 
 ).call myapp

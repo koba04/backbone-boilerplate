@@ -10,7 +10,7 @@ describe "util.cachedSync", ->
     set: (data) -> storageData[@key] = data
     remove: -> storageData[@key] = null
 
-  SaveModel = Backbone.Model.extend
+  class SaveModel extends Backbone.Model
     urlRoot: "/test/"
     sync: cachedSync
     storageType: "session"

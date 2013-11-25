@@ -3,7 +3,7 @@
 
   view = @view
   collection = @collection
-  view.layout.Friends = Backbone.Marionette.Layout.extend
+  class view.layout.Friends extends Backbone.Marionette.Layout
     template: JST['layouts/friends']
     regions:
       friends: "#friends"

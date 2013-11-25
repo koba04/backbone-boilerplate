@@ -4,7 +4,7 @@
   model = @model
   util = @util
 
-  model.Base = Backbone.Model.extend
+  class model.Base extends Backbone.Model
     storage: null
     sync: util.cachedSync
     initialize: (attrs = {}) ->

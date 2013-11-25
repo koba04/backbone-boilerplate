@@ -1,7 +1,7 @@
 ( ->
   'use strict'
 
-  @Router = Backbone.Marionette.AppRouter.extend
+  class @Router extends Backbone.Marionette.AppRouter
     controller: myapp.Controller
     appRoutes:
       "":           "top"

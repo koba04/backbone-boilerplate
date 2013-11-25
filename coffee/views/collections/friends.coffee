@@ -2,7 +2,7 @@
   'use strict'
 
   view = @view
-  view.collection.Friends = Backbone.Marionette.CollectionView.extend
+  class view.collection.Friends extends Backbone.Marionette.CollectionView
     itemView: view.item.Friend
 
 ).call myapp

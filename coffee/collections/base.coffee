@@ -5,7 +5,7 @@
   collection = @collection
   util = @util
 
-  collection.Base = Backbone.Collection.extend
+  class collection.Base extends Backbone.Collection
     storage: null
     sync: util.cachedSync
     model: model.Base

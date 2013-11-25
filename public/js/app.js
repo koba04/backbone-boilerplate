@@ -148,27 +148,44 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    return this.Router = Backbone.Marionette.AppRouter.extend({
-      controller: myapp.Controller,
-      appRoutes: {
+    var _ref;
+    return this.Router = (function(_super) {
+      __extends(Router, _super);
+
+      function Router() {
+        _ref = Router.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Router.prototype.controller = myapp.Controller;
+
+      Router.prototype.appRoutes = {
         "": "top",
         "error/": "error",
         "my/": "my",
         "friends/": "friends"
-      },
-      assign: function(path) {
+      };
+
+      Router.prototype.assign = function(path) {
         return Backbone.history.navigate("#" + path, {
           replace: false
         });
-      },
-      replace: function(path) {
+      };
+
+      Router.prototype.replace = function(path) {
         return Backbone.history.navigate("#" + path, {
           replace: true
         });
-      }
-    });
+      };
+
+      return Router;
+
+    })(Backbone.Marionette.AppRouter);
   }).call(myapp);
 
 }).call(this);
@@ -196,15 +213,27 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var ModelStorage, model, util;
+    var ModelStorage, model, util, _ref;
     model = this.model;
     util = this.util;
-    model.Base = Backbone.Model.extend({
-      storage: null,
-      sync: util.cachedSync,
-      initialize: function(attrs) {
+    model.Base = (function(_super) {
+      __extends(Base, _super);
+
+      function Base() {
+        _ref = Base.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Base.prototype.storage = null;
+
+      Base.prototype.sync = util.cachedSync;
+
+      Base.prototype.initialize = function(attrs) {
         var id, idAttribute,
           _this = this;
         if (attrs == null) {
@@ -221,8 +250,11 @@
             return _this.storage.remove();
           });
         }
-      }
-    });
+      };
+
+      return Base;
+
+    })(Backbone.Model);
     return ModelStorage = (function() {
       function ModelStorage(key, storageType) {
         this.key = key;
@@ -295,17 +327,30 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var CollectionStorage, collection, model, util;
+    var CollectionStorage, collection, model, util, _ref;
     model = this.model;
     collection = this.collection;
     util = this.util;
-    collection.Base = Backbone.Collection.extend({
-      storage: null,
-      sync: util.cachedSync,
-      model: model.Base,
-      initialize: function() {
+    collection.Base = (function(_super) {
+      __extends(Base, _super);
+
+      function Base() {
+        _ref = Base.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Base.prototype.storage = null;
+
+      Base.prototype.sync = util.cachedSync;
+
+      Base.prototype.model = model.Base;
+
+      Base.prototype.initialize = function() {
         var setStorage,
           _this = this;
         if (this.storageType != null) {
@@ -322,8 +367,11 @@
             }
           });
         }
-      }
-    });
+      };
+
+      return Base;
+
+    })(Backbone.Collection);
     return CollectionStorage = (function() {
       function CollectionStorage(key, model, storageType) {
         this.key = key;
@@ -437,51 +485,103 @@
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var view;
+    var view, _ref;
     view = this.view;
-    return view.item.Friend = Backbone.Marionette.ItemView.extend({
-      template: JST['items/friend']
-    });
+    return view.item.Friend = (function(_super) {
+      __extends(Friend, _super);
+
+      function Friend() {
+        _ref = Friend.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Friend.prototype.template = JST['items/friend'];
+
+      return Friend;
+
+    })(Backbone.Marionette.ItemView);
   }).call(myapp);
 
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var view;
+    var view, _ref;
     view = this.view;
-    return view.collection.Friends = Backbone.Marionette.CollectionView.extend({
-      itemView: view.item.Friend
-    });
+    return view.collection.Friends = (function(_super) {
+      __extends(Friends, _super);
+
+      function Friends() {
+        _ref = Friends.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Friends.prototype.itemView = view.item.Friend;
+
+      return Friends;
+
+    })(Backbone.Marionette.CollectionView);
   }).call(myapp);
 
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    return this.view.layout.Error = Backbone.Marionette.Layout.extend({
-      template: JST['layouts/error']
-    });
+    var _ref;
+    return this.view.layout.Error = (function(_super) {
+      __extends(Error, _super);
+
+      function Error() {
+        _ref = Error.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Error.prototype.template = JST['layouts/error'];
+
+      return Error;
+
+    })(Backbone.Marionette.Layout);
   }).call(myapp);
 
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    var collection, view;
+    var collection, view, _ref;
     view = this.view;
     collection = this.collection;
-    return view.layout.Friends = Backbone.Marionette.Layout.extend({
-      template: JST['layouts/friends'],
-      regions: {
+    return view.layout.Friends = (function(_super) {
+      __extends(Friends, _super);
+
+      function Friends() {
+        _ref = Friends.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
+
+      Friends.prototype.template = JST['layouts/friends'];
+
+      Friends.prototype.regions = {
         friends: "#friends"
-      },
-      show: function() {
+      };
+
+      Friends.prototype.show = function() {
         var users,
           _this = this;
         users = new collection.Users();
@@ -493,28 +593,59 @@
             }));
           }
         });
+      };
+
+      return Friends;
+
+    })(Backbone.Marionette.Layout);
+  }).call(myapp);
+
+}).call(this);
+
+(function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  (function() {
+    'use strict';
+    var _ref;
+    return this.view.layout.My = (function(_super) {
+      __extends(My, _super);
+
+      function My() {
+        _ref = My.__super__.constructor.apply(this, arguments);
+        return _ref;
       }
-    });
+
+      My.prototype.template = JST['layouts/my'];
+
+      return My;
+
+    })(Backbone.Marionette.Layout);
   }).call(myapp);
 
 }).call(this);
 
 (function() {
+  var __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
   (function() {
     'use strict';
-    return this.view.layout.My = Backbone.Marionette.Layout.extend({
-      template: JST['layouts/my']
-    });
-  }).call(myapp);
+    var _ref;
+    return this.view.layout.Top = (function(_super) {
+      __extends(Top, _super);
 
-}).call(this);
+      function Top() {
+        _ref = Top.__super__.constructor.apply(this, arguments);
+        return _ref;
+      }
 
-(function() {
-  (function() {
-    'use strict';
-    return this.view.layout.Top = Backbone.Marionette.Layout.extend({
-      template: JST['layouts/top']
-    });
+      Top.prototype.template = JST['layouts/top'];
+
+      return Top;
+
+    })(Backbone.Marionette.Layout);
   }).call(myapp);
 
 }).call(this);
