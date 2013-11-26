@@ -27,9 +27,11 @@ describe "Controller", ->
       expect(App.content.show.args[0][0]).to.be.a view.layout.Error
 
   describe "my", ->
+    deferred = new $.Deferred()
     beforeEach ->
-      sinon.stub(model.User.prototype, "fetch").yieldsTo "success", {}
+      sinon.stub(model.User.prototype, "fetch").returns deferred.promise()
       Controller.my()
+      deferred.resolve()
     afterEach ->
       model.User.prototype.fetch.restore()
 

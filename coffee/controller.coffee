@@ -16,7 +16,7 @@
 
     my: ->
       my = new model.User id: 1
-      my.fetch success: ->
+      my.fetch().done ->
         myView = new view.layout.My model: my
         myapp.App.content.show myView
 

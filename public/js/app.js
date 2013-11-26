@@ -23,11 +23,14 @@
   (function() {
     'use strict';
     return this.util.cachedSync = function(method, model, options) {
-      var data;
+      var data, deferred;
       if (method === "read" && (model.storage != null)) {
         data = model.storage.get();
         if (data != null) {
-          return options.success(data);
+          deferred = new $.Deferred();
+          model.set(data);
+          deferred.resolve();
+          return deferred.promise();
         }
       }
       return Backbone.sync(method, model, options);
@@ -129,14 +132,12 @@
         my = new model.User({
           id: 1
         });
-        return my.fetch({
-          success: function() {
-            var myView;
-            myView = new view.layout.My({
-              model: my
-            });
-            return myapp.App.content.show(myView);
-          }
+        return my.fetch().done(function() {
+          var myView;
+          myView = new view.layout.My({
+            model: my
+          });
+          return myapp.App.content.show(myView);
         });
       },
       friends: function() {
@@ -585,13 +586,11 @@
         var users,
           _this = this;
         users = new collection.Users();
-        return users.fetch({
-          success: function() {
-            myapp.App.content.show(_this);
-            return _this.friends.show(new view.collection.Friends({
-              collection: users
-            }));
-          }
+        return users.fetch().done(function() {
+          myapp.App.content.show(_this);
+          return _this.friends.show(new view.collection.Friends({
+            collection: users
+          }));
         });
       };
 

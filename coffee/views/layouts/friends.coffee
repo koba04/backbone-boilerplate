@@ -10,7 +10,7 @@
 
     show: ->
       users = new collection.Users()
-      users.fetch success: =>
+      users.fetch().done =>
         myapp.App.content.show @
         @friends.show new view.collection.Friends collection: users
 

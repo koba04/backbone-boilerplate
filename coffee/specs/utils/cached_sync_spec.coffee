@@ -45,27 +45,27 @@ describe "util.cachedSync", ->
     afterEach ->
       spy.reset()
 
-    it "Called specified success callback", ->
-      model.fetch success: spy
+    it "Called specified resolve callback", ->
+      model.fetch().done spy
       server.respond()
       expect(spy.calledOnce).to.ok()
 
     it "Save to  storage", ->
-      model.fetch success: spy
+      model.fetch().done spy
       server.respond()
       expect(spy.calledOnce).to.be.ok()
       expect(storageData["savemodel:1"]).to.eql response
 
-    it "You can get data from storage and called success callback", ->
+    it "You can get data from storage and called resolve callback", ->
       storageData["savemodel:1"].message = "good night"
-      model.fetch success: spy
+      model.fetch().done spy
       server.respond()
       expect(spy.calledOnce).to.be.ok()
       expect(storageData["savemodel:1"].message).to.be "good night"
 
     it "Storage data is empty, called Backbone.fetch", ->
       storageData["savemodel:1"] = null
-      model.fetch success: spy
+      model.fetch().done spy
       server.respond()
       expect(spy.calledOnce).to.be.ok()
       expect(storageData["savemodel:1"]).to.eql response
@@ -73,7 +73,7 @@ describe "util.cachedSync", ->
     it "Storage isnt defined, dont save to storage", ->
       storageData = {}
       model.storage = null
-      model.fetch success: spy
+      model.fetch().done spy
       server.respond()
       expect(spy.calledOnce).to.ok()
       expect(storageData).to.empty()
@@ -109,7 +109,7 @@ describe "util.cachedSync", ->
     it "POST Request", ->
       model = new SaveModel name: "jim"
       model.storage = new Storage "savemodel:1"
-      model.save {}, success: spy
+      model.save({}).done spy
       server.respond()
       expect(spy.calledOnce).to.ok()
       expect(storageData["savemodel:1"]).to.eql id:1, name:"jim", message:"post request"
@@ -117,14 +117,14 @@ describe "util.cachedSync", ->
 
     it "PUT Request", ->
       model.set "name", "tom"
-      model.save {}, success: spy
+      model.save({}).done spy
       server.respond()
       expect(spy.calledOnce).to.ok()
       expect(storageData["savemodel:1"]).to.eql id:1, name:"tom", message:"put request"
       expect(model.get("message")).to.be "put request"
 
     it "DELETE Request", ->
-      model.destroy success: spy
+      model.destroy().done spy
       server.respond()
       expect(spy.calledOnce).to.ok()
       expect(storageData["savemodel:1"]).to.be null
