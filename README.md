@@ -3,23 +3,21 @@
 * coffeescript
 * backbone
 * lodash (underscore)
-* zepto (jQuery)
+* jquery
 * handlebars
 * compass
 * connect (proxy + easymock)
 * livereload
-* assemble
 * testem
 * mocha + expect
 * sinon
-* foreman
 * notify (growl or notification center)
 
 ## setup
 
 ```
 % bunle install
-% npm install -g grunt-cli bower easymock
+% npm install -g grunt-cli bower
 % npm install
 % bower install
 ```
@@ -27,7 +25,7 @@
 ## start develop
 
 ```
-% bundle exec foreman start
+% grunt
 :
 % open http://localhost:9000/
 ```

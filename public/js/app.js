@@ -1,6 +1,4 @@
-require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"myapp/app":[function(require,module,exports){
-module.exports=require('6MciEj');
-},{}],"6MciEj":[function(require,module,exports){
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"6MciEj":[function(require,module,exports){
 'use strict';
 var App,
   __hasProp = {}.hasOwnProperty,
@@ -39,6 +37,10 @@ App = (function(_super) {
 module.exports = new App;
 
 
+},{}],"myapp/app":[function(require,module,exports){
+module.exports=require('6MciEj');
+},{}],"myapp/collections/base":[function(require,module,exports){
+module.exports=require('+chpI0');
 },{}],"+chpI0":[function(require,module,exports){
 'use strict';
 var Model,
@@ -61,8 +63,8 @@ module.exports = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"myapp/models/base":"3kKKBP"}],"myapp/collections/base":[function(require,module,exports){
-module.exports=require('+chpI0');
+},{"myapp/models/base":"3kKKBP"}],"myapp/collections/users":[function(require,module,exports){
+module.exports=require('gmSmhJ');
 },{}],"gmSmhJ":[function(require,module,exports){
 'use strict';
 var Base, User, Users,
@@ -91,9 +93,7 @@ Users = (function(_super) {
 module.exports = new Users;
 
 
-},{"myapp/collections/base":"+chpI0","myapp/models/user":"b51ifI"}],"myapp/collections/users":[function(require,module,exports){
-module.exports=require('gmSmhJ');
-},{}],"myapp/controller":[function(require,module,exports){
+},{"myapp/collections/base":"+chpI0","myapp/models/user":"b51ifI"}],"myapp/controller":[function(require,module,exports){
 module.exports=require('VvtH1o');
 },{}],"VvtH1o":[function(require,module,exports){
 'use strict';
@@ -123,9 +123,7 @@ module.exports = {
 };
 
 
-},{"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/models/base":[function(require,module,exports){
-module.exports=require('3kKKBP');
-},{}],"3kKKBP":[function(require,module,exports){
+},{"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"3kKKBP":[function(require,module,exports){
 'use strict';
 var __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -142,6 +140,8 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
+},{}],"myapp/models/base":[function(require,module,exports){
+module.exports=require('3kKKBP');
 },{}],"myapp/models/user":[function(require,module,exports){
 module.exports=require('b51ifI');
 },{}],"b51ifI":[function(require,module,exports){
@@ -171,7 +171,9 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"myapp/models/base":"3kKKBP"}],"u5GI7r":[function(require,module,exports){
+},{"myapp/models/base":"3kKKBP"}],"myapp/router":[function(require,module,exports){
+module.exports=require('u5GI7r');
+},{}],"u5GI7r":[function(require,module,exports){
 'use strict';
 var Controller, Router,
   __hasProp = {}.hasOwnProperty,
@@ -200,11 +202,7 @@ Router = (function(_super) {
 module.exports = new Router;
 
 
-},{"myapp/controller":"VvtH1o"}],"myapp/router":[function(require,module,exports){
-module.exports=require('u5GI7r');
-},{}],"myapp/template":[function(require,module,exports){
-module.exports=require('tLgW31');
-},{}],"tLgW31":[function(require,module,exports){
+},{"myapp/controller":"VvtH1o"}],"tLgW31":[function(require,module,exports){
 'use strict';
 module.exports = (function() {
   function _Class() {
@@ -238,6 +236,10 @@ module.exports = (function() {
 })();
 
 
+},{}],"myapp/template":[function(require,module,exports){
+module.exports=require('tLgW31');
+},{}],"myapp/views/collections/users":[function(require,module,exports){
+module.exports=require('ph/WQ5');
 },{}],"ph/WQ5":[function(require,module,exports){
 'use strict';
 var UserView,
@@ -260,9 +262,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.CollectionView);
 
 
-},{"myapp/views/items/user_row":"nKj0s3"}],"myapp/views/collections/users":[function(require,module,exports){
-module.exports=require('ph/WQ5');
-},{}],"myapp/views/items/user_row":[function(require,module,exports){
+},{"myapp/views/items/user_row":"nKj0s3"}],"myapp/views/items/user_row":[function(require,module,exports){
 module.exports=require('nKj0s3');
 },{}],"nKj0s3":[function(require,module,exports){
 'use strict';
@@ -283,8 +283,6 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{}],"myapp/views/layouts/error":[function(require,module,exports){
-module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
 var __hasProp = {}.hasOwnProperty,
@@ -304,6 +302,8 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
+},{}],"myapp/views/layouts/error":[function(require,module,exports){
+module.exports=require('BpCbbU');
 },{}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var UsersView,

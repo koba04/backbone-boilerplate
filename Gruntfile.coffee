@@ -1,10 +1,5 @@
 module.exports = (grunt) ->
 
-  proxyHost = if grunt.option('proxy_host')? then grunt.option('proxy_host') else null
-
-  # product static server. cf, CDN...
-  staticHost = "http://example.com"
-
   grunt.initConfig
     pkg: grunt.file.readJSON("package.json")
 
@@ -32,26 +27,15 @@ module.exports = (grunt) ->
     handlebars:
       options:
         processName: (filePath) -> filePath.replace /template\/(.*)?\.hbs$/, (path, name) -> return name
-      develop:
+      app:
         files: "public/js/template.js": ["template/**/*.hbs"]
-      product:
-        files: "public/js/template.product.js": ["template/**/*.hbs"]
-        options:
-          processContent: (content) -> content.replace /src="(.*)?"/gm, "src=\"#{staticHost}$1\""
 
     compass:
       options:
         bundleExec: true
         sassDir: "scss"
         imageDir: "img"
-      product:
-        options:
-          httpPath: staticHost
-          httpStylesheetsPath: "#{staticHost}/css"
-          cssDir: "public/css/product"
-          noLineComments: true
-          outputStyle: "compressed"
-      develop:
+      app:
         options:
           httpPath: "/"
           httpStylesheetsPath: "/css"
@@ -60,13 +44,13 @@ module.exports = (grunt) ->
           outputStyle: "expanded"
 
     concat:
-      vendorJS:
+      vendor:
         src: [
-          "bower_components/jquery/jquery.min.js"
-          "bower_components/underscore/underscore-min.js"
-          "bower_components/backbone/backbone-min.js"
-          "bower_components/marionette/lib/backbone.marionette.min.js"
-          "bower_components/handlebars/handlebars.js"
+          "bower_components/jquery/dist/jquery.js"
+          "bower_components/underscore/underscore.js"
+          "bower_components/backbone/backbone.js"
+          "bower_components/marionette/lib/backbone.marionette.js"
+          "bower_components/handlebars/handlebars.runtime.js"
         ]
         dest: "public/js/vendor.js"
 
@@ -89,46 +73,11 @@ module.exports = (grunt) ->
       scss:
         files: "scss/**/*.scss"
         tasks: ["compass"]
-      assemble:
-        files: "assemble/**/*"
-        tasks: ["assemble"]
-
-    assemble:
-      term:
-        options:
-          ext: ".hbs"
-          data: "assemble/data/term.yaml"
-          layout: "assemble/layout/term.hbs"
-        files: [
-          expand: true
-          cwd: "assemble/template/term"
-          src: "**/*.hbs"
-          dest: "template/term"
-        ]
-      publicHTMLDevelop:
-        options:
-          product: false
-          jsVersion: 1
-          cssVersion: 1
-        files: [
-          src: "assemble/template/public_html/index.hbs"
-          dest: "public/index.html"
-        ]
-      publicHTMLProduct:
-        options:
-          product: true
-          jsVersion: 1
-          cssVersion: 1
-          staticHost: staticHost
-        files: [
-          src: "assemble/template/public_html/index.hbs"
-          dest: "public/index.product.html"
-        ]
 
     testem:
       app:
         src: [
-          "bower_components/expect/expect.js"
+          "bower_components/expect/index.js"
           "bower_components/sinon/index.js"
           "public/js/vendor.js"
           "public/js/template.js"
@@ -155,12 +104,20 @@ module.exports = (grunt) ->
           "/users/"
           "/items/"
         ]
-        host: if proxyHost? then proxyHost  else "localhost"
-        port: if proxyHost? then 80         else 3000
+        host: "localhost"
+        port: 3000
         changeOrigin: true
       ]
 
-  require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks)
-  grunt.loadNpmTasks "assemble"
+    easymock:
+      api:
+        options:
+          port: 3000,
+          path: 'easymock'
+         config:
+            routes: [
+              "/users/:id"
+            ]
 
-  grunt.registerTask "default", ["configureProxies", "connect:server", "watch"]
+  require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks)
+  grunt.registerTask "default", ["configureProxies", "connect:server", "easymock", "watch"]
