@@ -8,24 +8,26 @@ module.exports = (grunt) ->
   grunt.initConfig
     pkg: grunt.file.readJSON("package.json")
 
-    coffee:
-      compile:
-        files:
-          "public/js/app.js": [
-            "coffee/namespace.coffee"
-            "coffee/utils/**/*.coffee"
-            "coffee/template.coffee"
-            "coffee/controller.coffee"
-            "coffee/router.coffee"
-            "coffee/app.coffee"
-            "coffee/models/*.coffee"
-            "coffee/collections/*.coffee"
-            "coffee/views/items/*.coffee"
-            "coffee/views/collections/*.coffee"
-            "coffee/views/composites/*.coffee"
-            "coffee/views/layouts/*.coffee"
-            "coffee/init.coffee"
-          ]
+    browserify:
+      app:
+        files: "public/js/app.js": [ "coffee/**/*.coffee" ]
+        options:
+          ignore: ["coffee/specs/**/*.coffee"]
+          extensions: [".coffee"]
+          transform: ["coffeeify"]
+          aliasMappings:
+            cwd: 'coffee',
+            dest: 'myapp',
+            src: ['**/*.coffee']
+      test:
+        files: "specs/spec.js": [ "specs/**/*.coffee" ]
+        options:
+          extensions: [".coffee"]
+          transform: ["coffeeify"]
+          aliasMappings:
+            cwd: 'coffee',
+            dest: 'myapp',
+            src: ['**/*.coffee']
 
     handlebars:
       options:
@@ -68,27 +70,19 @@ module.exports = (grunt) ->
         ]
         dest: "public/js/vendor.js"
 
-    removelogging:
-      product:
-        src: "public/js/app.js"
-        dest: "public/js/app.product.js"
-
-    uglify:
-      product:
-        files: "public/js/app.product.js": ["public/js/app.product.js"]
-
     watch:
       options:
         livereload: true
       coffee:
         files: [
-          "coffee/*.coffee"
-          "coffee/utils/**/*.coffee"
-          "coffee/models/*.coffee"
-          "coffee/collections/*.coffee"
-          "coffee/views/**/*.coffee"
+          "coffee/**/*.coffee"
         ]
-        tasks: ["coffee2js"]
+        tasks: ["browserify:app"]
+      specs:
+        files: [
+          "specs/**/*.coffee"
+        ]
+        tasks: ["browserify:test"]
       handlebars:
         files: "template/**/*.hbs"
         tasks: ["handlebars"]
@@ -138,11 +132,10 @@ module.exports = (grunt) ->
           "bower_components/sinon/index.js"
           "public/js/vendor.js"
           "public/js/template.js"
-          "public/js/app.js"
-          "coffee/specs/**/*_spec.coffee"
+          "specs/spec.js"
         ]
         options:
-          test_page: "coffee/specs/runner.mustache"
+          test_page: "specs/runner.mustache"
           launch_in_dev: ["Chrome"]
           launch_in_ci:  ["PhantomJS", "Firefox"]
 
@@ -170,5 +163,4 @@ module.exports = (grunt) ->
   require("matchdep").filterDev("grunt-*").forEach(grunt.loadNpmTasks)
   grunt.loadNpmTasks "assemble"
 
-  grunt.registerTask "coffee2js", ["coffee", "removelogging", "uglify"]
   grunt.registerTask "default", ["configureProxies", "connect:server", "watch"]

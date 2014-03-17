@@ -1,7 +1,12 @@
-( ->
-  'use strict'
+'use strict'
 
-  class @view.layout.Top extends Backbone.Marionette.Layout
+UsersView = require 'myapp/views/collections/users'
+
+module.exports = class extends Backbone.Marionette.Layout
     template: JST['layouts/top']
-
-).call myapp
+    regions:
+      users: ".js-users"
+    onRender: ->
+      @users.show(
+        new UsersView collection: @collection
+      )

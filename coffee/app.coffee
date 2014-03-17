@@ -1,19 +1,17 @@
-( ->
-  'use strict'
+'use strict'
 
-  myapp = @
+class App extends Backbone.Marionette.Application
+  constructor: ->
+    super
+    @addInitializer (options) =>
+      @addRegions content: "#content"
+      # setup XHR
+      $.ajaxSettings.timeout = 5000
+      $.ajaxSettings.cache = false
+    @on "initialize:after", (options) ->
+      unless Backbone.History.started
+        Backbone.history.start()
 
-  setupAjax = ->
-    # setup XHR
-    $.ajaxSettings.timeout = 5000
-    $.ajaxSettings.cache = false
+    $ => @start()
 
-  App = new Backbone.Marionette.Application()
-  App.addInitializer ->
-    @router = new myapp.Router()
-    setupAjax()
-  App.addRegions content: "#content"
-
-  myapp.App = App
-
-).call myapp
+module.exports = new App

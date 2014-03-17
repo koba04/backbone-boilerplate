@@ -1,19 +1,12 @@
-( ->
-  'use strict'
+'use strict'
 
-  class @Router extends Backbone.Marionette.AppRouter
-    controller: myapp.Controller
-    appRoutes:
-      "":           "top"
-      "error/":     "error"
-      "my/":        "my"
-      "friends/":   "friends"
+Controller = require 'myapp/controller'
 
-    # 指定のページに遷移する
-    assign: (path) ->
-      Backbone.history.navigate "##{path}", { replace: false }
-    # 指定のページに遷移する(location replace)
-    replace: (path) ->
-      Backbone.history.navigate "##{path}", { replace: true }
+class Router extends Backbone.Marionette.AppRouter
+  controller: Controller
+  appRoutes:
+    "":       "top"
+    "error":  "error"
 
-).call myapp
+module.exports = new Router
+

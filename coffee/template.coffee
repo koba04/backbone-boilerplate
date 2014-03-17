@@ -1,22 +1,21 @@
-( ->
-  'use strict'
+'use strict'
 
-  class Template
-    constructor: ->
-      # registerHelper
-      for name, fn of @helper
-        Handlebars.registerHelper name, fn
-      # registerParticle
-      for particle in @particles
-        Handlebars.registerPartial particle, JST["particle/#{particle}"]
+module.exports = class
+  constructor: ->
+    # registerHelper
+    for name, fn of @helper
+      Handlebars.registerHelper name, fn
+    # registerParticle
+    for particle in @particles
+      Handlebars.registerPartial particle, JST["particle/#{particle}"]
 
-    helper:
-      upperCase: (str) -> str.toUpperCase()
+  helper:
+    equal: (a, b, options) ->
+      if a is b
+        options.fn @
+      else
+        options.inverse @
 
-    particles: [
-      'user'
-    ]
+  particles: [
+  ]
 
-  @Template = Template
-
-).call myapp

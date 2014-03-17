@@ -1,12 +1,10 @@
-( ->
-  'use strict'
+'use strict'
 
-  model = @model
-  collection = @collection
+Base = require 'myapp/collections/base'
+User = require 'myapp/models/user'
 
-  class collection.Users extends collection.Base
-    url: "/users/"
-    model: model.User
-    storageType: "session"
+class Users extends Base
+  url: "/users/"
+  model: User
 
-).call myapp
+module.exports = new Users

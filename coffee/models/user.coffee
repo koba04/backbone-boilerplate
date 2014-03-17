@@ -1,13 +1,10 @@
-( ->
-  'use strict'
+'use strict'
 
-  model = @model
+Base = require 'myapp/models/base'
 
-  class model.User extends model.Base
-    urlRoot: "/users/"
-    storageType: "session"
-    initialize: (attrs) ->
-      super
-      @name = attrs.name
+module.exports = class extends Base
+  urlRoot: "/users/"
+  initialize: (attrs) ->
+    super
+    @name = attrs.name
 
-).call myapp

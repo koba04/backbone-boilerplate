@@ -1,26 +1,16 @@
-( ->
-  'use strict'
+'use strict'
 
-  view = @view
-  model = @model
-  collection = @collection
+App     = require 'myapp/app'
+users   = require 'myapp/collections/users'
+TopView     = require 'myapp/views/layouts/top'
+ErrorView   = require 'myapp/views/layouts/error'
 
-  @Controller =
-    top: ->
-      topView = new view.layout.Top()
-      myapp.App.content.show topView
+module.exports =
+  top: ->
+    users.fetch().done =>
+      App.content.show new TopView
+        collection: users
 
-    error: ->
-      errorView = new view.layout.Error()
-      myapp.App.content.show errorView
+  error: ->
+    App.content.show new ErrorView()
 
-    my: ->
-      my = new model.User id: 1
-      my.fetch().done ->
-        myView = new view.layout.My model: my
-        myapp.App.content.show myView
-
-    friends: ->
-      new view.layout.Friends().show()
-
-).call myapp
