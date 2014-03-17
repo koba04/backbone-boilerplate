@@ -114,7 +114,7 @@ module.exports = (grunt) ->
         options:
           port: 3000,
           path: 'easymock'
-         config:
+          config:
             routes: [
               "/users/:id"
             ]
