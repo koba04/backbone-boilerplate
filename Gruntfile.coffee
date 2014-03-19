@@ -70,6 +70,7 @@ module.exports = (grunt) ->
         files: [
           "coffee/**/*.coffee"
           "template/**/*.hbs"
+          "!coffee/vendor.coffee"
         ]
         tasks: ["browserify:app"]
       specs:
