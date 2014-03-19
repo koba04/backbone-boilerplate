@@ -1,6 +1,7 @@
 'use strict'
 
-Model = require 'myapp/models/base'
+Backbone  = require 'backbone'
+Model     = require 'myapp/models/base'
 
 module.exports =  class extends Backbone.Collection
   model: Model

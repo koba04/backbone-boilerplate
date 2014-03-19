@@ -1,6 +1,7 @@
 'use strict'
 
-Controller = require 'myapp/controller'
+Backbone    = require 'backbone'
+Controller  = require 'myapp/controller'
 
 class Router extends Backbone.Marionette.AppRouter
   controller: Controller

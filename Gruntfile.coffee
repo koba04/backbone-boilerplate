@@ -7,7 +7,7 @@ module.exports = (grunt) ->
       app:
         files: "public/js/app.js": [ "coffee/**/*.coffee", "template/**/*.hbs" ]
         options:
-          ignore: ["coffee/specs/**/*.coffee"]
+          ignore: ["coffee/vendor.coffee"]
           extensions: [".coffee", ".hbs"]
           transform: ["coffeeify", "hbsfy"]
           aliasMappings: [
@@ -21,6 +21,17 @@ module.exports = (grunt) ->
               dest: 'template',
               src: ['**/*.hbs']
             }
+          ]
+          external: ["jquery", "underscore", "backbone", "backbone.marionette"]
+      vendor:
+        files: "public/js/vendor.js": ["coffee/vendor.coffee"]
+        options:
+          transform: ["coffeeify"]
+          alias: [
+            "jquery:jquery"
+            "underscore:underscore"
+            "backbone:backbone"
+            "backbone.marionette"
           ]
       test:
         files: "specs/spec.js": [ "specs/**/*.coffee" ]
@@ -39,6 +50,7 @@ module.exports = (grunt) ->
               src: ['**/*.hbs']
             }
           ]
+          external: ["jquery", "underscore", "backbone", "backbone.marionette"]
     compass:
       options:
         bundleExec: true

@@ -1,8 +1,12 @@
 require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({"6MciEj":[function(require,module,exports){
 'use strict';
-var App,
+var $, App, Backbone,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+$ = require('jquery');
+
+Backbone = require('backbone');
 
 App = (function(_super) {
   __extends(App, _super);
@@ -37,15 +41,17 @@ App = (function(_super) {
 module.exports = new App;
 
 
-},{}],"myapp/app":[function(require,module,exports){
+},{"backbone":false,"jquery":false}],"myapp/app":[function(require,module,exports){
 module.exports=require('6MciEj');
 },{}],"myapp/collections/base":[function(require,module,exports){
 module.exports=require('+chpI0');
 },{}],"+chpI0":[function(require,module,exports){
 'use strict';
-var Model,
+var Backbone, Model,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 Model = require('myapp/models/base');
 
@@ -63,7 +69,7 @@ module.exports = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"myapp/models/base":"3kKKBP"}],"myapp/collections/users":[function(require,module,exports){
+},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/users":[function(require,module,exports){
 module.exports=require('gmSmhJ');
 },{}],"gmSmhJ":[function(require,module,exports){
 'use strict';
@@ -125,8 +131,11 @@ module.exports = {
 module.exports=require('VvtH1o');
 },{}],"3kKKBP":[function(require,module,exports){
 'use strict';
-var __hasProp = {}.hasOwnProperty,
+var Backbone,
+  __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 module.exports = (function(_super) {
   __extends(_Class, _super);
@@ -140,7 +149,7 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
-},{}],"myapp/models/base":[function(require,module,exports){
+},{"backbone":false}],"myapp/models/base":[function(require,module,exports){
 module.exports=require('3kKKBP');
 },{}],"b51ifI":[function(require,module,exports){
 'use strict';
@@ -175,9 +184,11 @@ module.exports=require('b51ifI');
 module.exports=require('u5GI7r');
 },{}],"u5GI7r":[function(require,module,exports){
 'use strict';
-var Controller, Router,
+var Backbone, Controller, Router,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 Controller = require('myapp/controller');
 
@@ -202,22 +213,10 @@ Router = (function(_super) {
 module.exports = new Router;
 
 
-},{"myapp/controller":"VvtH1o"}],"tLgW31":[function(require,module,exports){
+},{"backbone":false,"myapp/controller":"VvtH1o"}],"tLgW31":[function(require,module,exports){
 'use strict';
 module.exports = (function() {
-  function _Class() {
-    var fn, name, particle, _i, _len, _ref, _ref1;
-    _ref = this.helper;
-    for (name in _ref) {
-      fn = _ref[name];
-      Handlebars.registerHelper(name, fn);
-    }
-    _ref1 = this.particles;
-    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-      particle = _ref1[_i];
-      Handlebars.registerPartial(particle, require("template/particle/" + particle));
-    }
-  }
+  function _Class() {}
 
   _Class.prototype.helper = {
     equal: function(a, b, options) {
@@ -241,14 +240,22 @@ module.exports=require('tLgW31');
 },{}],"myapp/vendor":[function(require,module,exports){
 module.exports=require('YIW917');
 },{}],"YIW917":[function(require,module,exports){
+var Backbone;
+
+Backbone = require('backbone');
+
+Backbone.$ = require('jquery');
+
+require('backbone.marionette');
 
 
-
-},{}],"ph/WQ5":[function(require,module,exports){
+},{"backbone":false,"backbone.marionette":false,"jquery":false}],"ph/WQ5":[function(require,module,exports){
 'use strict';
-var UserView,
+var Backbone, UserView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 UserView = require('myapp/views/items/user_row');
 
@@ -266,15 +273,17 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.CollectionView);
 
 
-},{"myapp/views/items/user_row":"nKj0s3"}],"myapp/views/collections/users":[function(require,module,exports){
+},{"backbone":false,"myapp/views/items/user_row":"nKj0s3"}],"myapp/views/collections/users":[function(require,module,exports){
 module.exports=require('ph/WQ5');
 },{}],"myapp/views/items/user_row":[function(require,module,exports){
 module.exports=require('nKj0s3');
 },{}],"nKj0s3":[function(require,module,exports){
 'use strict';
-var template,
+var Backbone, template,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 template = require('template/items/user_row');
 
@@ -292,11 +301,13 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"template/items/user_row":"G1r/Gt"}],"BpCbbU":[function(require,module,exports){
+},{"backbone":false,"template/items/user_row":"G1r/Gt"}],"BpCbbU":[function(require,module,exports){
 'use strict';
-var template,
+var Backbone, template,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 template = require('template/layouts/error');
 
@@ -314,13 +325,15 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"template/layouts/error":"qRFBid"}],"myapp/views/layouts/error":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/error":[function(require,module,exports){
 module.exports=require('BpCbbU');
 },{}],"33Bl1V":[function(require,module,exports){
 'use strict';
-var UsersView, template,
+var Backbone, UsersView, template,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
 
 UsersView = require('myapp/views/collections/users');
 
@@ -350,7 +363,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"myapp/views/collections/users":"ph/WQ5","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
+},{"backbone":false,"myapp/views/collections/users":"ph/WQ5","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
 module.exports=require('33Bl1V');
 },{}],27:[function(require,module,exports){
 "use strict";
@@ -832,7 +845,8 @@ module.exports = require("handlebars/runtime")["default"];
 
 },{"handlebars/runtime":33}],35:[function(require,module,exports){
 describe("App", function() {
-  var App, Router;
+  var App, Backbone, Router;
+  Backbone = require('backbone');
   App = require('myapp/app');
   Router = require('myapp/router');
   return describe("initialize", function() {
@@ -849,9 +863,10 @@ describe("App", function() {
 });
 
 
-},{"myapp/app":"6MciEj","myapp/router":"u5GI7r"}],36:[function(require,module,exports){
+},{"backbone":false,"myapp/app":"6MciEj","myapp/router":"u5GI7r"}],36:[function(require,module,exports){
 describe("Collection.Base", function() {
-  var Collection, Model, collection;
+  var Backbone, Collection, Model, collection;
+  Backbone = require('backbone');
   Collection = require('myapp/collections/base');
   Model = require('myapp/models/base');
   collection = null;
@@ -867,7 +882,7 @@ describe("Collection.Base", function() {
 });
 
 
-},{"myapp/collections/base":"+chpI0","myapp/models/base":"3kKKBP"}],37:[function(require,module,exports){
+},{"backbone":false,"myapp/collections/base":"+chpI0","myapp/models/base":"3kKKBP"}],37:[function(require,module,exports){
 describe("Collection.Users", function() {
   var Base, User, users;
   users = require('myapp/collections/users');
@@ -890,7 +905,8 @@ describe("Collection.Users", function() {
 
 },{"myapp/collections/base":"+chpI0","myapp/collections/users":"gmSmhJ","myapp/models/user":"b51ifI"}],38:[function(require,module,exports){
 describe("Controller", function() {
-  var App, Controller, ErrorView, TopView, users;
+  var $, App, Controller, ErrorView, TopView, users;
+  $ = require('jquery');
   App = require('myapp/app');
   Controller = require('myapp/controller');
   users = require('myapp/collections/users');
@@ -924,9 +940,10 @@ describe("Controller", function() {
 });
 
 
-},{"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/controller":"VvtH1o","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],39:[function(require,module,exports){
+},{"jquery":false,"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/controller":"VvtH1o","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],39:[function(require,module,exports){
 describe("model.Base", function() {
-  var Base, model;
+  var Backbone, Base, model;
+  Backbone = require('backbone');
   Base = require('myapp/models/base');
   model = null;
   beforeEach(function() {
@@ -938,7 +955,7 @@ describe("model.Base", function() {
 });
 
 
-},{"myapp/models/base":"3kKKBP"}],40:[function(require,module,exports){
+},{"backbone":false,"myapp/models/base":"3kKKBP"}],40:[function(require,module,exports){
 describe("Model.User", function() {
   var Base, User, user;
   User = require('myapp/models/user');
@@ -963,7 +980,8 @@ describe("Model.User", function() {
 
 },{"myapp/models/base":"3kKKBP","myapp/models/user":"b51ifI"}],41:[function(require,module,exports){
 describe("Router", function() {
-  var Controller, router;
+  var Backbone, Controller, router;
+  Backbone = require('backbone');
   router = require('myapp/router');
   Controller = require('myapp/controller');
   it("extends Marionette.AppRouter", function() {
@@ -975,7 +993,7 @@ describe("Router", function() {
 });
 
 
-},{"myapp/controller":"VvtH1o","myapp/router":"u5GI7r"}],42:[function(require,module,exports){
+},{"backbone":false,"myapp/controller":"VvtH1o","myapp/router":"u5GI7r"}],42:[function(require,module,exports){
 describe("Template", function() {
   var Template, template;
   Template = require('myapp/template');
@@ -1008,7 +1026,8 @@ describe("Template", function() {
 
 },{"myapp/template":"tLgW31"}],43:[function(require,module,exports){
 describe("View.Collection.Users", function() {
-  var UserRowView, UsersView, view;
+  var Backbone, UserRowView, UsersView, view;
+  Backbone = require('backbone');
   UsersView = require('myapp/views/collections/users');
   UserRowView = require('myapp/views/items/user_row');
   view = null;
@@ -1024,9 +1043,10 @@ describe("View.Collection.Users", function() {
 });
 
 
-},{"myapp/views/collections/users":"ph/WQ5","myapp/views/items/user_row":"nKj0s3"}],44:[function(require,module,exports){
+},{"backbone":false,"myapp/views/collections/users":"ph/WQ5","myapp/views/items/user_row":"nKj0s3"}],44:[function(require,module,exports){
 describe("View.Item.UserRow", function() {
-  var UserRowView, template, view;
+  var Backbone, UserRowView, template, view;
+  Backbone = require('backbone');
   UserRowView = require('myapp/views/items/user_row');
   template = require('template/items/user_row');
   view = null;
@@ -1042,9 +1062,10 @@ describe("View.Item.UserRow", function() {
 });
 
 
-},{"myapp/views/items/user_row":"nKj0s3","template/items/user_row":"G1r/Gt"}],45:[function(require,module,exports){
+},{"backbone":false,"myapp/views/items/user_row":"nKj0s3","template/items/user_row":"G1r/Gt"}],45:[function(require,module,exports){
 describe("View.Layout.Error", function() {
-  var ErrorView, template, view;
+  var Backbone, ErrorView, template, view;
+  Backbone = require('backbone');
   ErrorView = require('myapp/views/layouts/error');
   template = require('template/layouts/error');
   view = null;
@@ -1060,9 +1081,10 @@ describe("View.Layout.Error", function() {
 });
 
 
-},{"myapp/views/layouts/error":"BpCbbU","template/layouts/error":"qRFBid"}],46:[function(require,module,exports){
+},{"backbone":false,"myapp/views/layouts/error":"BpCbbU","template/layouts/error":"qRFBid"}],46:[function(require,module,exports){
 describe("view.layout.Top", function() {
-  var TopView, UsersView, template, view;
+  var Backbone, TopView, UsersView, template, view;
+  Backbone = require('backbone');
   TopView = require('myapp/views/layouts/top');
   UsersView = require('myapp/views/collections/users');
   template = require('template/layouts/top');
@@ -1088,9 +1110,7 @@ describe("view.layout.Top", function() {
 });
 
 
-},{"myapp/views/collections/users":"ph/WQ5","myapp/views/layouts/top":"33Bl1V","template/layouts/top":"G4v84a"}],"template/items/user_row":[function(require,module,exports){
-module.exports=require('G1r/Gt');
-},{}],"G1r/Gt":[function(require,module,exports){
+},{"backbone":false,"myapp/views/collections/users":"ph/WQ5","myapp/views/layouts/top":"33Bl1V","template/layouts/top":"G4v84a"}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1111,7 +1131,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":34}],"qRFBid":[function(require,module,exports){
+},{"hbsfy/runtime":34}],"template/items/user_row":[function(require,module,exports){
+module.exports=require('G1r/Gt');
+},{}],"template/layouts/error":[function(require,module,exports){
+module.exports=require('qRFBid');
+},{}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1123,9 +1147,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div>this is error view</div>\n<a href=\"#\">top page</a>\n";
   });
 
-},{"hbsfy/runtime":34}],"template/layouts/error":[function(require,module,exports){
-module.exports=require('qRFBid');
-},{}],"template/layouts/top":[function(require,module,exports){
+},{"hbsfy/runtime":34}],"template/layouts/top":[function(require,module,exports){
 module.exports=require('G4v84a');
 },{}],"G4v84a":[function(require,module,exports){
 // hbsfy compiled Handlebars template

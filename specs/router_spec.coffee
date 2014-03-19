@@ -1,5 +1,6 @@
 describe "Router", ->
 
+  Backbone    = require 'backbone'
   router      = require 'myapp/router'
   Controller  = require 'myapp/controller'
 

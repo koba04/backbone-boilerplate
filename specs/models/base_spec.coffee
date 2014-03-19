@@ -1,6 +1,7 @@
 describe "model.Base", ->
 
-  Base = require 'myapp/models/base'
+  Backbone  = require 'backbone'
+  Base      = require 'myapp/models/base'
 
   model = null
   beforeEach ->

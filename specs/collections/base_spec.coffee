@@ -1,5 +1,6 @@
 describe "Collection.Base", ->
 
+  Backbone    = require 'backbone'
   Collection  = require 'myapp/collections/base'
   Model       = require 'myapp/models/base'
 

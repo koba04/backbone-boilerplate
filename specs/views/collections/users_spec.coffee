@@ -1,7 +1,8 @@
 describe "View.Collection.Users", ->
 
-  UsersView = require 'myapp/views/collections/users'
-  UserRowView  = require 'myapp/views/items/user_row'
+  Backbone    = require 'backbone'
+  UsersView   = require 'myapp/views/collections/users'
+  UserRowView = require 'myapp/views/items/user_row'
 
   view = null
   beforeEach ->

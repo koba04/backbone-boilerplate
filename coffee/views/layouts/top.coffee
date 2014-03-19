@@ -1,7 +1,8 @@
 'use strict'
 
+Backbone  = require 'backbone'
 UsersView = require 'myapp/views/collections/users'
-template = require 'template/layouts/top'
+template  = require 'template/layouts/top'
 
 module.exports = class extends Backbone.Marionette.Layout
     template: template

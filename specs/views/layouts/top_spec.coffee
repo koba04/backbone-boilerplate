@@ -1,5 +1,6 @@
 describe "view.layout.Top", ->
 
+  Backbone  = require 'backbone'
   TopView   = require 'myapp/views/layouts/top'
   UsersView = require 'myapp/views/collections/users'
   template  = require 'template/layouts/top'

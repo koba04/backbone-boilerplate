@@ -1,5 +1,8 @@
 'use strict'
 
+$           = require 'jquery'
+Backbone    = require 'backbone'
+
 class App extends Backbone.Marionette.Application
   constructor: ->
     super

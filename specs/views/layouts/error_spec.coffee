@@ -1,5 +1,6 @@
 describe "View.Layout.Error", ->
 
+  Backbone  = require 'backbone'
   ErrorView = require 'myapp/views/layouts/error'
   template  = require 'template/layouts/error'
 

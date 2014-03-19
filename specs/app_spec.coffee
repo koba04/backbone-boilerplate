@@ -1,7 +1,8 @@
 describe "App", ->
 
-  App = require 'myapp/app'
-  Router = require 'myapp/router'
+  Backbone  = require 'backbone'
+  App       = require 'myapp/app'
+  Router    = require 'myapp/router'
 
   describe "initialize", ->
     it "App isa Backbone.Marionette.Application", ->

@@ -1,5 +1,6 @@
 describe "Controller", ->
 
+  $           = require 'jquery'
   App         = require 'myapp/app'
   Controller  = require 'myapp/controller'
   users       = require 'myapp/collections/users'
