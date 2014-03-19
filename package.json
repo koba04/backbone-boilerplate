@@ -22,6 +22,8 @@
     "grunt-notify": "~0.2.20",
     "grunt-browserify": "~1.3.2",
     "coffeeify": "~0.6.0",
-    "grunt-easymock": "0.0.4"
+    "grunt-easymock": "0.0.4",
+    "handlebars": "~1.3.0",
+    "hbsfy": "~1.3.2"
   }
 }

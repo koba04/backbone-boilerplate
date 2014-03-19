@@ -7,7 +7,7 @@ module.exports = class
       Handlebars.registerHelper name, fn
     # registerParticle
     for particle in @particles
-      Handlebars.registerPartial particle, JST["particle/#{particle}"]
+      Handlebars.registerPartial particle, require("template/particle/#{particle}")
 
   helper:
     equal: (a, b, options) ->

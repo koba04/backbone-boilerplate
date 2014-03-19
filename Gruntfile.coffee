@@ -5,31 +5,40 @@ module.exports = (grunt) ->
 
     browserify:
       app:
-        files: "public/js/app.js": [ "coffee/**/*.coffee" ]
+        files: "public/js/app.js": [ "coffee/**/*.coffee", "template/**/*.hbs" ]
         options:
           ignore: ["coffee/specs/**/*.coffee"]
-          extensions: [".coffee"]
-          transform: ["coffeeify"]
-          aliasMappings:
-            cwd: 'coffee',
-            dest: 'myapp',
-            src: ['**/*.coffee']
+          extensions: [".coffee", ".hbs"]
+          transform: ["coffeeify", "hbsfy"]
+          aliasMappings: [
+            {
+              cwd: 'coffee',
+              dest: 'myapp',
+              src: ['**/*.coffee']
+            }
+            {
+              cwd: 'template',
+              dest: 'template',
+              src: ['**/*.hbs']
+            }
+          ]
       test:
         files: "specs/spec.js": [ "specs/**/*.coffee" ]
         options:
-          extensions: [".coffee"]
-          transform: ["coffeeify"]
-          aliasMappings:
-            cwd: 'coffee',
-            dest: 'myapp',
-            src: ['**/*.coffee']
-
-    handlebars:
-      options:
-        processName: (filePath) -> filePath.replace /template\/(.*)?\.hbs$/, (path, name) -> return name
-      app:
-        files: "public/js/template.js": ["template/**/*.hbs"]
-
+          extensions: [".coffee", ".hbs"]
+          transform: ["coffeeify", "hbsfy"]
+          aliasMappings: [
+            {
+              cwd: 'coffee',
+              dest: 'myapp',
+              src: ['**/*.coffee']
+            }
+            {
+              cwd: 'template',
+              dest: 'template',
+              src: ['**/*.hbs']
+            }
+          ]
     compass:
       options:
         bundleExec: true
@@ -42,24 +51,13 @@ module.exports = (grunt) ->
           cssDir: "public/css"
           noLineComments: false
           outputStyle: "expanded"
-
-    concat:
-      vendor:
-        src: [
-          "bower_components/jquery/dist/jquery.js"
-          "bower_components/underscore/underscore.js"
-          "bower_components/backbone/backbone.js"
-          "bower_components/marionette/lib/backbone.marionette.js"
-          "bower_components/handlebars/handlebars.runtime.js"
-        ]
-        dest: "public/js/vendor.js"
-
     watch:
       options:
         livereload: true
-      coffee:
+      app:
         files: [
           "coffee/**/*.coffee"
+          "template/**/*.hbs"
         ]
         tasks: ["browserify:app"]
       specs:
@@ -67,9 +65,6 @@ module.exports = (grunt) ->
           "specs/**/*.coffee"
         ]
         tasks: ["browserify:test"]
-      handlebars:
-        files: "template/**/*.hbs"
-        tasks: ["handlebars"]
       scss:
         files: "scss/**/*.scss"
         tasks: ["compass"]
@@ -80,7 +75,6 @@ module.exports = (grunt) ->
           "bower_components/expect/index.js"
           "bower_components/sinon/index.js"
           "public/js/vendor.js"
-          "public/js/template.js"
           "specs/spec.js"
         ]
         options:

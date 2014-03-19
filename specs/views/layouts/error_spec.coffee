@@ -1,6 +1,7 @@
 describe "View.Layout.Error", ->
 
   ErrorView = require 'myapp/views/layouts/error'
+  template  = require 'template/layouts/error'
 
   view = null
   beforeEach ->
@@ -10,5 +11,5 @@ describe "View.Layout.Error", ->
     expect(view).to.be.a Backbone.Marionette.Layout
 
   it "template is layouts/error", ->
-    expect(view.template).to.be JST['layouts/error']
+    expect(view.template).to.be template
 
