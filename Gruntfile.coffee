@@ -12,45 +12,37 @@ module.exports = (grunt) ->
           transform: ["coffeeify", "hbsfy"]
           aliasMappings: [
             {
-              cwd: 'coffee',
-              dest: 'myapp',
+              cwd: 'coffee'
+              dest: 'myapp'
               src: ['**/*.coffee']
             }
             {
-              cwd: 'template',
-              dest: 'template',
+              cwd: 'template'
+              dest: 'template'
               src: ['**/*.hbs']
             }
           ]
-          external: ["jquery", "underscore", "backbone", "backbone.marionette"]
+          external: [
+            "jquery"
+            "underscore"
+            "backbone"
+            "backbone.marionette"
+            "handlebars"
+          ]
+          alias: [ "hbsfy/runtime:handlebars" ]
       vendor:
         files: "public/js/vendor.js": ["coffee/vendor.coffee"]
         options:
           transform: ["coffeeify"]
           alias: [
-            "jquery:jquery"
-            "underscore:underscore"
-            "backbone:backbone"
+            "jquery"
+            "underscore"
+            "backbone"
             "backbone.marionette"
           ]
       test:
         files: "specs/spec.js": [ "specs/**/*.coffee" ]
-        options:
-          extensions: [".coffee", ".hbs"]
-          transform: ["coffeeify", "hbsfy"]
-          aliasMappings: [
-            {
-              cwd: 'coffee',
-              dest: 'myapp',
-              src: ['**/*.coffee']
-            }
-            {
-              cwd: 'template',
-              dest: 'template',
-              src: ['**/*.hbs']
-            }
-          ]
-          external: ["jquery", "underscore", "backbone", "backbone.marionette"]
+        options: "<%= browserify.app.options %>"
     compass:
       options:
         bundleExec: true

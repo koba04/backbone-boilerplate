@@ -215,10 +215,26 @@ module.exports = new Router;
 module.exports=require('u5GI7r');
 },{}],"tLgW31":[function(require,module,exports){
 'use strict';
-module.exports = (function() {
-  function _Class() {}
+var Handlebars, Template;
 
-  _Class.prototype.helper = {
+Handlebars = require('handlebars');
+
+Template = (function() {
+  function Template() {
+    var fn, name, partial, _i, _len, _ref, _ref1;
+    _ref = this.helper;
+    for (name in _ref) {
+      fn = _ref[name];
+      Handlebars.registerHelper(name, fn);
+    }
+    _ref1 = this.partials;
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      partial = _ref1[_i];
+      Handlebars.registerPartial(partial, require("template/partials/" + partial));
+    }
+  }
+
+  Template.prototype.helper = {
     equal: function(a, b, options) {
       if (a === b) {
         return options.fn(this);
@@ -228,14 +244,16 @@ module.exports = (function() {
     }
   };
 
-  _Class.prototype.particles = [];
+  Template.prototype.partials = [];
 
-  return _Class;
+  return Template;
 
 })();
 
+module.exports = new Template();
 
-},{}],"myapp/template":[function(require,module,exports){
+
+},{"handlebars":false}],"myapp/template":[function(require,module,exports){
 module.exports=require('tLgW31');
 },{}],"myapp/views/collections/users":[function(require,module,exports){
 module.exports=require('ph/WQ5');
@@ -289,8 +307,6 @@ module.exports = (function(_super) {
 
 },{"backbone":false,"template/items/user_row":"G1r/Gt"}],"myapp/views/items/user_row":[function(require,module,exports){
 module.exports=require('nKj0s3');
-},{}],"myapp/views/layouts/error":[function(require,module,exports){
-module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
 var Backbone, template,
@@ -315,7 +331,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/error":[function(require,module,exports){
+module.exports=require('BpCbbU');
+},{}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var Backbone, UsersView, template,
   __hasProp = {}.hasOwnProperty,
@@ -830,7 +848,9 @@ exports.isEmpty = isEmpty;
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":26}],33:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":26}],"handlebars":[function(require,module,exports){
+module.exports=require('pu95bm');
+},{}],"pu95bm":[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
 },{"handlebars/runtime":32}],"template/items/user_row":[function(require,module,exports){
@@ -856,7 +876,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":33}],"template/layouts/error":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
 module.exports=require('qRFBid');
 },{}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -870,7 +890,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div>this is error view</div>\n<a href=\"#\">top page</a>\n";
   });
 
-},{"hbsfy/runtime":33}],"template/layouts/top":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/top":[function(require,module,exports){
 module.exports=require('G4v84a');
 },{}],"G4v84a":[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -884,4 +904,4 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div>this is top view</div>\n<div class=\"js-users\"></div>\n";
   });
 
-},{"hbsfy/runtime":33}]},{},["6MciEj","+chpI0","gmSmhJ","VvtH1o","3kKKBP","b51ifI","u5GI7r","tLgW31","ph/WQ5","nKj0s3","BpCbbU","33Bl1V","G1r/Gt","qRFBid","G4v84a"])
+},{"hbsfy/runtime":"pu95bm"}]},{},["6MciEj","+chpI0","gmSmhJ","VvtH1o","3kKKBP","b51ifI","u5GI7r","tLgW31","ph/WQ5","nKj0s3","BpCbbU","33Bl1V","G1r/Gt","qRFBid","G4v84a"])

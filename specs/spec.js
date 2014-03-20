@@ -69,9 +69,7 @@ module.exports = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/users":[function(require,module,exports){
-module.exports=require('gmSmhJ');
-},{}],"gmSmhJ":[function(require,module,exports){
+},{"backbone":false,"myapp/models/base":"3kKKBP"}],"gmSmhJ":[function(require,module,exports){
 'use strict';
 var Base, User, Users,
   __hasProp = {}.hasOwnProperty,
@@ -99,7 +97,11 @@ Users = (function(_super) {
 module.exports = new Users;
 
 
-},{"myapp/collections/base":"+chpI0","myapp/models/user":"b51ifI"}],"VvtH1o":[function(require,module,exports){
+},{"myapp/collections/base":"+chpI0","myapp/models/user":"b51ifI"}],"myapp/collections/users":[function(require,module,exports){
+module.exports=require('gmSmhJ');
+},{}],"myapp/controller":[function(require,module,exports){
+module.exports=require('VvtH1o');
+},{}],"VvtH1o":[function(require,module,exports){
 'use strict';
 var App, ErrorView, TopView, users;
 
@@ -127,9 +129,7 @@ module.exports = {
 };
 
 
-},{"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/controller":[function(require,module,exports){
-module.exports=require('VvtH1o');
-},{}],"3kKKBP":[function(require,module,exports){
+},{"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"3kKKBP":[function(require,module,exports){
 'use strict';
 var Backbone,
   __hasProp = {}.hasOwnProperty,
@@ -180,8 +180,6 @@ module.exports = (function(_super) {
 
 },{"myapp/models/base":"3kKKBP"}],"myapp/models/user":[function(require,module,exports){
 module.exports=require('b51ifI');
-},{}],"myapp/router":[function(require,module,exports){
-module.exports=require('u5GI7r');
 },{}],"u5GI7r":[function(require,module,exports){
 'use strict';
 var Backbone, Controller, Router,
@@ -213,12 +211,30 @@ Router = (function(_super) {
 module.exports = new Router;
 
 
-},{"backbone":false,"myapp/controller":"VvtH1o"}],"tLgW31":[function(require,module,exports){
+},{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/router":[function(require,module,exports){
+module.exports=require('u5GI7r');
+},{}],"tLgW31":[function(require,module,exports){
 'use strict';
-module.exports = (function() {
-  function _Class() {}
+var Handlebars, Template;
 
-  _Class.prototype.helper = {
+Handlebars = require('handlebars');
+
+Template = (function() {
+  function Template() {
+    var fn, name, partial, _i, _len, _ref, _ref1;
+    _ref = this.helper;
+    for (name in _ref) {
+      fn = _ref[name];
+      Handlebars.registerHelper(name, fn);
+    }
+    _ref1 = this.partials;
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      partial = _ref1[_i];
+      Handlebars.registerPartial(partial, require("template/partials/" + partial));
+    }
+  }
+
+  Template.prototype.helper = {
     equal: function(a, b, options) {
       if (a === b) {
         return options.fn(this);
@@ -228,28 +244,18 @@ module.exports = (function() {
     }
   };
 
-  _Class.prototype.particles = [];
+  Template.prototype.partials = [];
 
-  return _Class;
+  return Template;
 
 })();
 
+module.exports = new Template();
 
-},{}],"myapp/template":[function(require,module,exports){
+
+},{"handlebars":false}],"myapp/template":[function(require,module,exports){
 module.exports=require('tLgW31');
-},{}],"myapp/vendor":[function(require,module,exports){
-module.exports=require('YIW917');
-},{}],"YIW917":[function(require,module,exports){
-var Backbone;
-
-Backbone = require('backbone');
-
-Backbone.$ = require('jquery');
-
-require('backbone.marionette');
-
-
-},{"backbone":false,"backbone.marionette":false,"jquery":false}],"ph/WQ5":[function(require,module,exports){
+},{}],"ph/WQ5":[function(require,module,exports){
 'use strict';
 var Backbone, UserView,
   __hasProp = {}.hasOwnProperty,
@@ -275,8 +281,6 @@ module.exports = (function(_super) {
 
 },{"backbone":false,"myapp/views/items/user_row":"nKj0s3"}],"myapp/views/collections/users":[function(require,module,exports){
 module.exports=require('ph/WQ5');
-},{}],"myapp/views/items/user_row":[function(require,module,exports){
-module.exports=require('nKj0s3');
 },{}],"nKj0s3":[function(require,module,exports){
 'use strict';
 var Backbone, template,
@@ -301,7 +305,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"template/items/user_row":"G1r/Gt"}],"BpCbbU":[function(require,module,exports){
+},{"backbone":false,"template/items/user_row":"G1r/Gt"}],"myapp/views/items/user_row":[function(require,module,exports){
+module.exports=require('nKj0s3');
+},{}],"BpCbbU":[function(require,module,exports){
 'use strict';
 var Backbone, template,
   __hasProp = {}.hasOwnProperty,
@@ -365,7 +371,9 @@ module.exports = (function(_super) {
 
 },{"backbone":false,"myapp/views/collections/users":"ph/WQ5","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
 module.exports=require('33Bl1V');
-},{}],27:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+
+},{}],26:[function(require,module,exports){
 "use strict";
 /*globals Handlebars: true */
 var base = require("./handlebars/base");
@@ -398,7 +406,7 @@ var Handlebars = create();
 Handlebars.create = create;
 
 exports["default"] = Handlebars;
-},{"./handlebars/base":28,"./handlebars/exception":29,"./handlebars/runtime":30,"./handlebars/safe-string":31,"./handlebars/utils":32}],28:[function(require,module,exports){
+},{"./handlebars/base":27,"./handlebars/exception":28,"./handlebars/runtime":29,"./handlebars/safe-string":30,"./handlebars/utils":31}],27:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -579,7 +587,7 @@ exports.log = log;var createFrame = function(object) {
   return obj;
 };
 exports.createFrame = createFrame;
-},{"./exception":29,"./utils":32}],29:[function(require,module,exports){
+},{"./exception":28,"./utils":31}],28:[function(require,module,exports){
 "use strict";
 
 var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
@@ -608,7 +616,7 @@ function Exception(message, node) {
 Exception.prototype = new Error();
 
 exports["default"] = Exception;
-},{}],30:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -746,7 +754,7 @@ exports.program = program;function invokePartial(partial, name, context, helpers
 exports.invokePartial = invokePartial;function noop() { return ""; }
 
 exports.noop = noop;
-},{"./base":28,"./exception":29,"./utils":32}],31:[function(require,module,exports){
+},{"./base":27,"./exception":28,"./utils":31}],30:[function(require,module,exports){
 "use strict";
 // Build out our basic SafeString type
 function SafeString(string) {
@@ -758,7 +766,7 @@ SafeString.prototype.toString = function() {
 };
 
 exports["default"] = SafeString;
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 "use strict";
 /*jshint -W004 */
 var SafeString = require("./safe-string")["default"];
@@ -835,15 +843,17 @@ exports.escapeExpression = escapeExpression;function isEmpty(value) {
 }
 
 exports.isEmpty = isEmpty;
-},{"./safe-string":31}],33:[function(require,module,exports){
+},{"./safe-string":30}],32:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":27}],34:[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":26}],"pu95bm":[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":33}],35:[function(require,module,exports){
+},{"handlebars/runtime":32}],"handlebars":[function(require,module,exports){
+module.exports=require('pu95bm');
+},{}],35:[function(require,module,exports){
 describe("App", function() {
   var App, Backbone, Router;
   Backbone = require('backbone');
@@ -995,12 +1005,8 @@ describe("Router", function() {
 
 },{"backbone":false,"myapp/controller":"VvtH1o","myapp/router":"u5GI7r"}],42:[function(require,module,exports){
 describe("Template", function() {
-  var Template, template;
-  Template = require('myapp/template');
-  template = null;
-  beforeEach(function() {
-    return template = new Template();
-  });
+  var template;
+  template = require('myapp/template');
   return describe("helper", function() {
     return describe("equal", function() {
       it("a is b, invoke options.fn", function(done) {
@@ -1110,7 +1116,9 @@ describe("view.layout.Top", function() {
 });
 
 
-},{"backbone":false,"myapp/views/collections/users":"ph/WQ5","myapp/views/layouts/top":"33Bl1V","template/layouts/top":"G4v84a"}],"G1r/Gt":[function(require,module,exports){
+},{"backbone":false,"myapp/views/collections/users":"ph/WQ5","myapp/views/layouts/top":"33Bl1V","template/layouts/top":"G4v84a"}],"template/items/user_row":[function(require,module,exports){
+module.exports=require('G1r/Gt');
+},{}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1131,9 +1139,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":34}],"template/items/user_row":[function(require,module,exports){
-module.exports=require('G1r/Gt');
-},{}],"template/layouts/error":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
 module.exports=require('qRFBid');
 },{}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -1147,7 +1153,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div>this is error view</div>\n<a href=\"#\">top page</a>\n";
   });
 
-},{"hbsfy/runtime":34}],"template/layouts/top":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/top":[function(require,module,exports){
 module.exports=require('G4v84a');
 },{}],"G4v84a":[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -1161,4 +1167,4 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div>this is top view</div>\n<div class=\"js-users\"></div>\n";
   });
 
-},{"hbsfy/runtime":34}]},{},[35,36,37,38,39,40,41,42,43,44,45,46])
+},{"hbsfy/runtime":"pu95bm"}]},{},[35,36,37,38,39,40,41,42,43,44,45,46])

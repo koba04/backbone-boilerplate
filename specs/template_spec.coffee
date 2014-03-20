@@ -1,10 +1,6 @@
 describe "Template", ->
 
-  Template = require 'myapp/template'
-
-  template = null
-  beforeEach ->
-    template = new Template()
+  template = require 'myapp/template'
 
   describe "helper", ->
 

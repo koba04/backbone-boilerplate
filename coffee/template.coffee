@@ -1,13 +1,15 @@
 'use strict'
 
-module.exports = class
+Handlebars = require('handlebars')
+
+class Template
   constructor: ->
-#    # registerHelper
-#    for name, fn of @helper
-#      Handlebars.registerHelper name, fn
-#    # registerParticle
-#    for particle in @particles
-#      Handlebars.registerPartial particle, require("template/particle/#{particle}")
+    # registerHelper
+    for name, fn of @helper
+      Handlebars.registerHelper name, fn
+    # registerPartial
+    for partial in @partials
+      Handlebars.registerPartial partial, require("template/partials/#{partial}")
 
   helper:
     equal: (a, b, options) ->
@@ -16,6 +18,7 @@ module.exports = class
       else
         options.inverse @
 
-  particles: [
+  partials: [
   ]
 
+module.exports = new Template()
