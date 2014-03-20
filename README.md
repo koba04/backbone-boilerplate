@@ -1,4 +1,4 @@
-# My backbone boilerplate
+# My backbone boilerplate [![Build Status](https://travis-ci.org/koba04/backbone-boilerplate.svg?branch=master)](https://travis-ci.org/koba04/backbone-boilerplate)
 
 * coffeescript
 * backbone
