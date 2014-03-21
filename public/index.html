@@ -1,21 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <title>backbone and handlebars sample</title>
+  <title>Artist Top Tracks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="Cache-Control" content="no-cache">
   <meta http-equiv="Pragma" content="no-cache">
   <meta charset="utf8" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="/css/app.css?v=1">
 </head>
 <body>
-  <header>
-    <h1>my app</h1>
-  </header>
-  <article id="content">
-  </article>
-  <footer>
-    @koba04
-  </footer>
+  <div class="container">
+    <header class="page-header">
+      <h1>Artist Top Tracks <small>by Last.FM</small></h1>
+    </header>
+    <article id="js-content" class="main-content">
+    </article>
+    <footer>
+      <div class="well well-lg"><a href="https://github.com/koba04">koba04</a></div>
+    </footer>
+  </div>
   <script src="/js/vendor.js?v=1"></script>
   <script src="/js/app.js?v=1"></script>
 </body>

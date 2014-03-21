@@ -1,8 +1,10 @@
 'use strict'
 
 Backbone  = require 'backbone'
-UserView  = require 'myapp/views/items/user_row'
+TrackView = require 'myapp/views/items/track'
 
 module.exports = class extends Backbone.Marionette.CollectionView
-  itemView: UserView
+  tagName: "ul"
+  className: "list-group"
+  itemView: TrackView
 

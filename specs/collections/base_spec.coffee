@@ -1,4 +1,4 @@
-describe "Collection.Base", ->
+describe "collections/base", ->
   expect      = require 'expect.js'
   Backbone    = require 'backbone'
   Collection  = require 'myapp/collections/base'

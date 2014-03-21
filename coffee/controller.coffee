@@ -1,16 +1,15 @@
 'use strict'
 
-App     = require 'myapp/app'
-users   = require 'myapp/collections/users'
+App         = require 'myapp/app'
 TopView     = require 'myapp/views/layouts/top'
 ErrorView   = require 'myapp/views/layouts/error'
 
-module.exports =
+class Controller
+  constructor: ->
+    App.vent.on "error", @error
   top: ->
-    users.fetch().done =>
-      App.content.show new TopView
-        collection: users
-
+    App.content.show new TopView
   error: ->
     App.content.show new ErrorView()
 
+module.exports = new Controller

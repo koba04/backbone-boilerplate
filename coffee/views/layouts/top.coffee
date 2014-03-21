@@ -1,14 +1,22 @@
 'use strict'
 
-Backbone  = require 'backbone'
-UsersView = require 'myapp/views/collections/users'
-template  = require 'template/layouts/top'
+Backbone          = require 'backbone'
+ArtistSearchView  = require 'myapp/views/items/artist_search'
+TracksView        = require 'myapp/views/collections/tracks'
+Artist            = require 'myapp/models/artist'
+tracks            = require 'myapp/collections/tracks'
+template          = require 'template/layouts/top'
 
 module.exports = class extends Backbone.Marionette.Layout
   template: template
   regions:
-    users: ".js-users"
+    artistSearch: ".js-artist-search"
+    topTracks:    ".js-top-tracks"
+
   onRender: ->
-    @users.show(
-      new UsersView collection: @collection
-    )
+    @artistSearch.show new ArtistSearchView model: new Artist
+    @listenTo tracks, 'reset', @showTracks
+
+  showTracks: ->
+    @topTracks.show new TracksView collection: tracks
+

@@ -1,4 +1,4 @@
 /* line 1, ../../scss/app.scss */
-#content {
-  background-color: #EEE;
+.main-content {
+  min-height: 200px;
 }

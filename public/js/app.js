@@ -16,7 +16,7 @@ App = (function(_super) {
     this.addInitializer((function(_this) {
       return function(options) {
         _this.addRegions({
-          content: "#content"
+          content: "#js-content"
         });
         $.ajaxSettings.timeout = 5000;
         return $.ajaxSettings.cache = false;
@@ -69,67 +69,115 @@ module.exports = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/users":[function(require,module,exports){
-module.exports=require('gmSmhJ');
-},{}],"gmSmhJ":[function(require,module,exports){
+},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/tracks":[function(require,module,exports){
+module.exports=require('IOQGak');
+},{}],"IOQGak":[function(require,module,exports){
 'use strict';
-var Base, User, Users,
+var Base, Track, Tracks,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Base = require('myapp/collections/base');
 
-User = require('myapp/models/user');
+Track = require('myapp/models/track');
 
-Users = (function(_super) {
-  __extends(Users, _super);
+Tracks = (function(_super) {
+  __extends(Tracks, _super);
 
-  function Users() {
-    return Users.__super__.constructor.apply(this, arguments);
+  function Tracks() {
+    return Tracks.__super__.constructor.apply(this, arguments);
   }
 
-  Users.prototype.url = "/users/";
+  Tracks.prototype.model = Track;
 
-  Users.prototype.model = User;
-
-  return Users;
+  return Tracks;
 
 })(Base);
 
-module.exports = new Users;
+module.exports = new Tracks;
 
 
-},{"myapp/collections/base":"+chpI0","myapp/models/user":"b51ifI"}],"myapp/controller":[function(require,module,exports){
+},{"myapp/collections/base":"+chpI0","myapp/models/track":"uw3S6s"}],"myapp/controller":[function(require,module,exports){
 module.exports=require('VvtH1o');
 },{}],"VvtH1o":[function(require,module,exports){
 'use strict';
-var App, ErrorView, TopView, users;
+var App, Controller, ErrorView, TopView;
 
 App = require('myapp/app');
-
-users = require('myapp/collections/users');
 
 TopView = require('myapp/views/layouts/top');
 
 ErrorView = require('myapp/views/layouts/error');
 
-module.exports = {
-  top: function() {
-    return users.fetch().done((function(_this) {
-      return function() {
-        return App.content.show(new TopView({
-          collection: users
-        }));
-      };
-    })(this));
-  },
-  error: function() {
-    return App.content.show(new ErrorView());
+Controller = (function() {
+  function Controller() {
+    App.vent.on("error", this.error);
   }
-};
+
+  Controller.prototype.top = function() {
+    return App.content.show(new TopView);
+  };
+
+  Controller.prototype.error = function() {
+    return App.content.show(new ErrorView());
+  };
+
+  return Controller;
+
+})();
+
+module.exports = new Controller;
 
 
-},{"myapp/app":"6MciEj","myapp/collections/users":"gmSmhJ","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/models/base":[function(require,module,exports){
+},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/models/artist":[function(require,module,exports){
+module.exports=require('rIZGiL');
+},{}],"rIZGiL":[function(require,module,exports){
+'use strict';
+var App, Backbone, Base, tracks,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
+
+Base = require('myapp/models/base');
+
+App = require('myapp/app');
+
+tracks = require('myapp/collections/tracks');
+
+module.exports = (function(_super) {
+  __extends(_Class, _super);
+
+  function _Class() {
+    return _Class.__super__.constructor.apply(this, arguments);
+  }
+
+  _Class.prototype.urlRoot = "http://ws.audioscrobbler.com/2.0/?api_key=b867bf0fdfe95e6c6dc31a275535f765&format=json";
+
+  _Class.prototype.fetchTopTracks = function() {
+    if (!this.id) {
+      return;
+    }
+    return Backbone.$.ajax({
+      dataType: "json",
+      url: this.urlRoot,
+      data: {
+        method: "artist.gettoptracks",
+        artist: this.id
+      }
+    }).done(function(data) {
+      return tracks.reset(data.toptracks.track);
+    }).fail(function() {
+      return App.vent.trigger("error");
+    });
+  };
+
+  return _Class;
+
+})(Base);
+
+
+},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/base":[function(require,module,exports){
 module.exports=require('3kKKBP');
 },{}],"3kKKBP":[function(require,module,exports){
 'use strict';
@@ -151,7 +199,7 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":false}],"b51ifI":[function(require,module,exports){
+},{"backbone":false}],"uw3S6s":[function(require,module,exports){
 'use strict';
 var Base,
   __hasProp = {}.hasOwnProperty,
@@ -166,11 +214,13 @@ module.exports = (function(_super) {
     return _Class.__super__.constructor.apply(this, arguments);
   }
 
-  _Class.prototype.urlRoot = "/users/";
+  _Class.prototype.idAttribute = "mbid";
 
-  _Class.prototype.initialize = function(attrs) {
-    _Class.__super__.initialize.apply(this, arguments);
-    return this.name = attrs.name;
+  _Class.prototype.toJSON = function() {
+    var data, _ref;
+    data = _Class.__super__.toJSON.apply(this, arguments);
+    data.rank = (_ref = this.get("@attr")) != null ? _ref.rank : void 0;
+    return data;
   };
 
   return _Class;
@@ -178,8 +228,8 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"myapp/models/base":"3kKKBP"}],"myapp/models/user":[function(require,module,exports){
-module.exports=require('b51ifI');
+},{"myapp/models/base":"3kKKBP"}],"myapp/models/track":[function(require,module,exports){
+module.exports=require('uw3S6s');
 },{}],"u5GI7r":[function(require,module,exports){
 'use strict';
 var Backbone, Controller, Router,
@@ -213,6 +263,8 @@ module.exports = new Router;
 
 },{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/router":[function(require,module,exports){
 module.exports=require('u5GI7r');
+},{}],"myapp/template":[function(require,module,exports){
+module.exports=require('tLgW31');
 },{}],"tLgW31":[function(require,module,exports){
 'use strict';
 var Handlebars, Template;
@@ -253,19 +305,17 @@ Template = (function() {
 module.exports = new Template();
 
 
-},{"handlebars":false}],"myapp/template":[function(require,module,exports){
-module.exports=require('tLgW31');
-},{}],"myapp/views/collections/users":[function(require,module,exports){
-module.exports=require('ph/WQ5');
-},{}],"ph/WQ5":[function(require,module,exports){
+},{"handlebars":false}],"myapp/views/collections/tracks":[function(require,module,exports){
+module.exports=require('EltcrF');
+},{}],"EltcrF":[function(require,module,exports){
 'use strict';
-var Backbone, UserView,
+var Backbone, TrackView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Backbone = require('backbone');
 
-UserView = require('myapp/views/items/user_row');
+TrackView = require('myapp/views/items/track');
 
 module.exports = (function(_super) {
   __extends(_Class, _super);
@@ -274,22 +324,28 @@ module.exports = (function(_super) {
     return _Class.__super__.constructor.apply(this, arguments);
   }
 
-  _Class.prototype.itemView = UserView;
+  _Class.prototype.tagName = "ul";
+
+  _Class.prototype.className = "list-group";
+
+  _Class.prototype.itemView = TrackView;
 
   return _Class;
 
 })(Backbone.Marionette.CollectionView);
 
 
-},{"backbone":false,"myapp/views/items/user_row":"nKj0s3"}],"nKj0s3":[function(require,module,exports){
+},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"RgTt1z":[function(require,module,exports){
 'use strict';
-var Backbone, template,
+var Backbone, artist, template,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Backbone = require('backbone');
 
-template = require('template/items/user_row');
+template = require('template/items/artist_search');
+
+artist = require('myapp/models/artist');
 
 module.exports = (function(_super) {
   __extends(_Class, _super);
@@ -300,13 +356,58 @@ module.exports = (function(_super) {
 
   _Class.prototype.template = template;
 
+  _Class.prototype.ui = {
+    artist: ".js-input-artist"
+  };
+
+  _Class.prototype.triggers = {
+    "submit .js-fetch-top-tracks": "fetch:top:tracks"
+  };
+
+  _Class.prototype.onFetchTopTracks = function() {
+    this.model.set("id", this.ui.artist.val());
+    return this.model.fetchTopTracks();
+  };
+
   return _Class;
 
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"template/items/user_row":"G1r/Gt"}],"myapp/views/items/user_row":[function(require,module,exports){
-module.exports=require('nKj0s3');
+},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"myapp/views/items/artist_search":[function(require,module,exports){
+module.exports=require('RgTt1z');
+},{}],"TOhsxB":[function(require,module,exports){
+'use strict';
+var Backbone, template,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
+
+template = require('template/items/track');
+
+module.exports = (function(_super) {
+  __extends(_Class, _super);
+
+  function _Class() {
+    return _Class.__super__.constructor.apply(this, arguments);
+  }
+
+  _Class.prototype.tagName = "li";
+
+  _Class.prototype.className = "list-group-item";
+
+  _Class.prototype.template = template;
+
+  return _Class;
+
+})(Backbone.Marionette.ItemView);
+
+
+},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/items/track":[function(require,module,exports){
+module.exports=require('TOhsxB');
+},{}],"myapp/views/layouts/error":[function(require,module,exports){
+module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
 var Backbone, template,
@@ -331,17 +432,21 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/error":[function(require,module,exports){
-module.exports=require('BpCbbU');
-},{}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
 'use strict';
-var Backbone, UsersView, template,
+var Artist, ArtistSearchView, Backbone, TracksView, template, tracks,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Backbone = require('backbone');
 
-UsersView = require('myapp/views/collections/users');
+ArtistSearchView = require('myapp/views/items/artist_search');
+
+TracksView = require('myapp/views/collections/tracks');
+
+Artist = require('myapp/models/artist');
+
+tracks = require('myapp/collections/tracks');
 
 template = require('template/layouts/top');
 
@@ -355,12 +460,20 @@ module.exports = (function(_super) {
   _Class.prototype.template = template;
 
   _Class.prototype.regions = {
-    users: ".js-users"
+    artistSearch: ".js-artist-search",
+    topTracks: ".js-top-tracks"
   };
 
   _Class.prototype.onRender = function() {
-    return this.users.show(new UsersView({
-      collection: this.collection
+    this.artistSearch.show(new ArtistSearchView({
+      model: new Artist
+    }));
+    return this.listenTo(tracks, 'reset', this.showTracks);
+  };
+
+  _Class.prototype.showTracks = function() {
+    return this.topTracks.show(new TracksView({
+      collection: tracks
     }));
   };
 
@@ -369,11 +482,11 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"backbone":false,"myapp/views/collections/users":"ph/WQ5","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
+},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
 module.exports=require('33Bl1V');
-},{}],25:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 
-},{}],26:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 "use strict";
 /*globals Handlebars: true */
 var base = require("./handlebars/base");
@@ -406,7 +519,7 @@ var Handlebars = create();
 Handlebars.create = create;
 
 exports["default"] = Handlebars;
-},{"./handlebars/base":27,"./handlebars/exception":28,"./handlebars/runtime":29,"./handlebars/safe-string":30,"./handlebars/utils":31}],27:[function(require,module,exports){
+},{"./handlebars/base":31,"./handlebars/exception":32,"./handlebars/runtime":33,"./handlebars/safe-string":34,"./handlebars/utils":35}],31:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -587,7 +700,7 @@ exports.log = log;var createFrame = function(object) {
   return obj;
 };
 exports.createFrame = createFrame;
-},{"./exception":28,"./utils":31}],28:[function(require,module,exports){
+},{"./exception":32,"./utils":35}],32:[function(require,module,exports){
 "use strict";
 
 var errorProps = ['description', 'fileName', 'lineNumber', 'message', 'name', 'number', 'stack'];
@@ -616,7 +729,7 @@ function Exception(message, node) {
 Exception.prototype = new Error();
 
 exports["default"] = Exception;
-},{}],29:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 "use strict";
 var Utils = require("./utils");
 var Exception = require("./exception")["default"];
@@ -754,7 +867,7 @@ exports.program = program;function invokePartial(partial, name, context, helpers
 exports.invokePartial = invokePartial;function noop() { return ""; }
 
 exports.noop = noop;
-},{"./base":27,"./exception":28,"./utils":31}],30:[function(require,module,exports){
+},{"./base":31,"./exception":32,"./utils":35}],34:[function(require,module,exports){
 "use strict";
 // Build out our basic SafeString type
 function SafeString(string) {
@@ -766,7 +879,7 @@ SafeString.prototype.toString = function() {
 };
 
 exports["default"] = SafeString;
-},{}],31:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 "use strict";
 /*jshint -W004 */
 var SafeString = require("./safe-string")["default"];
@@ -843,17 +956,62 @@ exports.escapeExpression = escapeExpression;function isEmpty(value) {
 }
 
 exports.isEmpty = isEmpty;
-},{"./safe-string":30}],32:[function(require,module,exports){
+},{"./safe-string":34}],36:[function(require,module,exports){
 // Create a simple path alias to allow browserify to resolve
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":26}],"handlebars":[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":30}],"handlebars":[function(require,module,exports){
 module.exports=require('pu95bm');
 },{}],"pu95bm":[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":32}],"template/items/user_row":[function(require,module,exports){
+},{"handlebars/runtime":36}],"9A746c":[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var Handlebars = require('hbsfy/runtime');
+module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  
+
+
+  return "<form class=\"form-horizontal js-fetch-top-tracks\" role=\"form\">\n  <div class=\"form-group\">\n    <label for=\"js-input-location\" class=\"col-sm-1 control-label\">Artist</label>\n    <div class=\"col-sm-11\">\n      <input type=\"text\" class=\"form-control js-input-artist\" placeholder=\"Input Atrist Name\" required>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <div class=\"col-sm-offset-1 col-sm-11\">\n      <button type=\"submit\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-search\">search</span></button>\n    </div>\n  </div>\n</form>\n";
+  });
+
+},{"hbsfy/runtime":"pu95bm"}],"template/items/artist_search":[function(require,module,exports){
+module.exports=require('9A746c');
+},{}],"thxVgA":[function(require,module,exports){
+// hbsfy compiled Handlebars template
+var Handlebars = require('hbsfy/runtime');
+module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, helper, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<span class=\"label label-info\">";
+  if (helper = helpers.rank) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.rank); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</span><a href=\"";
+  if (helper = helpers.url) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.url); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "\" target=\"_blank\">&nbsp;";
+  if (helper = helpers.name) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.name); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "&nbsp;</a><small class=\"glyphicon glyphicon-headphones\">";
+  if (helper = helpers.listeners) { stack1 = helper.call(depth0, {hash:{},data:data}); }
+  else { helper = (depth0 && depth0.listeners); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
+  buffer += escapeExpression(stack1)
+    + "</small>\n\n";
+  return buffer;
+  });
+
+},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
+module.exports=require('thxVgA');
+},{}],"template/items/user_row":[function(require,module,exports){
 module.exports=require('G1r/Gt');
 },{}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -887,7 +1045,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div>this is error view</div>\n<a href=\"#\">top page</a>\n";
+  return "<div class=\"alert alert-danger\">\n  Oops..\n  <a href=\"\" class=\"alert-link\">back to top</a>\n</div>\n";
   });
 
 },{"hbsfy/runtime":"pu95bm"}],"template/layouts/top":[function(require,module,exports){
@@ -901,7 +1059,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   
 
 
-  return "<div>this is top view</div>\n<div class=\"js-users\"></div>\n";
+  return "<div class=\"js-artist-search\"></div>\n<div class=\"js-top-tracks\"></div>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}]},{},["6MciEj","+chpI0","gmSmhJ","VvtH1o","3kKKBP","b51ifI","u5GI7r","tLgW31","ph/WQ5","nKj0s3","BpCbbU","33Bl1V","G1r/Gt","qRFBid","G4v84a"])
+},{"hbsfy/runtime":"pu95bm"}]},{},["6MciEj","+chpI0","IOQGak","VvtH1o","rIZGiL","3kKKBP","uw3S6s","u5GI7r","tLgW31","EltcrF","RgTt1z","TOhsxB","BpCbbU","33Bl1V","9A746c","thxVgA","G1r/Gt","qRFBid","G4v84a"])

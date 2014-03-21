@@ -1,4 +1,4 @@
-describe "Router", ->
+describe "router", ->
   expect      = require 'expect.js'
   Backbone    = require 'backbone'
   router      = require 'myapp/router'

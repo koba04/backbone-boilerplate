@@ -1,26 +1,24 @@
-describe "Controller", ->
+describe "controller", ->
   expect      = require 'expect.js'
   sinon       = require 'sinon'
   $           = require 'jquery'
   App         = require 'myapp/app'
   Controller  = require 'myapp/controller'
-  users       = require 'myapp/collections/users'
   TopView     = require 'myapp/views/layouts/top'
   ErrorView   = require 'myapp/views/layouts/error'
 
+  describe "constructor", ->
+    beforeEach ->
+      App.vent.trigger "error"
+
+    it "vent.trigger 'error' execute error()", ->
+      expect(App.content.currentView).to.be.a ErrorView
 
   describe "top", ->
     beforeEach ->
-      sinon.stub users, "fetch", -> $.Deferred().resolve().promise()
       Controller.top()
-    afterEach ->
-      users.fetch.restore()
-
     it "after fetched users, show TopView in content regions", ->
       expect(App.content.currentView).to.be.a TopView
-
-    it "TopView has users as collection", ->
-      expect(App.content.currentView.collection).to.be users
 
   describe "error", ->
     beforeEach ->

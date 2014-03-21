@@ -1,4 +1,4 @@
-describe "Template", ->
+describe "template", ->
   expect    = require 'expect.js'
   template  = require 'myapp/template'
 

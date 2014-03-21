@@ -99,7 +99,6 @@ module.exports = (grunt) ->
       proxies: [
         context: [
           "/users/"
-          "/items/"
         ]
         host: "localhost"
         port: 3000

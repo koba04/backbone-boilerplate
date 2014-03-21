@@ -1,4 +1,4 @@
-describe "App", ->
+describe "app", ->
   expect    = require 'expect.js'
   Backbone  = require 'backbone'
   App       = require 'myapp/app'

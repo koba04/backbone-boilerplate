@@ -7,7 +7,7 @@ class App extends Backbone.Marionette.Application
   constructor: ->
     super
     @addInitializer (options) =>
-      @addRegions content: "#content"
+      @addRegions content: "#js-content"
       # setup XHR
       $.ajaxSettings.timeout = 5000
       $.ajaxSettings.cache = false

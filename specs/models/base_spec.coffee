@@ -1,4 +1,4 @@
-describe "model.Base", ->
+describe "models/base", ->
   expect    = require 'expect.js'
   Backbone  = require 'backbone'
   Base      = require 'myapp/models/base'
