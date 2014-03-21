@@ -1,12 +1,13 @@
 # My backbone boilerplate [![Build Status](https://travis-ci.org/koba04/backbone-boilerplate.svg?branch=master)](https://travis-ci.org/koba04/backbone-boilerplate)
 
 * coffeescript
-* backbone
-* lodash (underscore)
+* backbone + marionette
+* underscore
 * jquery
 * handlebars
 * compass
-* connect (proxy + easymock)
+* connect (proxy)
+* easymock
 * livereload
 * testem
 * mocha + expect
@@ -17,9 +18,8 @@
 
 ```
 % bunle install
-% npm install -g grunt-cli bower
+% npm install -g grunt-cli
 % npm install
-% bower install
 ```
 
 ## start develop
@@ -37,7 +37,7 @@ when your os is Mac OSX10.7 (lion), you need install growlnotify from http://gro
 ## test
 
 ```
-# running on PhantomJS and Chrome and Safari
+# running on Chrome
 % grunt testem:run:app
 or
 # running on PhantomJS and Firefox (for Travis.ci)
