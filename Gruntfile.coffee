@@ -40,7 +40,7 @@ module.exports = (grunt) ->
             "backbone"
             "backbone.marionette"
           ]
-      test:
+      spec:
         files: "specs/spec.js": [ "specs/**/*.coffee" ]
         options: "<%= browserify.app.options %>"
     compass:
@@ -69,7 +69,7 @@ module.exports = (grunt) ->
         files: [
           "specs/**/*.coffee"
         ]
-        tasks: ["browserify:test"]
+        tasks: ["browserify:spec"]
       scss:
         files: "scss/**/*.scss"
         tasks: ["compass"]
