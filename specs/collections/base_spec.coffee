@@ -1,5 +1,5 @@
 describe "Collection.Base", ->
-
+  expect      = require 'expect.js'
   Backbone    = require 'backbone'
   Collection  = require 'myapp/collections/base'
   Model       = require 'myapp/models/base'

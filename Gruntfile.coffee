@@ -77,8 +77,6 @@ module.exports = (grunt) ->
     testem:
       app:
         src: [
-          "bower_components/expect/index.js"
-          "bower_components/sinon/index.js"
           "public/js/vendor.js"
           "specs/spec.js"
         ]

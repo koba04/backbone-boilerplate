@@ -1,5 +1,5 @@
 describe "Collection.Users", ->
-
+  expect  = require 'expect.js'
   users   = require 'myapp/collections/users'
   Base    = require 'myapp/collections/base'
   User    = require 'myapp/models/user'

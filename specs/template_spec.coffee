@@ -1,6 +1,6 @@
 describe "Template", ->
-
-  template = require 'myapp/template'
+  expect    = require 'expect.js'
+  template  = require 'myapp/template'
 
   describe "helper", ->
 

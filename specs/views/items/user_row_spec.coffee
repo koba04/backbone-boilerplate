@@ -1,5 +1,5 @@
 describe "View.Item.UserRow", ->
-
+  expect      = require 'expect.js'
   Backbone    = require 'backbone'
   UserRowView = require 'myapp/views/items/user_row'
   template    = require 'template/items/user_row'

@@ -1,5 +1,5 @@
 describe "View.Layout.Error", ->
-
+  expect    = require 'expect.js'
   Backbone  = require 'backbone'
   ErrorView = require 'myapp/views/layouts/error'
   template  = require 'template/layouts/error'

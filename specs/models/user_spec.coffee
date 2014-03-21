@@ -1,7 +1,7 @@
 describe "Model.User", ->
-
-  User = require 'myapp/models/user'
-  Base = require 'myapp/models/base'
+  expect  = require 'expect.js'
+  User    = require 'myapp/models/user'
+  Base    = require 'myapp/models/base'
 
   user = null
   beforeEach ->

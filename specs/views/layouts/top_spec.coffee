@@ -1,5 +1,5 @@
 describe "view.layout.Top", ->
-
+  expect    = require 'expect.js'
   Backbone  = require 'backbone'
   TopView   = require 'myapp/views/layouts/top'
   UsersView = require 'myapp/views/collections/users'

@@ -1,5 +1,5 @@
 describe "model.Base", ->
-
+  expect    = require 'expect.js'
   Backbone  = require 'backbone'
   Base      = require 'myapp/models/base'
 

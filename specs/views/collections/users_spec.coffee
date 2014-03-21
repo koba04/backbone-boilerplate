@@ -1,5 +1,5 @@
 describe "View.Collection.Users", ->
-
+  expect      = require 'expect.js'
   Backbone    = require 'backbone'
   UsersView   = require 'myapp/views/collections/users'
   UserRowView = require 'myapp/views/items/user_row'

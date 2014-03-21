@@ -1,5 +1,5 @@
 describe "App", ->
-
+  expect    = require 'expect.js'
   Backbone  = require 'backbone'
   App       = require 'myapp/app'
   Router    = require 'myapp/router'

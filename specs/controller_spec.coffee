@@ -1,5 +1,6 @@
 describe "Controller", ->
-
+  expect      = require 'expect.js'
+  sinon       = require 'sinon'
   $           = require 'jquery'
   App         = require 'myapp/app'
   Controller  = require 'myapp/controller'
