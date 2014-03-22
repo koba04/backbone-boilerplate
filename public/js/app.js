@@ -43,8 +43,6 @@ module.exports = new App;
 
 },{"backbone":false,"jquery":false}],"myapp/app":[function(require,module,exports){
 module.exports=require('6MciEj');
-},{}],"myapp/collections/base":[function(require,module,exports){
-module.exports=require('+chpI0');
 },{}],"+chpI0":[function(require,module,exports){
 'use strict';
 var Backbone, Model,
@@ -69,7 +67,9 @@ module.exports = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/tracks":[function(require,module,exports){
+},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/base":[function(require,module,exports){
+module.exports=require('+chpI0');
+},{}],"myapp/collections/tracks":[function(require,module,exports){
 module.exports=require('IOQGak');
 },{}],"IOQGak":[function(require,module,exports){
 'use strict';
@@ -97,9 +97,7 @@ Tracks = (function(_super) {
 module.exports = new Tracks;
 
 
-},{"myapp/collections/base":"+chpI0","myapp/models/track":"uw3S6s"}],"myapp/controller":[function(require,module,exports){
-module.exports=require('VvtH1o');
-},{}],"VvtH1o":[function(require,module,exports){
+},{"myapp/collections/base":"+chpI0","myapp/models/track":"uw3S6s"}],"VvtH1o":[function(require,module,exports){
 'use strict';
 var App, Controller, ErrorView, TopView;
 
@@ -129,8 +127,8 @@ Controller = (function() {
 module.exports = new Controller;
 
 
-},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/models/artist":[function(require,module,exports){
-module.exports=require('rIZGiL');
+},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/controller":[function(require,module,exports){
+module.exports=require('VvtH1o');
 },{}],"rIZGiL":[function(require,module,exports){
 'use strict';
 var App, Backbone, Base, tracks,
@@ -177,7 +175,9 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/base":[function(require,module,exports){
+},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/artist":[function(require,module,exports){
+module.exports=require('rIZGiL');
+},{}],"myapp/models/base":[function(require,module,exports){
 module.exports=require('3kKKBP');
 },{}],"3kKKBP":[function(require,module,exports){
 'use strict';
@@ -199,7 +199,9 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":false}],"uw3S6s":[function(require,module,exports){
+},{"backbone":false}],"myapp/models/track":[function(require,module,exports){
+module.exports=require('uw3S6s');
+},{}],"uw3S6s":[function(require,module,exports){
 'use strict';
 var Base,
   __hasProp = {}.hasOwnProperty,
@@ -217,9 +219,11 @@ module.exports = (function(_super) {
   _Class.prototype.idAttribute = "mbid";
 
   _Class.prototype.toJSON = function() {
-    var data, _ref;
+    var data;
     data = _Class.__super__.toJSON.apply(this, arguments);
-    data.rank = (_ref = this.get("@attr")) != null ? _ref.rank : void 0;
+    if (this.get("@attr") != null) {
+      data.rank = this.get("@attr").rank;
+    }
     return data;
   };
 
@@ -228,9 +232,7 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"myapp/models/base":"3kKKBP"}],"myapp/models/track":[function(require,module,exports){
-module.exports=require('uw3S6s');
-},{}],"u5GI7r":[function(require,module,exports){
+},{"myapp/models/base":"3kKKBP"}],"u5GI7r":[function(require,module,exports){
 'use strict';
 var Backbone, Controller, Router,
   __hasProp = {}.hasOwnProperty,
@@ -263,8 +265,6 @@ module.exports = new Router;
 
 },{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/router":[function(require,module,exports){
 module.exports=require('u5GI7r');
-},{}],"myapp/template":[function(require,module,exports){
-module.exports=require('tLgW31');
 },{}],"tLgW31":[function(require,module,exports){
 'use strict';
 var Handlebars, Template;
@@ -305,7 +305,9 @@ Template = (function() {
 module.exports = new Template();
 
 
-},{"handlebars":false}],"myapp/views/collections/tracks":[function(require,module,exports){
+},{"handlebars":false}],"myapp/template":[function(require,module,exports){
+module.exports=require('tLgW31');
+},{}],"myapp/views/collections/tracks":[function(require,module,exports){
 module.exports=require('EltcrF');
 },{}],"EltcrF":[function(require,module,exports){
 'use strict';
@@ -406,8 +408,6 @@ module.exports = (function(_super) {
 
 },{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/items/track":[function(require,module,exports){
 module.exports=require('TOhsxB');
-},{}],"myapp/views/layouts/error":[function(require,module,exports){
-module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
 var Backbone, template,
@@ -432,7 +432,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/error":[function(require,module,exports){
+module.exports=require('BpCbbU');
+},{}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var Artist, ArtistSearchView, Backbone, TracksView, template, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -980,6 +982,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 },{"hbsfy/runtime":"pu95bm"}],"template/items/artist_search":[function(require,module,exports){
 module.exports=require('9A746c');
+},{}],"template/items/track":[function(require,module,exports){
+module.exports=require('thxVgA');
 },{}],"thxVgA":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
@@ -1009,11 +1013,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
-module.exports=require('thxVgA');
-},{}],"template/items/user_row":[function(require,module,exports){
-module.exports=require('G1r/Gt');
-},{}],"G1r/Gt":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1034,8 +1034,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
-module.exports=require('qRFBid');
+},{"hbsfy/runtime":"pu95bm"}],"template/items/user_row":[function(require,module,exports){
+module.exports=require('G1r/Gt');
 },{}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
@@ -1048,7 +1048,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div class=\"alert alert-danger\">\n  Oops..\n  <a href=\"\" class=\"alert-link\">back to top</a>\n</div>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/layouts/top":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
+module.exports=require('qRFBid');
+},{}],"template/layouts/top":[function(require,module,exports){
 module.exports=require('G4v84a');
 },{}],"G4v84a":[function(require,module,exports){
 // hbsfy compiled Handlebars template

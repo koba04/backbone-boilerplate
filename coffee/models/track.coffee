@@ -6,6 +6,6 @@ module.exports = class extends Base
   idAttribute: "mbid"
   toJSON: ->
     data = super
-    data.rank = @get("@attr")?.rank
+    data.rank = @get("@attr").rank if @get("@attr")?
     data
 

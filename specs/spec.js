@@ -43,9 +43,7 @@ App = (function(_super) {
 module.exports = new App;
 
 
-},{"backbone":false,"jquery":false}],"myapp/collections/base":[function(require,module,exports){
-module.exports=require('+chpI0');
-},{}],"+chpI0":[function(require,module,exports){
+},{"backbone":false,"jquery":false}],"+chpI0":[function(require,module,exports){
 'use strict';
 var Backbone, Model,
   __hasProp = {}.hasOwnProperty,
@@ -69,7 +67,9 @@ module.exports = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"backbone":false,"myapp/models/base":"3kKKBP"}],"IOQGak":[function(require,module,exports){
+},{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/base":[function(require,module,exports){
+module.exports=require('+chpI0');
+},{}],"IOQGak":[function(require,module,exports){
 'use strict';
 var Base, Track, Tracks,
   __hasProp = {}.hasOwnProperty,
@@ -177,6 +177,8 @@ module.exports = (function(_super) {
 
 },{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/artist":[function(require,module,exports){
 module.exports=require('rIZGiL');
+},{}],"myapp/models/base":[function(require,module,exports){
+module.exports=require('3kKKBP');
 },{}],"3kKKBP":[function(require,module,exports){
 'use strict';
 var Backbone,
@@ -197,9 +199,7 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":false}],"myapp/models/base":[function(require,module,exports){
-module.exports=require('3kKKBP');
-},{}],"myapp/models/track":[function(require,module,exports){
+},{"backbone":false}],"myapp/models/track":[function(require,module,exports){
 module.exports=require('uw3S6s');
 },{}],"uw3S6s":[function(require,module,exports){
 'use strict';
@@ -219,9 +219,11 @@ module.exports = (function(_super) {
   _Class.prototype.idAttribute = "mbid";
 
   _Class.prototype.toJSON = function() {
-    var data, _ref;
+    var data;
     data = _Class.__super__.toJSON.apply(this, arguments);
-    data.rank = (_ref = this.get("@attr")) != null ? _ref.rank : void 0;
+    if (this.get("@attr") != null) {
+      data.rank = this.get("@attr").rank;
+    }
     return data;
   };
 
@@ -263,9 +265,7 @@ Router = (function(_super) {
 module.exports = new Router;
 
 
-},{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/template":[function(require,module,exports){
-module.exports=require('tLgW31');
-},{}],"tLgW31":[function(require,module,exports){
+},{"backbone":false,"myapp/controller":"VvtH1o"}],"tLgW31":[function(require,module,exports){
 'use strict';
 var Handlebars, Template;
 
@@ -305,7 +305,11 @@ Template = (function() {
 module.exports = new Template();
 
 
-},{"handlebars":false}],"EltcrF":[function(require,module,exports){
+},{"handlebars":false}],"myapp/template":[function(require,module,exports){
+module.exports=require('tLgW31');
+},{}],"myapp/views/collections/tracks":[function(require,module,exports){
+module.exports=require('EltcrF');
+},{}],"EltcrF":[function(require,module,exports){
 'use strict';
 var Backbone, TrackView,
   __hasProp = {}.hasOwnProperty,
@@ -333,11 +337,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.CollectionView);
 
 
-},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"myapp/views/collections/tracks":[function(require,module,exports){
-module.exports=require('EltcrF');
-},{}],"myapp/views/items/artist_search":[function(require,module,exports){
-module.exports=require('RgTt1z');
-},{}],"RgTt1z":[function(require,module,exports){
+},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"RgTt1z":[function(require,module,exports){
 'use strict';
 var Backbone, artist, template,
   __hasProp = {}.hasOwnProperty,
@@ -376,7 +376,11 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"TOhsxB":[function(require,module,exports){
+},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"myapp/views/items/artist_search":[function(require,module,exports){
+module.exports=require('RgTt1z');
+},{}],"myapp/views/items/track":[function(require,module,exports){
+module.exports=require('TOhsxB');
+},{}],"TOhsxB":[function(require,module,exports){
 'use strict';
 var Backbone, template,
   __hasProp = {}.hasOwnProperty,
@@ -404,9 +408,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/items/track":[function(require,module,exports){
-module.exports=require('TOhsxB');
-},{}],"myapp/views/layouts/error":[function(require,module,exports){
+},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/layouts/error":[function(require,module,exports){
 module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
@@ -432,9 +434,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/top":[function(require,module,exports){
-module.exports=require('33Bl1V');
-},{}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var Artist, ArtistSearchView, Backbone, TracksView, template, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -484,7 +484,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.Layout);
 
 
-},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],29:[function(require,module,exports){
+},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
+module.exports=require('33Bl1V');
+},{}],29:[function(require,module,exports){
 
 },{}],30:[function(require,module,exports){
 /**
@@ -8180,23 +8182,75 @@ describe("controller", function() {
 
 },{"expect.js":37,"jquery":false,"myapp/app":"6MciEj","myapp/controller":"VvtH1o","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V","sinon":47}],66:[function(require,module,exports){
 describe("models/artist", function() {
-  var Artist, Base, artist, expect;
+  var $, App, Artist, Backbone, Base, artist, expect, sinon, tracks;
   expect = require('expect.js');
+  sinon = require('sinon');
+  Backbone = require('backbone');
+  $ = require('jquery');
+  App = require('myapp/app');
   Artist = require('myapp/models/artist');
   Base = require('myapp/models/base');
+  tracks = require('myapp/collections/tracks');
   artist = null;
+  tracks.reset([]);
   beforeEach(function() {
     return artist = new Artist({
-      id: "radiohead"
+      id: "travis"
     });
   });
-  return it("extends Base", function() {
+  it("extends Base", function() {
     return expect(artist).to.be.a(Base);
+  });
+  return describe("fetchTopTracks", function() {
+    var deferred;
+    deferred = null;
+    beforeEach(function() {
+      deferred = $.Deferred();
+      return sinon.stub(Backbone.$, "ajax", function() {
+        return deferred.promise();
+      });
+    });
+    afterEach(function() {
+      Backbone.$.ajax.restore();
+      return tracks.reset([]);
+    });
+    it("should not request when id is empty", function() {
+      artist.unset("id");
+      artist.fetchTopTracks();
+      return expect(Backbone.$.ajax.called).to.not.be.ok();
+    });
+    it("request was success, tracks reset by response data", function() {
+      var response;
+      response = [
+        {
+          mbid: "xxx",
+          title: "turn"
+        }, {
+          mbid: "yyy",
+          title: "rain"
+        }
+      ];
+      deferred.resolve({
+        toptracks: {
+          track: response
+        }
+      });
+      artist.fetchTopTracks();
+      return expect(tracks.toJSON()).to.eql(response);
+    });
+    return it("request was failed, vent.trigger 'error'", function(done) {
+      App.vent.on("error", function() {
+        return done();
+      });
+      deferred.reject();
+      artist.fetchTopTracks();
+      return expect(tracks.toJSON()).to.eql([]);
+    });
   });
 });
 
 
-},{"expect.js":37,"myapp/models/artist":"rIZGiL","myapp/models/base":"3kKKBP"}],67:[function(require,module,exports){
+},{"backbone":false,"expect.js":37,"jquery":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/models/base":"3kKKBP","sinon":47}],67:[function(require,module,exports){
 describe("models/base", function() {
   var Backbone, Base, expect, model;
   expect = require('expect.js');
@@ -8315,25 +8369,46 @@ describe("views/collections/tracks", function() {
 
 },{"backbone":false,"expect.js":37,"myapp/views/collections/tracks":"EltcrF","myapp/views/items/track":"TOhsxB"}],72:[function(require,module,exports){
 describe("views/items/artist_search", function() {
-  var ArtistSearchView, Backbone, expect, template, view;
+  var Artist, ArtistSearchView, Backbone, expect, sinon, template, view;
   expect = require('expect.js');
+  sinon = require('sinon');
   Backbone = require('backbone');
+  Artist = require('myapp/models/artist');
   ArtistSearchView = require('myapp/views/items/artist_search');
   template = require('template/items/artist_search');
   view = null;
   beforeEach(function() {
-    return view = new ArtistSearchView;
+    return view = new ArtistSearchView({
+      model: new Artist
+    });
   });
   it("extends Marionette.ItemView", function() {
     return expect(view).to.be.a(Backbone.Marionette.ItemView);
   });
-  return it("template is items/artist_search", function() {
+  it("template is items/artist_search", function() {
     return expect(view.template).to.be(template);
+  });
+  return describe("onFetchTopTracks", function() {
+    beforeEach(function() {
+      view.ui.artist = {
+        val: function() {
+          return "weezer";
+        }
+      };
+      sinon.spy(view.model, "fetchTopTracks");
+      return view.onFetchTopTracks();
+    });
+    it("should set input value to model.id", function() {
+      return expect(view.model.id).to.be("weezer");
+    });
+    return it("should call model.fetchTopTracks", function() {
+      return expect(view.model.fetchTopTracks.calledOnce).to.be.ok();
+    });
   });
 });
 
 
-},{"backbone":false,"expect.js":37,"myapp/views/items/artist_search":"RgTt1z","template/items/artist_search":"9A746c"}],73:[function(require,module,exports){
+},{"backbone":false,"expect.js":37,"myapp/models/artist":"rIZGiL","myapp/views/items/artist_search":"RgTt1z","sinon":47,"template/items/artist_search":"9A746c"}],73:[function(require,module,exports){
 describe("views/items/track", function() {
   var Backbone, TrackView, expect, template, view;
   expect = require('expect.js');
@@ -8375,10 +8450,15 @@ describe("views/layouts/error", function() {
 
 },{"backbone":false,"expect.js":37,"myapp/views/layouts/error":"BpCbbU","template/layouts/error":"qRFBid"}],75:[function(require,module,exports){
 describe("views/layouts/top", function() {
-  var Backbone, TopView, expect, template, view;
+  var Artist, ArtistSearchView, Backbone, TopView, TracksView, expect, sinon, template, tracks, view;
   expect = require('expect.js');
+  sinon = require('sinon');
   Backbone = require('backbone');
   TopView = require('myapp/views/layouts/top');
+  ArtistSearchView = require('myapp/views/items/artist_search');
+  TracksView = require('myapp/views/collections/tracks');
+  Artist = require('myapp/models/artist');
+  tracks = require('myapp/collections/tracks');
   template = require('template/layouts/top');
   view = null;
   beforeEach(function() {
@@ -8387,13 +8467,42 @@ describe("views/layouts/top", function() {
   it("extends Marionette.Layout", function() {
     return expect(view).to.be.a(Backbone.Marionette.Layout);
   });
-  return it("template is layouts/top", function() {
+  it("template is layouts/top", function() {
     return expect(view.template).to.be(template);
+  });
+  describe("onRender", function() {
+    beforeEach(function() {
+      sinon.spy(view, "showTracks");
+      return view.onRender();
+    });
+    it("artistSearch region has artist_search view", function() {
+      return expect(view.artistSearch.currentView).to.be.a(ArtistSearchView);
+    });
+    it("artist_search view has models/artist", function() {
+      return expect(view.artistSearch.currentView.model).to.be.a(Artist);
+    });
+    return it("listenTo tracks's reset event, trigger showTracks", function() {
+      tracks.reset([]);
+      return expect(view.showTracks.calledOnce).to.be.ok();
+    });
+  });
+  return describe("showTracks", function() {
+    beforeEach(function() {
+      return view.showTracks();
+    });
+    it("topTracks region has tracks view", function() {
+      return expect(view.topTracks.currentView).to.be.a(TracksView);
+    });
+    return it("tracks view has collections/tracks", function() {
+      return expect(view.topTracks.currentView.collection).to.be(tracks);
+    });
   });
 });
 
 
-},{"backbone":false,"expect.js":37,"myapp/views/layouts/top":"33Bl1V","template/layouts/top":"G4v84a"}],"9A746c":[function(require,module,exports){
+},{"backbone":false,"expect.js":37,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","myapp/views/layouts/top":"33Bl1V","sinon":47,"template/layouts/top":"G4v84a"}],"template/items/artist_search":[function(require,module,exports){
+module.exports=require('9A746c');
+},{}],"9A746c":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -8405,9 +8514,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<form class=\"form-horizontal js-fetch-top-tracks\" role=\"form\">\n  <div class=\"form-group\">\n    <label for=\"js-input-location\" class=\"col-sm-1 control-label\">Artist</label>\n    <div class=\"col-sm-11\">\n      <input type=\"text\" class=\"form-control js-input-artist\" placeholder=\"Input Atrist Name\" required>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <div class=\"col-sm-offset-1 col-sm-11\">\n      <button type=\"submit\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-search\">search</span></button>\n    </div>\n  </div>\n</form>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/artist_search":[function(require,module,exports){
-module.exports=require('9A746c');
-},{}],"template/items/track":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
 module.exports=require('thxVgA');
 },{}],"thxVgA":[function(require,module,exports){
 // hbsfy compiled Handlebars template
@@ -8438,9 +8545,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/user_row":[function(require,module,exports){
-module.exports=require('G1r/Gt');
-},{}],"G1r/Gt":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -8461,7 +8566,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/items/user_row":[function(require,module,exports){
+module.exports=require('G1r/Gt');
+},{}],"template/layouts/error":[function(require,module,exports){
 module.exports=require('qRFBid');
 },{}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
