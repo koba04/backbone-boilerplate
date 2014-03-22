@@ -982,8 +982,6 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
 },{"hbsfy/runtime":"pu95bm"}],"template/items/artist_search":[function(require,module,exports){
 module.exports=require('9A746c');
-},{}],"template/items/track":[function(require,module,exports){
-module.exports=require('thxVgA');
 },{}],"thxVgA":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
@@ -1013,7 +1011,11 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"G1r/Gt":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
+module.exports=require('thxVgA');
+},{}],"template/items/user_row":[function(require,module,exports){
+module.exports=require('G1r/Gt');
+},{}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -1034,8 +1036,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/user_row":[function(require,module,exports){
-module.exports=require('G1r/Gt');
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
+module.exports=require('qRFBid');
 },{}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
@@ -1048,9 +1050,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div class=\"alert alert-danger\">\n  Oops..\n  <a href=\"\" class=\"alert-link\">back to top</a>\n</div>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
-module.exports=require('qRFBid');
-},{}],"template/layouts/top":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/top":[function(require,module,exports){
 module.exports=require('G4v84a');
 },{}],"G4v84a":[function(require,module,exports){
 // hbsfy compiled Handlebars template

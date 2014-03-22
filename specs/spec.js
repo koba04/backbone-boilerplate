@@ -97,8 +97,6 @@ module.exports = new Tracks;
 
 },{"myapp/collections/base":"+chpI0","myapp/models/track":"uw3S6s"}],"myapp/collections/tracks":[function(require,module,exports){
 module.exports=require('IOQGak');
-},{}],"myapp/controller":[function(require,module,exports){
-module.exports=require('VvtH1o');
 },{}],"VvtH1o":[function(require,module,exports){
 'use strict';
 var App, Controller, ErrorView, TopView;
@@ -129,7 +127,11 @@ Controller = (function() {
 module.exports = new Controller;
 
 
-},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"rIZGiL":[function(require,module,exports){
+},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/controller":[function(require,module,exports){
+module.exports=require('VvtH1o');
+},{}],"myapp/models/artist":[function(require,module,exports){
+module.exports=require('rIZGiL');
+},{}],"rIZGiL":[function(require,module,exports){
 'use strict';
 var App, Backbone, Base, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -175,9 +177,7 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/artist":[function(require,module,exports){
-module.exports=require('rIZGiL');
-},{}],"myapp/models/base":[function(require,module,exports){
+},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/base":[function(require,module,exports){
 module.exports=require('3kKKBP');
 },{}],"3kKKBP":[function(require,module,exports){
 'use strict';
@@ -265,7 +265,9 @@ Router = (function(_super) {
 module.exports = new Router;
 
 
-},{"backbone":false,"myapp/controller":"VvtH1o"}],"tLgW31":[function(require,module,exports){
+},{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/template":[function(require,module,exports){
+module.exports=require('tLgW31');
+},{}],"tLgW31":[function(require,module,exports){
 'use strict';
 var Handlebars, Template;
 
@@ -305,11 +307,7 @@ Template = (function() {
 module.exports = new Template();
 
 
-},{"handlebars":false}],"myapp/template":[function(require,module,exports){
-module.exports=require('tLgW31');
-},{}],"myapp/views/collections/tracks":[function(require,module,exports){
-module.exports=require('EltcrF');
-},{}],"EltcrF":[function(require,module,exports){
+},{"handlebars":false}],"EltcrF":[function(require,module,exports){
 'use strict';
 var Backbone, TrackView,
   __hasProp = {}.hasOwnProperty,
@@ -337,7 +335,11 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.CollectionView);
 
 
-},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"RgTt1z":[function(require,module,exports){
+},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"myapp/views/collections/tracks":[function(require,module,exports){
+module.exports=require('EltcrF');
+},{}],"myapp/views/items/artist_search":[function(require,module,exports){
+module.exports=require('RgTt1z');
+},{}],"RgTt1z":[function(require,module,exports){
 'use strict';
 var Backbone, artist, template,
   __hasProp = {}.hasOwnProperty,
@@ -376,11 +378,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"myapp/views/items/artist_search":[function(require,module,exports){
-module.exports=require('RgTt1z');
-},{}],"myapp/views/items/track":[function(require,module,exports){
-module.exports=require('TOhsxB');
-},{}],"TOhsxB":[function(require,module,exports){
+},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"TOhsxB":[function(require,module,exports){
 'use strict';
 var Backbone, template,
   __hasProp = {}.hasOwnProperty,
@@ -408,7 +406,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/layouts/error":[function(require,module,exports){
+},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/items/track":[function(require,module,exports){
+module.exports=require('TOhsxB');
+},{}],"myapp/views/layouts/error":[function(require,module,exports){
 module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
@@ -4249,12 +4249,12 @@ exports.isEmpty = isEmpty;
 // the runtime on a supported path.
 module.exports = require('./dist/cjs/handlebars.runtime');
 
-},{"./dist/cjs/handlebars.runtime":38}],"pu95bm":[function(require,module,exports){
+},{"./dist/cjs/handlebars.runtime":38}],"handlebars":[function(require,module,exports){
+module.exports=require('pu95bm');
+},{}],"pu95bm":[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":44}],"handlebars":[function(require,module,exports){
-module.exports=require('pu95bm');
-},{}],47:[function(require,module,exports){
+},{"handlebars/runtime":44}],47:[function(require,module,exports){
 /*jslint eqeqeq: false, onevar: false, forin: true, nomen: false, regexp: false, plusplus: false*/
 /*global module, require, __dirname, document*/
 /**
@@ -8514,9 +8514,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<form class=\"form-horizontal js-fetch-top-tracks\" role=\"form\">\n  <div class=\"form-group\">\n    <label for=\"js-input-location\" class=\"col-sm-1 control-label\">Artist</label>\n    <div class=\"col-sm-11\">\n      <input type=\"text\" class=\"form-control js-input-artist\" placeholder=\"Input Atrist Name\" required>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <div class=\"col-sm-offset-1 col-sm-11\">\n      <button type=\"submit\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-search\">search</span></button>\n    </div>\n  </div>\n</form>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
-module.exports=require('thxVgA');
-},{}],"thxVgA":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"thxVgA":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -8545,7 +8543,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"G1r/Gt":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
+module.exports=require('thxVgA');
+},{}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
