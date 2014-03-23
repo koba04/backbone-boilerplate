@@ -6,6 +6,11 @@
       "version": "1.1.2",
       "from": "backbone@"
     },
+    "expect.js": {
+      "version": "0.3.1",
+      "from": "expect.js@",
+      "resolved": "https://registry.npmjs.org/expect.js/-/expect.js-0.3.1.tgz"
+    },
     "grunt-contrib-concat": {
       "version": "0.3.0",
       "from": "grunt-contrib-concat@"
@@ -19,20 +24,18 @@
       "from": "underscore@"
     },
     "backbone.marionette": {
-      "version": "1.6.4",
-      "from": "backbone.marionette@",
+      "version": "1.7.0",
+      "from": "backbone.marionette@1.7.0",
+      "resolved": "https://registry.npmjs.org/backbone.marionette/-/backbone.marionette-1.7.0.tgz",
       "dependencies": {
         "backbone.babysitter": {
           "version": "0.1.1",
-          "from": "backbone.babysitter@~0.1.0"
+          "from": "backbone.babysitter@^0.1.0"
         },
         "backbone.wreqr": {
-          "version": "1.0.1",
-          "from": "backbone.wreqr@~1.0.0"
-        },
-        "jquery": {
-          "version": "1.11.0",
-          "from": "jquery@1.8.0 - 1.11.0"
+          "version": "1.1.0",
+          "from": "backbone.wreqr@^1.0.0",
+          "resolved": "https://registry.npmjs.org/backbone.wreqr/-/backbone.wreqr-1.1.0.tgz"
         }
       }
     },
@@ -128,6 +131,25 @@
         "convert-source-map": {
           "version": "0.3.3",
           "from": "convert-source-map@~0.3.3"
+        }
+      }
+    },
+    "sinon": {
+      "version": "1.9.0",
+      "from": "sinon@",
+      "resolved": "https://registry.npmjs.org/sinon/-/sinon-1.9.0.tgz",
+      "dependencies": {
+        "formatio": {
+          "version": "1.0.2",
+          "from": "formatio@~1.0",
+          "resolved": "https://registry.npmjs.org/formatio/-/formatio-1.0.2.tgz",
+          "dependencies": {
+            "samsam": {
+              "version": "1.1.0",
+              "from": "samsam@~1.1",
+              "resolved": "https://registry.npmjs.org/samsam/-/samsam-1.1.0.tgz"
+            }
+          }
         }
       }
     },

@@ -8514,7 +8514,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<form class=\"form-horizontal js-fetch-top-tracks\" role=\"form\">\n  <div class=\"form-group\">\n    <label for=\"js-input-location\" class=\"col-sm-1 control-label\">Artist</label>\n    <div class=\"col-sm-11\">\n      <input type=\"text\" class=\"form-control js-input-artist\" placeholder=\"Input Atrist Name\" required>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <div class=\"col-sm-offset-1 col-sm-11\">\n      <button type=\"submit\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-search\">search</span></button>\n    </div>\n  </div>\n</form>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"thxVgA":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
+module.exports=require('thxVgA');
+},{}],"thxVgA":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -8543,8 +8545,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
-module.exports=require('thxVgA');
+},{"hbsfy/runtime":"pu95bm"}],"template/items/user_row":[function(require,module,exports){
+module.exports=require('G1r/Gt');
 },{}],"G1r/Gt":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
@@ -8566,11 +8568,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return buffer;
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/user_row":[function(require,module,exports){
-module.exports=require('G1r/Gt');
-},{}],"template/layouts/error":[function(require,module,exports){
-module.exports=require('qRFBid');
-},{}],"qRFBid":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"qRFBid":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -8582,7 +8580,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<div class=\"alert alert-danger\">\n  Oops..\n  <a href=\"\" class=\"alert-link\">back to top</a>\n</div>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"G4v84a":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/layouts/error":[function(require,module,exports){
+module.exports=require('qRFBid');
+},{}],"G4v84a":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
