@@ -2,6 +2,7 @@
 
 * coffeescript
 * backbone + marionette
+* browserify
 * underscore
 * jquery
 * handlebars
