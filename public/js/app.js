@@ -129,9 +129,7 @@ Controller = (function() {
 module.exports = new Controller;
 
 
-},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/models/artist":[function(require,module,exports){
-module.exports=require('rIZGiL');
-},{}],"rIZGiL":[function(require,module,exports){
+},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"rIZGiL":[function(require,module,exports){
 'use strict';
 var App, Backbone, Base, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -177,7 +175,11 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"3kKKBP":[function(require,module,exports){
+},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/artist":[function(require,module,exports){
+module.exports=require('rIZGiL');
+},{}],"myapp/models/base":[function(require,module,exports){
+module.exports=require('3kKKBP');
+},{}],"3kKKBP":[function(require,module,exports){
 'use strict';
 var Backbone,
   __hasProp = {}.hasOwnProperty,
@@ -197,11 +199,7 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":false}],"myapp/models/base":[function(require,module,exports){
-module.exports=require('3kKKBP');
-},{}],"myapp/models/track":[function(require,module,exports){
-module.exports=require('uw3S6s');
-},{}],"uw3S6s":[function(require,module,exports){
+},{"backbone":false}],"uw3S6s":[function(require,module,exports){
 'use strict';
 var Base,
   __hasProp = {}.hasOwnProperty,
@@ -232,7 +230,11 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"myapp/models/base":"3kKKBP"}],"u5GI7r":[function(require,module,exports){
+},{"myapp/models/base":"3kKKBP"}],"myapp/models/track":[function(require,module,exports){
+module.exports=require('uw3S6s');
+},{}],"myapp/router":[function(require,module,exports){
+module.exports=require('u5GI7r');
+},{}],"u5GI7r":[function(require,module,exports){
 'use strict';
 var Backbone, Controller, Router,
   __hasProp = {}.hasOwnProperty,
@@ -263,8 +265,8 @@ Router = (function(_super) {
 module.exports = new Router;
 
 
-},{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/router":[function(require,module,exports){
-module.exports=require('u5GI7r');
+},{"backbone":false,"myapp/controller":"VvtH1o"}],"myapp/template":[function(require,module,exports){
+module.exports=require('tLgW31');
 },{}],"tLgW31":[function(require,module,exports){
 'use strict';
 var Handlebars, Template;
@@ -305,9 +307,7 @@ Template = (function() {
 module.exports = new Template();
 
 
-},{"handlebars":false}],"myapp/template":[function(require,module,exports){
-module.exports=require('tLgW31');
-},{}],"myapp/views/collections/tracks":[function(require,module,exports){
+},{"handlebars":false}],"myapp/views/collections/tracks":[function(require,module,exports){
 module.exports=require('EltcrF');
 },{}],"EltcrF":[function(require,module,exports){
 'use strict';
@@ -337,7 +337,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.CollectionView);
 
 
-},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"RgTt1z":[function(require,module,exports){
+},{"backbone":false,"myapp/views/items/track":"TOhsxB"}],"myapp/views/items/artist_search":[function(require,module,exports){
+module.exports=require('RgTt1z');
+},{}],"RgTt1z":[function(require,module,exports){
 'use strict';
 var Backbone, artist, template,
   __hasProp = {}.hasOwnProperty,
@@ -376,8 +378,8 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"myapp/views/items/artist_search":[function(require,module,exports){
-module.exports=require('RgTt1z');
+},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"myapp/views/items/track":[function(require,module,exports){
+module.exports=require('TOhsxB');
 },{}],"TOhsxB":[function(require,module,exports){
 'use strict';
 var Backbone, template,
@@ -406,9 +408,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/items/track":[function(require,module,exports){
-module.exports=require('TOhsxB');
-},{}],"myapp/views/layouts/error":[function(require,module,exports){
+},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/layouts/error":[function(require,module,exports){
 module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
@@ -968,7 +968,9 @@ module.exports=require('pu95bm');
 },{}],"pu95bm":[function(require,module,exports){
 module.exports = require("handlebars/runtime")["default"];
 
-},{"handlebars/runtime":36}],"9A746c":[function(require,module,exports){
+},{"handlebars/runtime":36}],"template/items/artist_search":[function(require,module,exports){
+module.exports=require('9A746c');
+},{}],"9A746c":[function(require,module,exports){
 // hbsfy compiled Handlebars template
 var Handlebars = require('hbsfy/runtime');
 module.exports = Handlebars.template(function (Handlebars,depth0,helpers,partials,data) {
@@ -980,9 +982,7 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
   return "<form class=\"form-horizontal js-fetch-top-tracks\" role=\"form\">\n  <div class=\"form-group\">\n    <label for=\"js-input-location\" class=\"col-sm-1 control-label\">Artist</label>\n    <div class=\"col-sm-11\">\n      <input type=\"text\" class=\"form-control js-input-artist\" placeholder=\"Input Atrist Name\" required>\n    </div>\n  </div>\n  <div class=\"form-group\">\n    <div class=\"col-sm-offset-1 col-sm-11\">\n      <button type=\"submit\" class=\"btn btn-primary\"><span class=\"glyphicon glyphicon-search\">search</span></button>\n    </div>\n  </div>\n</form>\n";
   });
 
-},{"hbsfy/runtime":"pu95bm"}],"template/items/artist_search":[function(require,module,exports){
-module.exports=require('9A746c');
-},{}],"template/items/track":[function(require,module,exports){
+},{"hbsfy/runtime":"pu95bm"}],"template/items/track":[function(require,module,exports){
 module.exports=require('thxVgA');
 },{}],"thxVgA":[function(require,module,exports){
 // hbsfy compiled Handlebars template
