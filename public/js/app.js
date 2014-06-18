@@ -22,7 +22,7 @@ App = (function(_super) {
         return $.ajaxSettings.cache = false;
       };
     })(this));
-    this.on("initialize:after", function(options) {
+    this.on("start", function(options) {
       if (!Backbone.History.started) {
         return Backbone.history.start();
       }
@@ -330,7 +330,7 @@ module.exports = (function(_super) {
 
   _Class.prototype.className = "list-group";
 
-  _Class.prototype.itemView = TrackView;
+  _Class.prototype.childView = TrackView;
 
   return _Class;
 
@@ -431,10 +431,12 @@ module.exports = (function(_super) {
 
   return _Class;
 
-})(Backbone.Marionette.Layout);
+})(Backbone.Marionette.LayoutView);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/top":[function(require,module,exports){
+module.exports=require('33Bl1V');
+},{}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var Artist, ArtistSearchView, Backbone, TracksView, template, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -481,12 +483,10 @@ module.exports = (function(_super) {
 
   return _Class;
 
-})(Backbone.Marionette.Layout);
+})(Backbone.Marionette.LayoutView);
 
 
-},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
-module.exports=require('33Bl1V');
-},{}],29:[function(require,module,exports){
+},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],29:[function(require,module,exports){
 
 },{}],30:[function(require,module,exports){
 "use strict";

@@ -7,7 +7,7 @@ Artist            = require 'myapp/models/artist'
 tracks            = require 'myapp/collections/tracks'
 template          = require 'template/layouts/top'
 
-module.exports = class extends Backbone.Marionette.Layout
+module.exports = class extends Backbone.Marionette.LayoutView
   template: template
   regions:
     artistSearch: ".js-artist-search"

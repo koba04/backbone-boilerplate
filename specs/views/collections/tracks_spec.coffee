@@ -11,6 +11,6 @@ describe "views/collections/tracks", ->
   it "exnteds Marionette.CollectionView", ->
     expect(view).to.be.a Backbone.Marionette.CollectionView
 
-  it "has views/items/track as ItemView", ->
-    expect(view.itemView).to.be TrackView
+  it "has views/items/track as childView", ->
+    expect(view.childView).to.be TrackView
 

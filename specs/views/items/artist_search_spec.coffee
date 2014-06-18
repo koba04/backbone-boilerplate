@@ -19,8 +19,10 @@ describe "views/items/artist_search", ->
   describe "onFetchTopTracks", ->
     beforeEach ->
       view.ui.artist = val: -> "weezer"
-      sinon.spy view.model, "fetchTopTracks"
+      sinon.stub view.model, "fetchTopTracks"
       view.onFetchTopTracks()
+    afterEach ->
+      view.model.fetchTopTracks.restore()
 
     it "should set input value to model.id", ->
       expect(view.model.id).to.be "weezer"

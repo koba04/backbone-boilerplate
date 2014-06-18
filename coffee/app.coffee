@@ -11,7 +11,7 @@ class App extends Backbone.Marionette.Application
       # setup XHR
       $.ajaxSettings.timeout = 5000
       $.ajaxSettings.cache = false
-    @on "initialize:after", (options) ->
+    @on "start", (options) ->
       unless Backbone.History.started
         Backbone.history.start()
 

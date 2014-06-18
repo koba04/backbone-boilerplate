@@ -8,8 +8,8 @@ describe "views/layouts/error", ->
   beforeEach ->
     view = new ErrorView
 
-  it "extends Marionette.Layout", ->
-    expect(view).to.be.a Backbone.Marionette.Layout
+  it "extends Marionette.LayoutView", ->
+    expect(view).to.be.a Backbone.Marionette.LayoutView
 
   it "template is layouts/error", ->
     expect(view.template).to.be template

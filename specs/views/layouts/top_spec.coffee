@@ -13,8 +13,8 @@ describe "views/layouts/top", ->
   beforeEach ->
     view = new TopView
 
-  it "extends Marionette.Layout", ->
-    expect(view).to.be.a Backbone.Marionette.Layout
+  it "extends Marionette.LayoutView", ->
+    expect(view).to.be.a Backbone.Marionette.LayoutView
 
   it "template is layouts/top", ->
     expect(view.template).to.be template
@@ -22,7 +22,7 @@ describe "views/layouts/top", ->
   describe "onRender", ->
     beforeEach ->
       sinon.spy view, "showTracks"
-      view.onRender()
+      view.render()
 
     it "artistSearch region has artist_search view", ->
       expect(view.artistSearch.currentView).to.be.a ArtistSearchView
@@ -36,7 +36,7 @@ describe "views/layouts/top", ->
 
   describe "showTracks", ->
     beforeEach ->
-      view.showTracks()
+      view.render().showTracks()
 
     it "topTracks region has tracks view", ->
       expect(view.topTracks.currentView).to.be.a TracksView

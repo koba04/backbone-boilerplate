@@ -22,7 +22,7 @@ App = (function(_super) {
         return $.ajaxSettings.cache = false;
       };
     })(this));
-    this.on("initialize:after", function(options) {
+    this.on("start", function(options) {
       if (!Backbone.History.started) {
         return Backbone.history.start();
       }
@@ -330,7 +330,7 @@ module.exports = (function(_super) {
 
   _Class.prototype.className = "list-group";
 
-  _Class.prototype.itemView = TrackView;
+  _Class.prototype.childView = TrackView;
 
   return _Class;
 
@@ -431,10 +431,12 @@ module.exports = (function(_super) {
 
   return _Class;
 
-})(Backbone.Marionette.Layout);
+})(Backbone.Marionette.LayoutView);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/top":[function(require,module,exports){
+module.exports=require('33Bl1V');
+},{}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var Artist, ArtistSearchView, Backbone, TracksView, template, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -481,12 +483,10 @@ module.exports = (function(_super) {
 
   return _Class;
 
-})(Backbone.Marionette.Layout);
+})(Backbone.Marionette.LayoutView);
 
 
-},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
-module.exports=require('33Bl1V');
-},{}],29:[function(require,module,exports){
+},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],29:[function(require,module,exports){
 (function (Buffer){
 (function (global, module) {
 
@@ -8400,8 +8400,8 @@ describe("views/collections/tracks", function() {
   it("exnteds Marionette.CollectionView", function() {
     return expect(view).to.be.a(Backbone.Marionette.CollectionView);
   });
-  return it("has views/items/track as ItemView", function() {
-    return expect(view.itemView).to.be(TrackView);
+  return it("has views/items/track as childView", function() {
+    return expect(view.childView).to.be(TrackView);
   });
 });
 
@@ -8434,8 +8434,11 @@ describe("views/items/artist_search", function() {
           return "weezer";
         }
       };
-      sinon.spy(view.model, "fetchTopTracks");
+      sinon.stub(view.model, "fetchTopTracks");
       return view.onFetchTopTracks();
+    });
+    afterEach(function() {
+      return view.model.fetchTopTracks.restore();
     });
     it("should set input value to model.id", function() {
       return expect(view.model.id).to.be("weezer");
@@ -8478,8 +8481,8 @@ describe("views/layouts/error", function() {
   beforeEach(function() {
     return view = new ErrorView;
   });
-  it("extends Marionette.Layout", function() {
-    return expect(view).to.be.a(Backbone.Marionette.Layout);
+  it("extends Marionette.LayoutView", function() {
+    return expect(view).to.be.a(Backbone.Marionette.LayoutView);
   });
   return it("template is layouts/error", function() {
     return expect(view.template).to.be(template);
@@ -8503,8 +8506,8 @@ describe("views/layouts/top", function() {
   beforeEach(function() {
     return view = new TopView;
   });
-  it("extends Marionette.Layout", function() {
-    return expect(view).to.be.a(Backbone.Marionette.Layout);
+  it("extends Marionette.LayoutView", function() {
+    return expect(view).to.be.a(Backbone.Marionette.LayoutView);
   });
   it("template is layouts/top", function() {
     return expect(view.template).to.be(template);
@@ -8512,7 +8515,7 @@ describe("views/layouts/top", function() {
   describe("onRender", function() {
     beforeEach(function() {
       sinon.spy(view, "showTracks");
-      return view.onRender();
+      return view.render();
     });
     it("artistSearch region has artist_search view", function() {
       return expect(view.artistSearch.currentView).to.be.a(ArtistSearchView);
@@ -8527,7 +8530,7 @@ describe("views/layouts/top", function() {
   });
   return describe("showTracks", function() {
     beforeEach(function() {
-      return view.showTracks();
+      return view.render().showTracks();
     });
     it("topTracks region has tracks view", function() {
       return expect(view.topTracks.currentView).to.be.a(TracksView);
