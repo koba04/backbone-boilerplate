@@ -74,17 +74,6 @@ module.exports = (grunt) ->
         files: "scss/**/*.scss"
         tasks: ["compass"]
 
-    testem:
-      app:
-        src: [
-          "public/js/vendor.js"
-          "specs/spec.js"
-        ]
-        options:
-          test_page: "specs/runner.mustache"
-          launch_in_dev: ["Chrome"]
-          launch_in_ci:  ["PhantomJS"]
-
     connect:
       server:
         options:

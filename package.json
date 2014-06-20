@@ -5,7 +5,7 @@
   "repository": "git@github.com:koba04/frontend-boilerplate.git",
   "main": "public/index.html",
   "scripts": {
-    "test": "grunt testem:ci:app"
+    "test": ""
   },
   "author": "koba04",
   "devDependencies": {

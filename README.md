@@ -10,7 +10,6 @@
 * connect (proxy)
 * easymock
 * livereload
-* testem
 * mocha + expect
 * sinon
 * notify (growl or notification center)
@@ -38,9 +37,4 @@ when your os is Mac OSX10.7 (lion), you need install growlnotify from http://gro
 ## test
 
 ```
-# running on Chrome
-% grunt testem:run:app
-or
-# running on PhantomJS and Firefox (for Travis.ci)
-% grunt testem:ci:app
 ```
