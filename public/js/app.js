@@ -69,8 +69,6 @@ module.exports = (function(_super) {
 
 },{"backbone":false,"myapp/models/base":"3kKKBP"}],"myapp/collections/base":[function(require,module,exports){
 module.exports=require('+chpI0');
-},{}],"myapp/collections/tracks":[function(require,module,exports){
-module.exports=require('IOQGak');
 },{}],"IOQGak":[function(require,module,exports){
 'use strict';
 var Base, Track, Tracks,
@@ -97,7 +95,9 @@ Tracks = (function(_super) {
 module.exports = new Tracks;
 
 
-},{"myapp/collections/base":"+chpI0","myapp/models/track":"uw3S6s"}],"myapp/controller":[function(require,module,exports){
+},{"myapp/collections/base":"+chpI0","myapp/models/track":"uw3S6s"}],"myapp/collections/tracks":[function(require,module,exports){
+module.exports=require('IOQGak');
+},{}],"myapp/controller":[function(require,module,exports){
 module.exports=require('VvtH1o');
 },{}],"VvtH1o":[function(require,module,exports){
 'use strict';
@@ -129,7 +129,9 @@ Controller = (function() {
 module.exports = new Controller;
 
 
-},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"rIZGiL":[function(require,module,exports){
+},{"myapp/app":"6MciEj","myapp/views/layouts/error":"BpCbbU","myapp/views/layouts/top":"33Bl1V"}],"myapp/models/artist":[function(require,module,exports){
+module.exports=require('rIZGiL');
+},{}],"rIZGiL":[function(require,module,exports){
 'use strict';
 var App, Backbone, Base, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -175,9 +177,7 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/artist":[function(require,module,exports){
-module.exports=require('rIZGiL');
-},{}],"myapp/models/base":[function(require,module,exports){
+},{"backbone":false,"myapp/app":"6MciEj","myapp/collections/tracks":"IOQGak","myapp/models/base":"3kKKBP"}],"myapp/models/base":[function(require,module,exports){
 module.exports=require('3kKKBP');
 },{}],"3kKKBP":[function(require,module,exports){
 'use strict';
@@ -199,7 +199,9 @@ module.exports = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":false}],"uw3S6s":[function(require,module,exports){
+},{"backbone":false}],"myapp/models/track":[function(require,module,exports){
+module.exports=require('uw3S6s');
+},{}],"uw3S6s":[function(require,module,exports){
 'use strict';
 var Base,
   __hasProp = {}.hasOwnProperty,
@@ -230,9 +232,7 @@ module.exports = (function(_super) {
 })(Base);
 
 
-},{"myapp/models/base":"3kKKBP"}],"myapp/models/track":[function(require,module,exports){
-module.exports=require('uw3S6s');
-},{}],"myapp/router":[function(require,module,exports){
+},{"myapp/models/base":"3kKKBP"}],"myapp/router":[function(require,module,exports){
 module.exports=require('u5GI7r');
 },{}],"u5GI7r":[function(require,module,exports){
 'use strict';
@@ -378,9 +378,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"myapp/views/items/track":[function(require,module,exports){
-module.exports=require('TOhsxB');
-},{}],"TOhsxB":[function(require,module,exports){
+},{"backbone":false,"myapp/models/artist":"rIZGiL","template/items/artist_search":"9A746c"}],"TOhsxB":[function(require,module,exports){
 'use strict';
 var Backbone, template,
   __hasProp = {}.hasOwnProperty,
@@ -408,7 +406,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.ItemView);
 
 
-},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/layouts/error":[function(require,module,exports){
+},{"backbone":false,"template/items/track":"thxVgA"}],"myapp/views/items/track":[function(require,module,exports){
+module.exports=require('TOhsxB');
+},{}],"myapp/views/layouts/error":[function(require,module,exports){
 module.exports=require('BpCbbU');
 },{}],"BpCbbU":[function(require,module,exports){
 'use strict';
@@ -434,9 +434,7 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.LayoutView);
 
 
-},{"backbone":false,"template/layouts/error":"qRFBid"}],"myapp/views/layouts/top":[function(require,module,exports){
-module.exports=require('33Bl1V');
-},{}],"33Bl1V":[function(require,module,exports){
+},{"backbone":false,"template/layouts/error":"qRFBid"}],"33Bl1V":[function(require,module,exports){
 'use strict';
 var Artist, ArtistSearchView, Backbone, TracksView, template, tracks,
   __hasProp = {}.hasOwnProperty,
@@ -486,7 +484,9 @@ module.exports = (function(_super) {
 })(Backbone.Marionette.LayoutView);
 
 
-},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],29:[function(require,module,exports){
+},{"backbone":false,"myapp/collections/tracks":"IOQGak","myapp/models/artist":"rIZGiL","myapp/views/collections/tracks":"EltcrF","myapp/views/items/artist_search":"RgTt1z","template/layouts/top":"G4v84a"}],"myapp/views/layouts/top":[function(require,module,exports){
+module.exports=require('33Bl1V');
+},{}],29:[function(require,module,exports){
 
 },{}],30:[function(require,module,exports){
 "use strict";

@@ -5,7 +5,8 @@
   "repository": "git@github.com:koba04/frontend-boilerplate.git",
   "main": "public/index.html",
   "scripts": {
-    "test": ""
+    "test": "./node_modules/karma/bin/karma start karma.conf.js --single-run --browsers PhantomJS",
+    "karma": "./node_modules/karma/bin/karma start karma.conf.js"
   },
   "author": "koba04",
   "devDependencies": {
@@ -20,7 +21,6 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-connect": "~0.6.0",
     "grunt-contrib-handlebars": "~0.7.0",
-    "grunt-contrib-testem": "~0.5.15",
     "grunt-contrib-watch": "~0.6.0",
     "grunt-easymock": "0.0.4",
     "grunt-notify": "~0.2.20",
@@ -29,6 +29,12 @@
     "jquery": "~2.1.0",
     "matchdep": "~0.3.0",
     "sinon": "~1.9.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "karma": "~0.12.16",
+    "mocha": "~1.20.1",
+    "karma-mocha": "~0.1.4",
+    "karma-chrome-launcher": "~0.1.4",
+    "karma-nyan-reporter": "0.0.41",
+    "karma-phantomjs-launcher": "~0.1.4"
   }
 }

@@ -11,6 +11,7 @@
 * easymock
 * livereload
 * mocha + expect
+* karma
 * sinon
 * notify (growl or notification center)
 
@@ -37,4 +38,5 @@ when your os is Mac OSX10.7 (lion), you need install growlnotify from http://gro
 ## test
 
 ```
+% npm run karma
 ```
