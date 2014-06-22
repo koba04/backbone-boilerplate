@@ -13458,7 +13458,7 @@ describe('controller', function () {
     Controller = require('myapp/controller');
     TopView = require('myapp/views/layouts/top');
     ErrorView = require('myapp/views/layouts/error');
-    describe('constructor', function () {
+    describe('constructor()', function () {
         beforeEach(function () {
             return App.vent.trigger('error');
         });

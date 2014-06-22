@@ -7,7 +7,7 @@ describe "controller", ->
   TopView     = require 'myapp/views/layouts/top'
   ErrorView   = require 'myapp/views/layouts/error'
 
-  describe "constructor", ->
+  describe "constructor()", ->
     beforeEach ->
       App.vent.trigger "error"
 
