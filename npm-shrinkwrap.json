@@ -3206,6 +3206,114 @@
         }
       }
     },
+    "karma-osx-reporter": {
+      "version": "0.1.0",
+      "from": "karma-osx-reporter@",
+      "resolved": "https://registry.npmjs.org/karma-osx-reporter/-/karma-osx-reporter-0.1.0.tgz",
+      "dependencies": {
+        "node-osx-notifier": {
+          "version": "0.1.0",
+          "from": "node-osx-notifier@>= 0.1.0",
+          "resolved": "https://registry.npmjs.org/node-osx-notifier/-/node-osx-notifier-0.1.0.tgz",
+          "dependencies": {
+            "express": {
+              "version": "3.0.6",
+              "from": "express@3.0.x",
+              "resolved": "https://registry.npmjs.org/express/-/express-3.0.6.tgz",
+              "dependencies": {
+                "connect": {
+                  "version": "2.7.2",
+                  "from": "connect@2.7.2",
+                  "resolved": "https://registry.npmjs.org/connect/-/connect-2.7.2.tgz",
+                  "dependencies": {
+                    "qs": {
+                      "version": "0.5.1",
+                      "from": "qs@0.5.1",
+                      "resolved": "https://registry.npmjs.org/qs/-/qs-0.5.1.tgz"
+                    },
+                    "formidable": {
+                      "version": "1.0.11",
+                      "from": "formidable@1.0.11",
+                      "resolved": "https://registry.npmjs.org/formidable/-/formidable-1.0.11.tgz"
+                    },
+                    "bytes": {
+                      "version": "0.1.0",
+                      "from": "bytes@0.1.0",
+                      "resolved": "https://registry.npmjs.org/bytes/-/bytes-0.1.0.tgz"
+                    },
+                    "pause": {
+                      "version": "0.0.1",
+                      "from": "pause@0.0.1",
+                      "resolved": "https://registry.npmjs.org/pause/-/pause-0.0.1.tgz"
+                    }
+                  }
+                },
+                "commander": {
+                  "version": "0.6.1",
+                  "from": "commander@0.6.1",
+                  "resolved": "https://registry.npmjs.org/commander/-/commander-0.6.1.tgz"
+                },
+                "range-parser": {
+                  "version": "0.0.4",
+                  "from": "range-parser@0.0.4"
+                },
+                "mkdirp": {
+                  "version": "0.3.3",
+                  "from": "mkdirp@0.3.3",
+                  "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.3.tgz"
+                },
+                "cookie": {
+                  "version": "0.0.5",
+                  "from": "cookie@0.0.5"
+                },
+                "buffer-crc32": {
+                  "version": "0.1.1",
+                  "from": "buffer-crc32@0.1.1",
+                  "resolved": "https://registry.npmjs.org/buffer-crc32/-/buffer-crc32-0.1.1.tgz"
+                },
+                "fresh": {
+                  "version": "0.1.0",
+                  "from": "fresh@0.1.0"
+                },
+                "methods": {
+                  "version": "0.0.1",
+                  "from": "methods@0.0.1"
+                },
+                "send": {
+                  "version": "0.1.0",
+                  "from": "send@0.1.0",
+                  "resolved": "https://registry.npmjs.org/send/-/send-0.1.0.tgz",
+                  "dependencies": {
+                    "mime": {
+                      "version": "1.2.6",
+                      "from": "mime@1.2.6",
+                      "resolved": "https://registry.npmjs.org/mime/-/mime-1.2.6.tgz"
+                    }
+                  }
+                },
+                "cookie-signature": {
+                  "version": "0.0.1",
+                  "from": "cookie-signature@0.0.1",
+                  "resolved": "https://registry.npmjs.org/cookie-signature/-/cookie-signature-0.0.1.tgz"
+                },
+                "debug": {
+                  "version": "1.0.2",
+                  "from": "debug@*",
+                  "resolved": "https://registry.npmjs.org/debug/-/debug-1.0.2.tgz",
+                  "dependencies": {
+                    "ms": {
+                      "version": "0.6.2",
+                      "from": "ms@0.6.2",
+                      "resolved": "https://registry.npmjs.org/ms/-/ms-0.6.2.tgz"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "karma-phantomjs-launcher": {
       "version": "0.1.4",
       "from": "karma-phantomjs-launcher@~0.1.4",
