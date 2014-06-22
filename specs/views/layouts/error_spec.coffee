@@ -1,5 +1,5 @@
 describe "views/layouts/error", ->
-  expect    = require 'expect.js'
+  assert    = require 'power-assert'
   Backbone  = require 'backbone'
   ErrorView = require 'myapp/views/layouts/error'
   template  = require 'template/layouts/error'
@@ -9,8 +9,8 @@ describe "views/layouts/error", ->
     view = new ErrorView
 
   it "extends Marionette.LayoutView", ->
-    expect(view).to.be.a Backbone.Marionette.LayoutView
+    assert.ok view instanceof Backbone.Marionette.LayoutView
 
   it "template is layouts/error", ->
-    expect(view.template).to.be template
+    assert.ok view.template is template
 

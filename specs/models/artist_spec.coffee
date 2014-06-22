@@ -1,5 +1,5 @@
 describe "models/artist", ->
-  expect    = require 'expect.js'
+  assert    = require 'power-assert'
   sinon     = require 'sinon'
   Backbone  = require 'backbone'
   $         = require 'jquery'
@@ -14,7 +14,7 @@ describe "models/artist", ->
     artist = new Artist id: "travis"
 
   it "extends Base", ->
-    expect(artist).to.be.a Base
+    assert.ok artist instanceof Base
 
   describe "fetchTopTracks", ->
     deferred = null
@@ -28,7 +28,7 @@ describe "models/artist", ->
     it "should not request when id is empty", ->
       artist.unset "id"
       artist.fetchTopTracks()
-      expect(Backbone.$.ajax.called).to.not.be.ok()
+      assert.ok !Backbone.$.ajax.called
 
     it "request was success, tracks reset by response data", ->
       response = [
@@ -39,11 +39,11 @@ describe "models/artist", ->
         toptracks:
           track:  response
       artist.fetchTopTracks()
-      expect(tracks.toJSON()).to.eql response
+      assert.deepEqual tracks.toJSON(), response
 
     it "request was failed, vent.trigger 'error'", (done) ->
       App.vent.on "error", -> done()
       deferred.reject()
       artist.fetchTopTracks()
-      expect(tracks.toJSON()).to.eql []
+      assert.deepEqual tracks.toJSON(), []
 

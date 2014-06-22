@@ -1,5 +1,5 @@
 describe "views/collections/tracks", ->
-  expect      = require 'expect.js'
+  assert      = require 'power-assert'
   Backbone    = require 'backbone'
   TracksView  = require 'myapp/views/collections/tracks'
   TrackView    = require 'myapp/views/items/track'
@@ -9,8 +9,8 @@ describe "views/collections/tracks", ->
     view = new TracksView
 
   it "exnteds Marionette.CollectionView", ->
-    expect(view).to.be.a Backbone.Marionette.CollectionView
+    assert.ok view instanceof Backbone.Marionette.CollectionView
 
   it "has views/items/track as childView", ->
-    expect(view.childView).to.be TrackView
+    assert.ok view.childView is TrackView
 

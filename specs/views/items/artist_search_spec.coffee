@@ -1,5 +1,5 @@
 describe "views/items/artist_search", ->
-  expect            = require 'expect.js'
+  assert            = require 'power-assert'
   sinon             = require 'sinon'
   Backbone          = require 'backbone'
   Artist            = require 'myapp/models/artist'
@@ -11,10 +11,10 @@ describe "views/items/artist_search", ->
     view = new ArtistSearchView model: new Artist
 
   it "extends Marionette.ItemView", ->
-    expect(view).to.be.a Backbone.Marionette.ItemView
+    assert.ok view instanceof Backbone.Marionette.ItemView
 
   it "template is items/artist_search", ->
-    expect(view.template).to.be template
+    assert.ok view.template is template
 
   describe "onFetchTopTracks", ->
     beforeEach ->
@@ -25,7 +25,7 @@ describe "views/items/artist_search", ->
       view.model.fetchTopTracks.restore()
 
     it "should set input value to model.id", ->
-      expect(view.model.id).to.be "weezer"
+      assert.ok view.model.id is "weezer"
 
     it "should call model.fetchTopTracks", ->
-      expect(view.model.fetchTopTracks.calledOnce).to.be.ok()
+      assert.ok view.model.fetchTopTracks.calledOnce

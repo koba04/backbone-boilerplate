@@ -1,5 +1,5 @@
 describe "models/track", ->
-  expect  = require 'expect.js'
+  assert  = require 'power-assert'
   Track   = require 'myapp/models/track'
   Base    = require 'myapp/models/base'
 
@@ -12,14 +12,14 @@ describe "models/track", ->
         rank: "10"
 
   it "extends Base", ->
-    expect(track).to.be.a Base
+    assert.ok track instanceof Base
 
   it "model.id is mbid", ->
-    expect(track.id).to.be "xxxx-yyyy-zzzz"
+    assert.ok track.id is "xxxx-yyyy-zzzz"
 
   describe "toJSON", ->
     it "@attr.rank as rank", ->
-      expect(track.toJSON()).to.eql
+      assert.deepEqual track.toJSON(),
         mbid: "xxxx-yyyy-zzzz"
         name: "great song"
         "@attr":

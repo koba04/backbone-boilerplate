@@ -1,5 +1,5 @@
 describe "collections/base", ->
-  expect      = require 'expect.js'
+  assert      = require 'power-assert'
   Backbone    = require 'backbone'
   Collection  = require 'myapp/collections/base'
   Model       = require 'myapp/models/base'
@@ -9,8 +9,8 @@ describe "collections/base", ->
     collection = new Collection
 
   it "extends Basebone.Collection", ->
-    expect(collection).to.be.a Backbone.Collection
+    assert.ok collection instanceof Backbone.Collection
 
   it "has Model.Base", ->
-    expect(collection.model).to.be Model
+    assert.ok collection.model is Model
 

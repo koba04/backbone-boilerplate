@@ -1,5 +1,5 @@
 describe "models/base", ->
-  expect    = require 'expect.js'
+  assert    = require 'power-assert'
   Backbone  = require 'backbone'
   Base      = require 'myapp/models/base'
 
@@ -8,5 +8,5 @@ describe "models/base", ->
     model = new Base
 
   it "extends Basebone.Model", ->
-    expect(model).to.be.a Backbone.Model
+    assert.ok model instanceof Backbone.Model
 

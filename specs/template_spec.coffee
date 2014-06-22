@@ -1,5 +1,5 @@
 describe "template", ->
-  expect    = require 'expect.js'
+  assert    = require 'power-assert'
   template  = require 'myapp/template'
 
   describe "helper", ->

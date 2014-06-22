@@ -1,5 +1,5 @@
 describe "views/layouts/top", ->
-  expect            = require 'expect.js'
+  assert            = require 'power-assert'
   sinon             = require 'sinon'
   Backbone          = require 'backbone'
   TopView           = require 'myapp/views/layouts/top'
@@ -14,10 +14,10 @@ describe "views/layouts/top", ->
     view = new TopView
 
   it "extends Marionette.LayoutView", ->
-    expect(view).to.be.a Backbone.Marionette.LayoutView
+    assert.ok view instanceof Backbone.Marionette.LayoutView
 
   it "template is layouts/top", ->
-    expect(view.template).to.be template
+    assert.ok view.template is template
 
   describe "onRender", ->
     beforeEach ->
@@ -25,22 +25,22 @@ describe "views/layouts/top", ->
       view.render()
 
     it "artistSearch region has artist_search view", ->
-      expect(view.artistSearch.currentView).to.be.a ArtistSearchView
+      assert.ok view.artistSearch.currentView instanceof ArtistSearchView
 
     it "artist_search view has models/artist", ->
-      expect(view.artistSearch.currentView.model).to.be.a Artist
+      assert.ok view.artistSearch.currentView.model instanceof Artist
 
     it "listenTo tracks's reset event, trigger showTracks", ->
       tracks.reset []
-      expect(view.showTracks.calledOnce).to.be.ok()
+      assert.ok view.showTracks.calledOnce
 
   describe "showTracks", ->
     beforeEach ->
       view.render().showTracks()
 
     it "topTracks region has tracks view", ->
-      expect(view.topTracks.currentView).to.be.a TracksView
+      assert.ok view.topTracks.currentView instanceof TracksView
 
     it "tracks view has collections/tracks", ->
-      expect(view.topTracks.currentView.collection).to.be tracks
+      assert.ok view.topTracks.currentView.collection is tracks
 

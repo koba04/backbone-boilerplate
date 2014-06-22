@@ -9,7 +9,7 @@ module.exports = (grunt) ->
         options:
           ignore: ["coffee/vendor.coffee"]
           extensions: [".coffee", ".hbs"]
-          transform: ["coffeeify", "hbsfy"]
+          transform: ["coffeeify", "hbsfy", "espowerify"]
           aliasMappings: [
             {
               cwd: 'coffee'
