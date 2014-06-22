@@ -27,14 +27,14 @@
     "handlebars": "~1.3.0",
     "hbsfy": "https://registry.npmjs.org/hbsfy/-/hbsfy-1.3.2.tgz",
     "jquery": "~2.1.0",
-    "matchdep": "~0.3.0",
-    "sinon": "~1.9.0",
-    "underscore": "~1.6.0",
     "karma": "~0.12.16",
-    "mocha": "~1.20.1",
-    "karma-mocha": "~0.1.4",
     "karma-chrome-launcher": "~0.1.4",
-    "karma-nyan-reporter": "0.0.41",
-    "karma-phantomjs-launcher": "~0.1.4"
+    "karma-mocha": "~0.1.4",
+    "karma-nyan-reporter": "0.0.42",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "matchdep": "~0.3.0",
+    "mocha": "~1.20.1",
+    "sinon": "~1.9.0",
+    "underscore": "~1.6.0"
   }
 }
