@@ -3103,6 +3103,34 @@
       "from": "karma-mocha@~0.1.4",
       "resolved": "https://registry.npmjs.org/karma-mocha/-/karma-mocha-0.1.4.tgz"
     },
+    "karma-mocha-reporter": {
+      "version": "0.2.5",
+      "from": "karma-mocha-reporter@",
+      "resolved": "https://registry.npmjs.org/karma-mocha-reporter/-/karma-mocha-reporter-0.2.5.tgz",
+      "dependencies": {
+        "chalk": {
+          "version": "0.4.0",
+          "from": "chalk@^0.4.0",
+          "resolved": "https://registry.npmjs.org/chalk/-/chalk-0.4.0.tgz",
+          "dependencies": {
+            "has-color": {
+              "version": "0.1.7",
+              "from": "has-color@~0.1.0"
+            },
+            "ansi-styles": {
+              "version": "1.0.0",
+              "from": "ansi-styles@~1.0.0",
+              "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-1.0.0.tgz"
+            },
+            "strip-ansi": {
+              "version": "0.1.1",
+              "from": "strip-ansi@~0.1.0",
+              "resolved": "https://registry.npmjs.org/strip-ansi/-/strip-ansi-0.1.1.tgz"
+            }
+          }
+        }
+      }
+    },
     "karma-nyan-reporter": {
       "version": "0.0.42",
       "from": "karma-nyan-reporter@0.0.42",
