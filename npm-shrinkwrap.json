@@ -3103,6 +3103,11 @@
       "from": "karma-mocha@~0.1.4",
       "resolved": "https://registry.npmjs.org/karma-mocha/-/karma-mocha-0.1.4.tgz"
     },
+    "karma-mocha-debug": {
+      "version": "0.1.2",
+      "from": "karma-mocha-debug@",
+      "resolved": "https://registry.npmjs.org/karma-mocha-debug/-/karma-mocha-debug-0.1.2.tgz"
+    },
     "karma-mocha-reporter": {
       "version": "0.2.5",
       "from": "karma-mocha-reporter@",
