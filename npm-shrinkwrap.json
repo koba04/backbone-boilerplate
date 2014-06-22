@@ -3094,6 +3094,10 @@
         }
       }
     },
+    "karma-html2js-preprocessor": {
+      "version": "0.1.0",
+      "from": "karma-html2js-preprocessor@"
+    },
     "karma-mocha": {
       "version": "0.1.4",
       "from": "karma-mocha@~0.1.4",

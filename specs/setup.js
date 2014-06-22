@@ -1,2 +1,2 @@
 // create element
-document.body.innerHTML += '<div id="js-content"></div>';
+document.body.innerHTML += __html__['specs/fixture.html'];
