@@ -29,6 +29,7 @@
     "jquery": "~2.1.0",
     "karma": "~0.12.16",
     "karma-chrome-launcher": "~0.1.4",
+    "karma-growl-reporter": "^0.1.1",
     "karma-mocha": "~0.1.4",
     "karma-nyan-reporter": "0.0.42",
     "karma-phantomjs-launcher": "~0.1.4",

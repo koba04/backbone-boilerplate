@@ -2810,6 +2810,17 @@
       "from": "karma-chrome-launcher@~0.1.4",
       "resolved": "https://registry.npmjs.org/karma-chrome-launcher/-/karma-chrome-launcher-0.1.4.tgz"
     },
+    "karma-growl-reporter": {
+      "version": "0.1.1",
+      "from": "karma-growl-reporter@",
+      "resolved": "https://registry.npmjs.org/karma-growl-reporter/-/karma-growl-reporter-0.1.1.tgz",
+      "dependencies": {
+        "growly": {
+          "version": "1.1.1",
+          "from": "growly@~1.1.0"
+        }
+      }
+    },
     "karma-mocha": {
       "version": "0.1.4",
       "from": "karma-mocha@~0.1.4",
