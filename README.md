@@ -10,7 +10,8 @@
 * connect (proxy)
 * easymock
 * livereload
-* mocha + expect
+* mocha
+* power-assert
 * karma
 * sinon
 * notify (growl or notification center)
